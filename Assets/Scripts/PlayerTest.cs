@@ -6,6 +6,7 @@ public class PlayerTest : MonoBehaviour
 {
     public float h; // test Axis value
     public float v;
+
     public bool grabZone = false; // ho messo questo bool per testare solo lo zoom
     public float speed = 5f;
 

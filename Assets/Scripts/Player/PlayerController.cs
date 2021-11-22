@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator anim;
     public bool CanMove { get; private set; } = true;
+    public bool grabZone = false; 
     private bool isRunning => canRun && Input.GetKey(sprintKey);
     [HideInInspector]
     public CharacterController controller;
@@ -53,5 +55,25 @@ public class PlayerController : MonoBehaviour
         }
         controller.Move(direction * Time.deltaTime);
         direction.y += gravity * Time.deltaTime;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag== "Grab_Zone")
+        {
+            grabZone = true;
+            anim.SetBool("GrabZone", true);
+            Debug.Log("SOLO ZOOM TEST!!!!!!!!!!!");
+            Debug.Log(gameObject.name);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Grab_Zone")
+        {
+            grabZone = false;
+            anim.SetBool("GrabZone", false);
+        }
     }
 }
