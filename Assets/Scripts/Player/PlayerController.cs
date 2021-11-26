@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     public bool CanMove { get; private set; } = true;
     public bool grabZone = false; 
     private bool isRunning => canRun && Input.GetKey(sprintKey);
+    public Rigidbody2D rb;
     [HideInInspector]
-    public CharacterController controller;
     private Vector3 direction;
 
     [Header("Function Options")]
@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    private void Start()
+    {
+        rb.GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
         if(CanMove)
@@ -40,12 +45,12 @@ public class PlayerController : MonoBehaviour
     {
         float hInput = Input.GetAxis("Horizontal");
         direction.x = hInput * (isRunning ? runSpeed : walkSpeed);
-        bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundLayer);
         if (isGrounded)
         {
             if (Input.GetButtonDown("Jump"))
             {
-                direction.y = jumpForce;
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
             canRun = true;
         }
@@ -53,8 +58,8 @@ public class PlayerController : MonoBehaviour
         {
             canRun = false;
         }
-        controller.Move(direction * Time.deltaTime);
-        direction.y += gravity * Time.deltaTime;
+        rb.velocity = new Vector2(direction.x, rb.velocity.y);
+        //direction.y += gravity * Time.deltaTime;
     }
 
     public void OnTriggerEnter(Collider other)
