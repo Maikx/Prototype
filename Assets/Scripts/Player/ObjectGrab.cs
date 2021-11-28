@@ -6,6 +6,7 @@ public class ObjectGrab : MonoBehaviour
 {
     public Transform grabDetect;
     public Transform boxHolder;
+    public bool isGrabbed;
     public float rayDist;
 
 
@@ -17,8 +18,9 @@ public class ObjectGrab : MonoBehaviour
 
             if (grabCheck.collider != null && grabCheck.collider.tag == "InteractableObject")
             {
-                if (Input.GetKey(KeyCode.G))
+                if (Input.GetKey(KeyCode.E))
                 {
+                    isGrabbed = true;
                     grabCheck.collider.gameObject.transform.parent = boxHolder;
                     grabCheck.collider.gameObject.transform.position = boxHolder.position;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
@@ -26,6 +28,7 @@ public class ObjectGrab : MonoBehaviour
                 }
                 else
                 {
+                    isGrabbed = false;
                     grabCheck.collider.gameObject.transform.parent = null;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10000;
