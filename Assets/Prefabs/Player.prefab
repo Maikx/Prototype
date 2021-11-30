@@ -198,15 +198,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4986895510cad34bb0e0782ad55e421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oG: {fileID: 0}
+  rB: {fileID: 0}
   anim: {fileID: 7930059681890519264}
-  grabZone: 0
-  rb: {fileID: 1089334446286406782}
   canRun: 1
   sprintKey: 304
+  hInput: 0
+  accelRatePerSec: 0
+  currentSpeed: 0
   walkSpeed: 8
   runSpeed: 20
+  timeZeroToMax: 2.5
   jumpForce: 10
-  gravity: -20
+  gravity: -9.8
+  isGrounded: 0
   groundCheck: {fileID: 7930059680237973556}
   groundLayer:
     serializedVersion: 2
@@ -224,8 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabDetect: {fileID: 4410604204002530337}
-  boxHolder: {fileID: 7718147140371503937}
-  rayDist: 2
+  objectHolder: {fileID: 7718147140371503937}
+  isGrabbed: 0
+  rayDist: 0
 --- !u!95 &7930059681890519264
 Animator:
   serializedVersion: 3

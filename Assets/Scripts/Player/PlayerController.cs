@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(ObjectGrab))]
+
 public class PlayerController : MonoBehaviour
 {
     [HideInInspector] public ObjectGrab oG;
     [HideInInspector] public Rigidbody2D rB;
+    [HideInInspector] public Animator anim;
 
-    public Animator anim;
     public bool CanMove { get; private set; } = true;
-    public bool isGrounded;
     private bool isRunning => canRun && Input.GetKey(sprintKey);
-
-    [HideInInspector] private Vector3 direction;
-    [HideInInspector] public float hInput;
 
     [Header("Function Options")]
     [SerializeField] private bool canRun = true;
@@ -22,19 +22,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Movement Parameters")]
+    [HideInInspector] private Vector3 direction;
+    [HideInInspector] public float hInput;
+    [HideInInspector] public float accelRatePerSec;
+    [HideInInspector] public float currentSpeed;
     public float walkSpeed = 8;
     public float runSpeed = 20;
+    public float timeZeroToMax = 2.5f;
     public float jumpForce = 10;
     public float gravity = -20;
 
     [Header("Misc Parameters")]
+    [HideInInspector] public bool isGrounded;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    private void Start()
+    void Awake()
+    {
+        accelRatePerSec = runSpeed / timeZeroToMax;
+    }
+
+
+    void Start()
     {
         rB = gameObject.GetComponent<Rigidbody2D>();
         oG = gameObject.GetComponent<ObjectGrab>();
+        anim = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -46,12 +59,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleMovementInput()
+    void HandleMovementInput()
     {
         hInput = Input.GetAxis("Horizontal");
-        direction.x = hInput * (isRunning ? runSpeed : walkSpeed);
+        direction.x = hInput * (currentSpeed);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundLayer);
-        if (isGrounded || !oG.isGrabbed)
+
+        if (!isRunning)
+        {
+            currentSpeed = walkSpeed;
+        }
+        else
+        {
+            currentSpeed += accelRatePerSec * Time.deltaTime;
+            currentSpeed = Mathf.Min(currentSpeed, runSpeed);
+        }
+
+        if (isGrounded && !oG.isGrabbed)
         {
             if (Input.GetButtonDown("Jump"))
             {
@@ -65,6 +89,7 @@ public class PlayerController : MonoBehaviour
         }
         rB.velocity = new Vector2(direction.x, rB.velocity.y);
     }
+
 
     public void PlayerAnimator()
     {

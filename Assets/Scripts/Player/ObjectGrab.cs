@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectGrab : MonoBehaviour
 {
     public Transform grabDetect;
-    public Transform boxHolder;
+    public Transform objectHolder;
     public bool isGrabbed;
     public float rayDist;
 
@@ -21,8 +21,7 @@ public class ObjectGrab : MonoBehaviour
                 if (Input.GetKey(KeyCode.E))
                 {
                     isGrabbed = true;
-                    grabCheck.collider.gameObject.transform.parent = boxHolder;
-                    grabCheck.collider.gameObject.transform.position = boxHolder.position;
+                    grabCheck.collider.gameObject.transform.parent = objectHolder;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10;
                 }
