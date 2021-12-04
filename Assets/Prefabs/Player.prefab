@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 7930059682083846245}
   - component: {fileID: 8492369182405733457}
   - component: {fileID: 7930059681890519264}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,12 +202,17 @@ MonoBehaviour:
   rB: {fileID: 0}
   anim: {fileID: 7930059681890519264}
   canRun: 1
+  canJump: 1
   sprintKey: 304
-  direction: {x: 0, y: 0, z: 0}
+  jumpKey: 32
   hInput: 0
   accelRatePerSec: 0
   currentSpeed: 0
+  jumpTimer: 0
   walkSpeed: 8
+  grabSpeed: 4
+  airborneSpeed: 4
+  jumpDelay: 2
   runSpeed: 20
   timeZeroToMax: 2.5
   jumpForce: 10
@@ -229,7 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ad659153fde584bb2ec780d66bbf9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabDetect: {fileID: 4410604204002530337}
+  playerCollider: {fileID: 0}
+  grabDetect: {fileID: 0}
   objectHolder: {fileID: 7718147140371503937}
   isGrabbed: 0
   rayDist: 0

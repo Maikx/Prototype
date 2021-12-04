@@ -39,7 +39,7 @@ public class ObjectGrab : MonoBehaviour
                 if (Input.GetKey(KeyCode.E) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded)
                 {
                     isGrabbed = true;
-                    Physics2D.IgnoreCollision(grabCheck.collider, playerCollider);
+                    Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, true);
                     grabCheck.collider.gameObject.transform.parent = objectHolder;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10;
@@ -48,6 +48,7 @@ public class ObjectGrab : MonoBehaviour
                 else
                 {
                     isGrabbed = false;
+                    Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, false);
                     grabCheck.collider.gameObject.transform.parent = null;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
                     grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10000;

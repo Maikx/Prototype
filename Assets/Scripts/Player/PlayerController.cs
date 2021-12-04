@@ -14,19 +14,26 @@ public class PlayerController : MonoBehaviour
 
     public bool CanMove { get; private set; } = true;
     private bool isRunning => canRun && Input.GetKey(sprintKey);
+    private bool isJumping => canJump && Input.GetKey(jumpKey);
 
     [Header("Function Options")]
     [SerializeField] private bool canRun = true;
+    [SerializeField] private bool canJump = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     [Header("Movement Parameters")]
     [HideInInspector] private Vector3 direction;
     [HideInInspector] public float hInput;
     [HideInInspector] public float accelRatePerSec;
     [HideInInspector] public float currentSpeed;
+    [HideInInspector] public float jumpTimer = 0;
     public float walkSpeed = 8;
+    public float grabSpeed = 4;
+    public float airborneSpeed = 4;
+    public float jumpDelay = 2;
     public float runSpeed = 20;
     public float timeZeroToMax = 2.5f;
     public float jumpForce = 10;
@@ -58,6 +65,7 @@ public class PlayerController : MonoBehaviour
         {
             HandleMovementInput();
             PlayerAnimator();
+            CheckIfCanDoStuff();
         }
     }
 
@@ -76,22 +84,51 @@ public class PlayerController : MonoBehaviour
         if (hInput != 0 && !oG.isGrabbed) transform.right = direction;
 
         //This changes player speed to walking speed if not running.
-        if (!isRunning) currentSpeed = walkSpeed;
+        if (!isRunning && !oG.isGrabbed && isGrounded)
+        {
+            currentSpeed = walkSpeed;
+            jumpTimer = -1;
+        }
         else
         {
-            currentSpeed += accelRatePerSec * Time.deltaTime;
-            currentSpeed = Mathf.Min(currentSpeed, runSpeed);
+            if (isRunning && canRun)
+            {
+                currentSpeed += accelRatePerSec * Time.deltaTime;
+                currentSpeed = Mathf.Min(currentSpeed, runSpeed);
+            }
+            if (oG.isGrabbed)
+            {
+                currentSpeed = grabSpeed;
+            }
+            if (!isGrounded)
+            {
+                currentSpeed = airborneSpeed;
+            }
         }
 
-        //This checks if the player can jump.
-        if (isGrounded && !oG.isGrabbed)
+        if (jumpTimer > 0)
         {
-            if (Input.GetButtonDown("Jump")) rB.velocity = new Vector2(rB.velocity.x, jumpForce);
-            canRun = true;
+            jumpTimer += -Time.deltaTime;
         }
-        else canRun = false;
+        else
+        {
+            if (isJumping)
+            {
+                jumpTimer = jumpDelay;
+                rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+            }
+        }
 
         rB.velocity = new Vector2(direction.x, rB.velocity.y);
+    }
+
+    void CheckIfCanDoStuff()
+    {
+        if (isGrounded && !oG.isGrabbed && !isJumping) canRun = true;
+        else canRun = false;
+
+        if (jumpTimer < 0 && !oG.isGrabbed) canJump = true;
+        else canJump = false;
     }
 
     /// <summary>
