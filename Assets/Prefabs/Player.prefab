@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 7930059682083846245}
   - component: {fileID: 8492369182405733457}
   - component: {fileID: 7930059681890519264}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,6 +203,7 @@ MonoBehaviour:
   anim: {fileID: 7930059681890519264}
   canRun: 1
   sprintKey: 304
+  direction: {x: 0, y: 0, z: 0}
   hInput: 0
   accelRatePerSec: 0
   currentSpeed: 0

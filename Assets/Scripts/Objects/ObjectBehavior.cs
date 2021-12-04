@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class ObjectBehavior : MonoBehaviour
 {
-    public bool isGrounded;
-
     [Header("Misc Parameters")]
+    [HideInInspector] public bool isGrounded;
+    [HideInInspector] public Transform groundCheck;
     public LayerMask groundLayer;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void Start()
     {
-        if (collision.gameObject.layer == 8 
-            && !isGrounded)
-        {
-            isGrounded = true;
-        }
+        groundCheck = gameObject.transform.Find("GroundCheck");
     }
-    void OnCollisionExit2D(Collision2D collision)
+
+    private void Update()
     {
-        if (collision.gameObject.layer == 8
-            && isGrounded)
-        {
-            isGrounded = false;
-        }
+        CheckIfGrounded();
+    }
+
+    public void CheckIfGrounded()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.80f, groundLayer);
     }
 }

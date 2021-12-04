@@ -34,11 +34,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Misc Parameters")]
     [HideInInspector] public bool isGrounded;
-    public Transform groundCheck;
+    [HideInInspector] public Transform groundCheck;
     public LayerMask groundLayer;
 
     void Awake()
     {
+        //This is used to gain speed overtime
         accelRatePerSec = runSpeed / timeZeroToMax;
     }
 
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
         rB = gameObject.GetComponent<Rigidbody2D>();
         oG = gameObject.GetComponent<ObjectGrab>();
         anim = gameObject.GetComponent<Animator>();
+        groundCheck = gameObject.transform.Find("GroundCheck");
     }
 
     void Update()
@@ -59,38 +61,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This handles the player overall movements!
+    /// </summary>
     void HandleMovementInput()
     {
+        //This makes the player move with horizontal inputs (A/D & arrows).
         hInput = Input.GetAxis("Horizontal");
         direction.x = hInput * (currentSpeed);
+        //This is the sphere that checks if the player is grounded.
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundLayer);
 
-        if (!isRunning)
-        {
-            currentSpeed = walkSpeed;
-        }
+        //This is for the player's facing direction!
+        if (hInput != 0 && !oG.isGrabbed) transform.right = direction;
+
+        //This changes player speed to walking speed if not running.
+        if (!isRunning) currentSpeed = walkSpeed;
         else
         {
             currentSpeed += accelRatePerSec * Time.deltaTime;
             currentSpeed = Mathf.Min(currentSpeed, runSpeed);
         }
 
+        //This checks if the player can jump.
         if (isGrounded && !oG.isGrabbed)
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                rB.velocity = new Vector2(rB.velocity.x, jumpForce);
-            }
+            if (Input.GetButtonDown("Jump")) rB.velocity = new Vector2(rB.velocity.x, jumpForce);
             canRun = true;
         }
-        else
-        {
-            canRun = false;
-        }
+        else canRun = false;
+
         rB.velocity = new Vector2(direction.x, rB.velocity.y);
     }
 
-
+    /// <summary>
+    /// This manages the player's movement animator, not the animations!
+    /// </summary>
     public void PlayerAnimator()
     {
         anim.SetInteger("hInput", Mathf.RoundToInt(Input.GetAxis("Horizontal")));
