@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public ObjectGrab oG;
     [HideInInspector] public Rigidbody2D rB;
     [HideInInspector] public Animator anim;
+    [HideInInspector] public HealthManager healthManager;
 
     public bool CanMove { get; private set; } = true;
     private bool isRunning => canRun && Input.GetKey(sprintKey);
@@ -56,8 +57,10 @@ public class PlayerController : MonoBehaviour
         rB = gameObject.GetComponent<Rigidbody2D>();
         oG = gameObject.GetComponent<ObjectGrab>();
         anim = gameObject.GetComponent<Animator>();
+        healthManager = GameObject.FindObjectOfType<HealthManager>();
         groundCheck = gameObject.transform.Find("GroundCheck");
     }
+
 
     void Update()
     {
@@ -67,6 +70,9 @@ public class PlayerController : MonoBehaviour
             PlayerAnimator();
             CheckIfCanDoStuff();
         }
+
+        //test HealthStystem
+        if (Input.GetKeyDown(KeyCode.K)) healthManager.OnDamage(1);
     }
 
     /// <summary>
