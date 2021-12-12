@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &278732940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 278732941}
+  - component: {fileID: 6717809909090492079}
+  m_Layer: 9
+  m_Name: Bark
+  m_TagString: Bark
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &278732941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278732940}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7930059682083846174}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!70 &6717809909090492079
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278732940}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_Size: {x: 0.5, y: 2}
+  m_Direction: 0
 --- !u!1 &4131167453120531014
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,6 +122,7 @@ GameObject:
   - component: {fileID: 1089334446286406782}
   - component: {fileID: 7930059682083846245}
   - component: {fileID: 8492369182405733457}
+  - component: {fileID: 7598038222205906989}
   - component: {fileID: 7930059681890519264}
   m_Layer: 0
   m_Name: Player
@@ -97,6 +145,7 @@ Transform:
   - {fileID: 7930059680237973556}
   - {fileID: 4410604204002530337}
   - {fileID: 7718147140371503937}
+  - {fileID: 278732941}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -199,13 +248,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oG: {fileID: 0}
+  bI: {fileID: 0}
   rB: {fileID: 0}
   anim: {fileID: 7930059681890519264}
   canRun: 1
   canJump: 1
+  canBark: 1
+  currentDirectionHorintal: 1
+  currentDirectionVertical: 2
   sprintKey: 304
   jumpKey: 32
+  barkKey: 98
   hInput: 0
+  vInput: 0
   accelRatePerSec: 0
   currentSpeed: 0
   jumpTimer: 0
@@ -239,6 +294,21 @@ MonoBehaviour:
   objectHolder: {fileID: 7718147140371503937}
   isGrabbed: 0
   rayDist: 0
+--- !u!114 &7598038222205906989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7930059682083846244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4d1416ece3891489d4f4b50bb100c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barkTrigger: {fileID: 278732940}
+  directionVertical: 0
+  directionHorizontal: 1
 --- !u!95 &7930059681890519264
 Animator:
   serializedVersion: 3
