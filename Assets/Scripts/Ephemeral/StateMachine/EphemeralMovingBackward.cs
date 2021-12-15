@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EphemeralCanMove : StateMachineBehaviour
+public class EphemeralMovingBackward : StateMachineBehaviour
 {
-    EphemeralBehavior eB;
+    public EphemeralBehavior ephemeral = null;
+    public Vector2 newPos;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        if (!ephemeral) ephemeral = animator.gameObject.GetComponent<EphemeralBehavior>();
+        newPos = new Vector2(ephemeral.transform.position.x - ephemeral.moveAmount, ephemeral.transform.position.y);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
+        float step = ephemeral.movementSpeed * Time.deltaTime;
+        ephemeral.transform.position = Vector2.MoveTowards(ephemeral.transform.position, newPos, step);
+
+        if (new Vector2(ephemeral.transform.position.x, ephemeral.transform.position.y) == newPos)
+            ephemeral.ephemeralController.SetTrigger("Stop");
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

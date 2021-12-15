@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EphemeralMoving : StateMachineBehaviour
+public class EphemeralMovingDownward : StateMachineBehaviour
 {
     public EphemeralBehavior ephemeral = null;
     public Vector2 newPos;
@@ -11,7 +11,7 @@ public class EphemeralMoving : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (!ephemeral) ephemeral = animator.gameObject.GetComponent<EphemeralBehavior>();
-        newPos = new Vector2(ephemeral.transform.position.x + ephemeral.moveAmount, ephemeral.transform.position.y);
+        newPos = new Vector2(ephemeral.transform.position.x, ephemeral.transform.position.y - ephemeral.moveAmount);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

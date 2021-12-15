@@ -144,6 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598a36896cac4e941bc6b9e6873624a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ephemeralController: {fileID: 0}
+  moveAmount: 10
+  movementSpeed: 1
+  canMove: 1
 --- !u!95 &1597725513977177306
 Animator:
   serializedVersion: 3
