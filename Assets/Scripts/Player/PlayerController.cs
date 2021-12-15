@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Rigidbody2D rB;
     [HideInInspector] public Animator anim;
     [HideInInspector] public HealthManager healthManager;
+    [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public CheckPointManager checkPointManager;
 
     public bool CanMove { get; private set; } = true;
     private bool isRunning => canRun && Input.GetKey(sprintKey);
@@ -49,8 +52,8 @@ public class PlayerController : MonoBehaviour
     {
         //This is used to gain speed overtime
         accelRatePerSec = runSpeed / timeZeroToMax;
+        Physics.SyncTransforms();
     }
-
 
     void Start()
     {
@@ -58,7 +61,13 @@ public class PlayerController : MonoBehaviour
         oG = gameObject.GetComponent<ObjectGrab>();
         anim = gameObject.GetComponent<Animator>();
         healthManager = GameObject.FindObjectOfType<HealthManager>();
+
+        checkPointManager = GameObject.FindObjectOfType<CheckPointManager>();
         groundCheck = gameObject.transform.Find("GroundCheck");
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+        transform.position = gameManager.PlayerRestartPos;
     }
 
 
@@ -73,6 +82,13 @@ public class PlayerController : MonoBehaviour
 
         //test HealthStystem
         if (Input.GetKeyDown(KeyCode.K)) healthManager.OnDamage(1);
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (!healthManager.playerIsLive)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
     }
 
     /// <summary>

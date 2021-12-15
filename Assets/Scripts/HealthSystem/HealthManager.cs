@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// contains functions needed to set the health of the player
+/// </summary>
 public class HealthManager : MonoBehaviour
 {
-    // contains functions needed to set the health of the player
 
     public int health = 1;
     public int minHealth = 0;
@@ -11,10 +12,15 @@ public class HealthManager : MonoBehaviour
 
     private void Start()
     {
-        health = 1;
+        health = 2;
+        playerIsLive = true;
     }
 
-    public void OnDamage(int damage)
+    /// <summary>
+    /// call where the player takes damage
+    /// </summary>
+    /// <param name="damage"></param>
+    public void OnDamage(int damage) // <- set with the correct values
     {
         health -= damage;
 
@@ -24,14 +30,5 @@ public class HealthManager : MonoBehaviour
             playerIsLive = false;
         }
     }
-
-    private void Update()
-    {
-        if (!playerIsLive)
-        {
-            SceneManager.LoadScene(0); // <-- in testing
-        }
-    }
-
 
 }

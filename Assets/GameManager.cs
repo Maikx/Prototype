@@ -7,10 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public HealthManager healthManager;
+    public PlayerController playerController;
+    public CheckPointManager CheckPointManager;
+    public Vector3 PlayerRestartPos;
+
 
     private void Awake()
     {
-        
+       
         if(instance == null)
         {
             instance = this;
@@ -22,14 +26,20 @@ public class GameManager : MonoBehaviour
         }
         
     }
-    private void Start()
+
+    public void Respawn()  //// <--- move the method here once tested
     {
-      
+        /*
+        if (!healthManager.playerIsLive)
+        {
+            CheckPointManager.LastCheckpointActive();
+        }
+        */
     }
 
     public void Update()
     {
-
+        //Respawn();
     }
 
 }
