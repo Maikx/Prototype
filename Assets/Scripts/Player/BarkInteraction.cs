@@ -18,7 +18,6 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 2);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionVertical;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        Debug.Log("BarkLeft");
         StartCoroutine(waitForSec(.5f));
     }
 
@@ -29,7 +28,6 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 2);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionVertical;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        Debug.Log("BarkRight");
         StartCoroutine(waitForSec(.5f));
     }
 
@@ -40,7 +38,6 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 0.5f);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionHorizontal;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        Debug.Log("BarkUp");
         StartCoroutine(waitForSec(.5f));
     }
 
@@ -51,7 +48,6 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 0.5f);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionHorizontal;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        Debug.Log("BarkDown");
         StartCoroutine(waitForSec(.5f));
     }
 
