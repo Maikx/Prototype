@@ -5,10 +5,11 @@ using UnityEngine;
 public class Companion : MonoBehaviour
 {
     private Camera cam;
-    public PlayerController pC;
-    public GameObject[] boundaries;
+    public GameObject player;
     public GameObject companion;
     public float depth = 5.0f;
+    public float boundary = 5.0f;
+    public float maxBoundary = 10.0f;
     public Vector3 point;
 
     private void Awake()
@@ -25,10 +26,14 @@ public class Companion : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition;
         point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth));
-        if (point.x > boundaries[0].transform.position.x && pC.hInput != 0)
-            point.x = boundaries[0].transform.position.x;
-        else if (point.x < boundaries[1].transform.position.x && pC.hInput != 0)
-            point.x = boundaries[1].transform.position.x;
+        if (point.x > player.transform.position.x + boundary && player.GetComponent<PlayerController>().hInput != 0)
+            point.x = player.transform.position.x + boundary;
+        else if (point.x < player.transform.position.x - boundary && player.GetComponent<PlayerController>().hInput != 0)
+            point.x = player.transform.position.x - boundary;
+        else if (point.x > player.transform.position.x + maxBoundary)
+            point.x = player.transform.position.x + maxBoundary;
+        else if (point.x < player.transform.position.x - maxBoundary)
+            point.x = player.transform.position.x - maxBoundary;
 
         companion.transform.position = point;
     }
