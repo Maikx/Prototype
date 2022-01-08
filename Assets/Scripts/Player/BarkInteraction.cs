@@ -9,7 +9,7 @@ public class BarkInteraction : MonoBehaviour
     [HideInInspector] public CapsuleDirection2D directionHorizontal;
     
     //0 = none, 1 = right, 2 = left, 3 = up, 4 = down..
-    public int lastDirection;
+    [HideInInspector]public int lastDirection;
 
     public void BarkLeft()
     {
