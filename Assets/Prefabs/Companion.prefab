@@ -135,7 +135,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   player: {fileID: 0}
+  canInteract: 1
+  interactKey: 101
   depth: 0
-  boundary: 5
+  minBoundary: 5
   maxBoundary: 10
-  point: {x: 0, y: 0, z: 0}
+  scaleSpeed: 1
+  rayDist: 0.6
