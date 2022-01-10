@@ -16,24 +16,17 @@ public class Companion : MonoBehaviour
     [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     [Header("Parameters")]
-    public float depth = 5.0f;
     private float currentBoundary;
     public float minBoundary = 5.0f;
     public float maxBoundary = 10.0f;
+    public float movementSpeed = 10f;
     public float scaleSpeed = 2;
     private bool resize;
-    private Vector3 point;
-    public float rayDist;
-
-    void Start()
-    {
-        cam = Camera.main;
-    }
+    [HideInInspector]public Vector3 point;
 
     private void Update()
     {
         Boundary();
-        CheckWalls();
     }
 
     /// <summary>
@@ -41,15 +34,19 @@ public class Companion : MonoBehaviour
     /// </summary>
     public void Boundary()
     {
-        Vector3 mousePos = Input.mousePosition;
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth + 10.0f));
+        this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        point = Camera.main.WorldToScreenPoint(transform.position);
 
-        if (point.x > player.transform.position.x + currentBoundary)
-            point.x = player.transform.position.x + currentBoundary;
-        else if (point.x < player.transform.position.x - currentBoundary)
-            point.x = player.transform.position.x - currentBoundary;
+        if (gameObject.transform.position.x > player.transform.position.x + currentBoundary)
+            gameObject.transform.position = new Vector2(player.transform.position.x + currentBoundary, gameObject.transform.position.y);
 
-        gameObject.transform.position = point;
+        else if (gameObject.transform.position.x < player.transform.position.x - currentBoundary)
+            gameObject.transform.position = new Vector2(player.transform.position.x - currentBoundary, gameObject.transform.position.y);
+
+        Vector3 direction = (Vector3)(Input.mousePosition - point);
+        direction.Normalize();
+
+        this.GetComponent<Rigidbody2D>().AddForce(direction * movementSpeed, ForceMode2D.Impulse);
 
         if (player.GetComponent<PlayerController>().hInput != 0)
             resize = true;
@@ -62,43 +59,12 @@ public class Companion : MonoBehaviour
             currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
     }
 
-    /// <summary>
-    /// Checks if walls are nearby..
-    /// </summary>
-    public void CheckWalls()
-    {
-            //The Raycast is used to check if there is a rigidbody that the player can grab.
-            RaycastHit2D right = Physics2D.Raycast(gameObject.transform.position, Vector2.right * transform.localScale, rayDist);
-            RaycastHit2D left = Physics2D.Raycast(gameObject.transform.position, Vector2.left * transform.localScale, rayDist);
-            RaycastHit2D up = Physics2D.Raycast(gameObject.transform.position, Vector2.up * transform.localScale, rayDist);
-            RaycastHit2D down = Physics2D.Raycast(gameObject.transform.position, Vector2.down * transform.localScale, rayDist);
-
-        if (right.collider != null && right.collider.gameObject.layer == 8)
-        {
-            //Debug.Log("Wall Right!");
-        }
-        if (left.collider != null && left.collider.gameObject.layer == 8)
-        {
-            //Debug.Log("Wall Left!");
-        }
-        if (up.collider != null && up.collider.gameObject.layer == 8)
-        {
-            //Debug.Log("Wall Up!");
-        }
-        if (down.collider != null && down.collider.gameObject.layer == 8)
-        {
-            //Debug.Log("Wall Down!");
-        }
-
-    }
-
-
     void OnTriggerStay2D(Collider2D other)
     {
         //This will be used for interactable objects..
         if(other.tag == "CompanionInteractableObject" && Input.GetKey(interactKey))
         {
-
+            Debug.Log("Interacted!");
         }
     }
 }

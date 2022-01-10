@@ -137,8 +137,8 @@ MonoBehaviour:
   player: {fileID: 0}
   canInteract: 1
   interactKey: 101
-  depth: 0
   minBoundary: 5
   maxBoundary: 10
+  movementSpeed: 10
   scaleSpeed: 1
-  rayDist: 0.6
+  point: {x: 0, y: 0, z: 0}
