@@ -6,7 +6,8 @@ public class EphemeralBehavior : MonoBehaviour
 {
     [HideInInspector] public Animator ephemeralController;
     public int moveAmount;
-    public int movementSpeed;
+    public int hSpeed;
+    public int vSpeed;
     public bool canMove;
 
     private void Awake()

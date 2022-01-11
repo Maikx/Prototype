@@ -146,7 +146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ephemeralController: {fileID: 0}
   moveAmount: 10
-  movementSpeed: 1
+  hSpeed: 10
+  vSpeed: 10
   canMove: 1
 --- !u!95 &1597725513977177306
 Animator:

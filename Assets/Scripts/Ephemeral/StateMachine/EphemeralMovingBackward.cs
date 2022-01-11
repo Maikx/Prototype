@@ -17,7 +17,7 @@ public class EphemeralMovingBackward : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        float step = ephemeral.movementSpeed * Time.deltaTime;
+        float step = ephemeral.hSpeed * Time.deltaTime;
         ephemeral.transform.position = Vector2.MoveTowards(ephemeral.transform.position, newPos, step);
 
         if (new Vector2(ephemeral.transform.position.x, ephemeral.transform.position.y) == newPos)
