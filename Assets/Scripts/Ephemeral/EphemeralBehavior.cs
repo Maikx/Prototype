@@ -5,10 +5,15 @@ using UnityEngine;
 public class EphemeralBehavior : MonoBehaviour
 {
     [HideInInspector] public Animator ephemeralController;
-    public int moveAmount;
+    
+    [Header("Function Options")]
+    [SerializeField] public bool canMove;
+
+    [Header("Movement Parameters")]
+    public int hDistance;
+    public int vDistance;
     public int hSpeed;
     public int vSpeed;
-    public bool canMove;
 
     private void Awake()
     {

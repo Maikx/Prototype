@@ -11,7 +11,7 @@ public class EphemeralMovingBackward : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (!ephemeral) ephemeral = animator.gameObject.GetComponent<EphemeralBehavior>();
-        newPos = new Vector2(ephemeral.transform.position.x - ephemeral.moveAmount, ephemeral.transform.position.y);
+        newPos = new Vector2(ephemeral.transform.position.x - ephemeral.hDistance, ephemeral.transform.position.y);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

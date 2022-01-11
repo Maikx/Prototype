@@ -11,7 +11,7 @@ public class EphemeralMovingDownward : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (!ephemeral) ephemeral = animator.gameObject.GetComponent<EphemeralBehavior>();
-        newPos = new Vector2(ephemeral.transform.position.x, ephemeral.transform.position.y - ephemeral.moveAmount);
+        newPos = new Vector2(ephemeral.transform.position.x, ephemeral.transform.position.y - ephemeral.vDistance);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
