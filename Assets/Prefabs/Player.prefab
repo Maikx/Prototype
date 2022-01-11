@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4410604204002530337}
   m_Layer: 0
   m_Name: GrabDetect
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 7930059680237973556}
   m_Layer: 0
   m_Name: GroundCheck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,9 +124,9 @@ GameObject:
   - component: {fileID: 8492369182405733457}
   - component: {fileID: 7598038222205906989}
   - component: {fileID: 7930059681890519264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,6 +251,9 @@ MonoBehaviour:
   bI: {fileID: 0}
   rB: {fileID: 0}
   anim: {fileID: 7930059681890519264}
+  healthManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  checkPointManager: {fileID: 0}
   canRun: 1
   canJump: 1
   canBark: 1
@@ -309,6 +312,7 @@ MonoBehaviour:
   barkTrigger: {fileID: 278732940}
   directionVertical: 0
   directionHorizontal: 1
+  lastDirection: 0
 --- !u!95 &7930059681890519264
 Animator:
   serializedVersion: 3
@@ -339,7 +343,7 @@ GameObject:
   - component: {fileID: 7718147140371503937}
   m_Layer: 0
   m_Name: ObjectHolder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
