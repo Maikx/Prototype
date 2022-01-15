@@ -47,6 +47,11 @@ public class EphemeralBehavior : MonoBehaviour
                 ephemeralController.SetTrigger("Move");
             }
         }
+        else if(collision.tag == "Totem")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
     }
 
 }
