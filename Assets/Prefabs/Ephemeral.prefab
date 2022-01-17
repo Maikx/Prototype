@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1597725513977177306}
   m_Layer: 0
   m_Name: Ephemeral
-  m_TagString: Untagged
+  m_TagString: Ephemeral
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,11 +145,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ephemeralController: {fileID: 0}
+  canMove: 1
   hDistance: 2
   vDistance: 10
   hSpeed: 10
   vSpeed: 10
-  canMove: 1
 --- !u!95 &1597725513977177306
 Animator:
   serializedVersion: 3

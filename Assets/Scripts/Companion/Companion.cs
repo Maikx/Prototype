@@ -58,13 +58,4 @@ public class Companion : MonoBehaviour
         else
             currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
     }
-
-    void OnTriggerStay2D(Collider2D other)
-    {
-        //This will be used for interactable objects..
-        if(other.tag == "CompanionInteractableObject" && Input.GetKey(interactKey))
-        {
-            Debug.Log("Interacted!");
-        }
-    }
 }
