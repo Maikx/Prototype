@@ -17,11 +17,14 @@ public class Companion : MonoBehaviour
     public float movementSpeed = 10f;
     public float scaleSpeed = 2;
     private bool resize;
+    
     [HideInInspector]public Vector3 point;
+    [HideInInspector]public GameObject interactable;
 
     private void Update()
     {
         Boundary();
+        CompanionInteraction();
     }
 
     /// <summary>
@@ -52,5 +55,30 @@ public class Companion : MonoBehaviour
             currentBoundary = Mathf.Lerp(currentBoundary, minBoundary, Time.deltaTime * scaleSpeed);
         else
             currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
+    }
+
+    private void CompanionInteraction()
+    {
+        if (Input.GetMouseButtonDown(0) && interactable != null)
+        {
+            interactable.GetComponent<CompanionInteractableBehavior>().Interact();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 12)
+        {
+            interactable = collision.gameObject;
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 12)
+        {
+            interactable = null;
+        }
     }
 }

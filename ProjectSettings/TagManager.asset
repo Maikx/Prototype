@@ -5,12 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grab_Zone
-  - InteractableObject
   - GameManager
   - Bark
-  - CompanionInteractableObject
   - Totem
   - Ephemeral
+  - EphemeralWell
   layers:
   - Default
   - TransparentFX
@@ -23,8 +22,8 @@ TagManager:
   - Ground
   - Player
   - Companion
-  - 
-  - 
+  - PlayerInteractable
+  - CompanionInteractable
   - 
   - 
   - 

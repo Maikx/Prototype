@@ -33,7 +33,7 @@ public class ObjectGrab : MonoBehaviour
             //The Raycast is used to check if there is a rigidbody that the player can grab.
             RaycastHit2D grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.right * transform.localScale, rayDist);
 
-            if (grabCheck.collider != null && grabCheck.collider.tag == "InteractableObject")
+            if (grabCheck.collider != null && grabCheck.collider.gameObject.layer == 11)
             {
                 //Player grabs object.
                 if (Input.GetKey(KeyCode.E) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded)

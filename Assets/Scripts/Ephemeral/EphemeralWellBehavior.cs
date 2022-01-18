@@ -5,10 +5,10 @@ using UnityEngine;
 public class EphemeralWellBehavior : MonoBehaviour
 {
     [HideInInspector] public bool isTouched;
+    [HideInInspector] public GameObject ephemeral;
 
     [Header("Ephemeral")]
     public GameObject ephemeralPrefab;
-    public List<GameObject> ephemerals;
 
     [Header("Function Options")]
     [SerializeField] public bool active = true;
@@ -21,77 +21,46 @@ public class EphemeralWellBehavior : MonoBehaviour
         CreateEphemeral();
     }
 
-    private void Update()
-    {
-        CompanionInteraction();
-    }
-
-    void CompanionInteraction()
-    {
-        if(Input.GetMouseButtonDown(0) && isTouched)
-        {
-            Reset();
-        }
-    }
-
     /// <summary>
-    /// Checks if listed ephemeral is null..
+    /// This will create an ephemeral if the well is active
     /// </summary>
-    //private void CheckIfNull()
-    //{
-    //    for (var i = ephemerals.Count - 1; i > -1; i--)
-    //    {
-    //        if (ephemerals[i] == null)
-    //            ephemerals.RemoveAt(i);
-    //    }
-    //}
-
     public void CreateEphemeral()
     {
         if (active)
         {
-            ephemerals.Add(Instantiate(ephemeralPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + spawnHeight), Quaternion.identity) as GameObject);
+            ephemeral = Instantiate(ephemeralPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + spawnHeight), Quaternion.identity);
         }
     }
 
-    private void Reset()
+    /// <summary>
+    /// This will happen if the ephemeral will reach the next well
+    /// </summary>
+    public void DeactivateWell()
     {
-        if (ephemerals.Count >= 1)
-        {
-            Destroy(ephemerals[ephemerals.Count - 1].gameObject);
-            for (var i = ephemerals.Count - 1; i > -1; i--)
-            {
-                if (ephemerals[i] != null)
-                {
-                    ephemerals.RemoveAt(ephemerals.Count - 1);
-                    CreateEphemeral();
-                }
-            }
-        }
+        ephemeral = null;
+        active = false;
     }
+
+    /// <summary>
+    /// This will destroy the current ephemeral and create a new one
+    /// </summary>
+    public void Reset()
+    {
+        Destroy(ephemeral);
+        CreateEphemeral();
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 10)
-        {
-            isTouched = true;
-        }
-
         if (collision.tag == "Ephemeral")
         {
             if(!active)
             {
                 active = true;
-                ephemerals.Add(collision.gameObject);
+                collision.GetComponent<EphemeralBehavior>().WellChange();
+                ephemeral = collision.gameObject;
             }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 10)
-        {
-            isTouched = false;
         }
     }
 }
