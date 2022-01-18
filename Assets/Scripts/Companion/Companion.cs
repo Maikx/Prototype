@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class Companion : MonoBehaviour
 {
-    private bool isInteracting => canInteract && Input.GetKey(interactKey);
-
     public Camera cam;
     public GameObject player;
 
     [Header("Function Options")]
     [SerializeField] private bool canInteract = true;
-
-    [Header("Controls")]
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     [Header("Parameters")]
     private float currentBoundary;
@@ -22,11 +17,14 @@ public class Companion : MonoBehaviour
     public float movementSpeed = 10f;
     public float scaleSpeed = 2;
     private bool resize;
+    
     [HideInInspector]public Vector3 point;
+    [HideInInspector]public GameObject interactable;
 
     private void Update()
     {
         Boundary();
+        CompanionInteraction();
     }
 
     /// <summary>
@@ -59,12 +57,28 @@ public class Companion : MonoBehaviour
             currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    private void CompanionInteraction()
     {
-        //This will be used for interactable objects..
-        if(other.tag == "CompanionInteractableObject" && Input.GetKey(interactKey))
+        if (Input.GetMouseButtonDown(0) && interactable != null)
         {
-            Debug.Log("Interacted!");
+            interactable.GetComponent<CompanionInteractableBehavior>().Interact();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 12)
+        {
+            interactable = collision.gameObject;
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 12)
+        {
+            interactable = null;
         }
     }
 }

@@ -5,7 +5,9 @@ using UnityEngine;
 public class EphemeralBehavior : MonoBehaviour
 {
     [HideInInspector] public Animator ephemeralController;
-    
+    public GameObject assignedWell;
+
+
     [Header("Function Options")]
     [SerializeField] public bool canMove;
 
@@ -19,6 +21,11 @@ public class EphemeralBehavior : MonoBehaviour
     {
         ephemeralController = gameObject.GetComponent<Animator>();
         ephemeralController.SetBool("CanMove", canMove);
+    }
+
+    public void WellChange()
+    {
+        assignedWell.GetComponent<EphemeralWellBehavior>().DeactivateWell();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,6 +53,20 @@ public class EphemeralBehavior : MonoBehaviour
                 ephemeralController.SetInteger("Direction", 4);
                 ephemeralController.SetTrigger("Move");
             }
+        }
+        else if(collision.tag == "Totem")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        else if(collision.gameObject.layer == 8)
+        {
+            assignedWell.GetComponent<EphemeralWellBehavior>().Reset();
+        }
+
+        else if (collision.tag == "EphemeralWell" && assignedWell == null)
+        {
+            assignedWell = collision.gameObject;
         }
     }
 
