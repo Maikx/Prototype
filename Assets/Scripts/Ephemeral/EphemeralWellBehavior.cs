@@ -9,11 +9,17 @@ public class EphemeralWellBehavior : MonoBehaviour
     public List<GameObject> ephemerals;
 
     [Header("Function Options")]
-    [SerializeField] public bool canSpawn = true;
+    [SerializeField] public bool active = true;
+    [SerializeField] public bool ephemeral;
 
     [Header("Parameters")]
     public float spawnHeight;
-    
+
+    private void Start()
+    {
+        CreateEphemeral();
+    }
+
 
     private void Update()
     {
@@ -37,7 +43,7 @@ public class EphemeralWellBehavior : MonoBehaviour
 
     public void CreateEphemeral()
     {
-        if (ephemerals.Count == 0 && canSpawn)
+        if (ephemerals.Count == 0 && active)
         {
             ephemerals.Add(Instantiate(ephemeralPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + spawnHeight), Quaternion.identity) as GameObject);
         }
@@ -47,22 +53,27 @@ public class EphemeralWellBehavior : MonoBehaviour
     {
         Destroy(ephemerals[ephemerals.Count - 1].gameObject);
         ephemerals.RemoveAt(ephemerals.Count - 1);
+
+        CreateEphemeral();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 10 && Input.GetMouseButtonDown(0))
         {
-            CreateEphemeral();
+            Reset();
         }
 
         if (collision.tag == "Ephemeral")
         {
-            if (ephemerals.Contains(GameObject.Find("Ephemeral(Clone)"))) Debug.Log("It's already in list");
+            if (ephemerals.Contains(GameObject.Find("Ephemeral(Clone)"))) 
+            { 
+            
+            }
 
             else
             {
-                canSpawn = true;
+                active = true;
                 ephemerals.Add(collision.gameObject);
             }
         }
@@ -72,7 +83,7 @@ public class EphemeralWellBehavior : MonoBehaviour
     {
         if (collision.gameObject.layer == 10 && Input.GetMouseButtonDown(0))
         {
-            CreateEphemeral();
+            Reset();
         }
     }
 }
