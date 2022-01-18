@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class Companion : MonoBehaviour
 {
-    private bool isInteracting => canInteract && Input.GetKey(interactKey);
-
     public Camera cam;
     public GameObject player;
 
     [Header("Function Options")]
     [SerializeField] private bool canInteract = true;
-
-    [Header("Controls")]
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     [Header("Parameters")]
     private float currentBoundary;

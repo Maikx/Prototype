@@ -114,8 +114,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -136,7 +136,6 @@ MonoBehaviour:
   cam: {fileID: 0}
   player: {fileID: 0}
   canInteract: 1
-  interactKey: 101
   minBoundary: 5
   maxBoundary: 10
   movementSpeed: 10

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 588629984286070628}
   m_Layer: 0
   m_Name: Ephemeral Well
-  m_TagString: CompanionInteractableObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,8 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec463b5ac6e57e24d8c2c2fd39c41973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTouched: 0
   ephemeralPrefab: {fileID: 8222180753877557509, guid: 4b3f302c7696b6c4daa74deeb50377ce, type: 3}
   ephemerals: []
-  canSpawn: 1
+  active: 0
+  ephemeral: 0
   spawnHeight: 1
-  spawnAmount: 1

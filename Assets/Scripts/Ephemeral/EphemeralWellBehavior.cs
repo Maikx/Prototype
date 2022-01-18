@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EphemeralWellBehavior : MonoBehaviour
 {
+    [HideInInspector] public bool isTouched;
+
     [Header("Ephemeral")]
     public GameObject ephemeralPrefab;
     public List<GameObject> ephemerals;
@@ -20,10 +22,14 @@ public class EphemeralWellBehavior : MonoBehaviour
         CreateEphemeral();
     }
 
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        CompanionInteraction();
+    }
+
+    void CompanionInteraction()
+    {
+        if(Input.GetMouseButtonDown(0) && isTouched)
         {
             Reset();
         }
@@ -43,7 +49,7 @@ public class EphemeralWellBehavior : MonoBehaviour
 
     public void CreateEphemeral()
     {
-        if (ephemerals.Count == 0 && active)
+        if (active)
         {
             ephemerals.Add(Instantiate(ephemeralPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + spawnHeight), Quaternion.identity) as GameObject);
         }
@@ -51,24 +57,27 @@ public class EphemeralWellBehavior : MonoBehaviour
 
     private void Reset()
     {
-        Destroy(ephemerals[ephemerals.Count - 1].gameObject);
-        ephemerals.RemoveAt(ephemerals.Count - 1);
+        if (ephemerals.Count >= 1)
+        {
+            Destroy(ephemerals[ephemerals.Count - 1].gameObject);
+            ephemerals.RemoveAt(ephemerals.Count - 1);
 
-        CreateEphemeral();
+            CreateEphemeral();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 10 && Input.GetMouseButtonDown(0))
+        if (collision.gameObject.layer == 10)
         {
-            Reset();
+            isTouched = true;
         }
 
         if (collision.tag == "Ephemeral")
         {
             if (ephemerals.Contains(GameObject.Find("Ephemeral(Clone)"))) 
             { 
-            
+                //Nothing
             }
 
             else
@@ -79,11 +88,11 @@ public class EphemeralWellBehavior : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 10 && Input.GetMouseButtonDown(0))
+        if (collision.gameObject.layer == 10)
         {
-            Reset();
+            isTouched = false;
         }
     }
 }
