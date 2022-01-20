@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectBehavior : MonoBehaviour
 {
     [Header("Misc Parameters")]
-    [HideInInspector] public bool isGrounded;
+    public bool isGrounded;
     [HideInInspector] public Transform groundCheck;
     public LayerMask groundLayer;
 
