@@ -9,6 +9,8 @@ public class Companion : MonoBehaviour
 
     [Header("Function Options")]
     [SerializeField] private bool canInteract = true;
+    private float t0;
+    private bool shortClick;
 
     [Header("Parameters")]
     private float currentBoundary;
@@ -17,14 +19,32 @@ public class Companion : MonoBehaviour
     public float movementSpeed = 10f;
     public float scaleSpeed = 2;
     private bool resize;
-    
+
     [HideInInspector]public Vector3 point;
     [HideInInspector]public GameObject interactable;
+
+    private void Start()
+    {
+        t0 = 0;
+        shortClick = false;
+    }
 
     private void Update()
     {
         Boundary();
         CompanionInteraction();
+        MouseShortClick();
+    }
+
+    void MouseShortClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+            t0 = Time.time;
+
+        else if (Input.GetMouseButtonUp(0) && (Time.time - t0) < 0.3f)
+        {
+            shortClick = true;
+        }
     }
 
     /// <summary>
@@ -61,7 +81,18 @@ public class Companion : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && interactable != null)
         {
+            interactable.GetComponent<CompanionInteractableBehavior>().HeldInteract();
+        }
+
+        else if (Input.GetMouseButtonUp(0) && interactable != null)
+        {
+            interactable.GetComponent<CompanionInteractableBehavior>().HeldInteractStop();
+        }
+
+        else if (shortClick && interactable != null)
+        {
             interactable.GetComponent<CompanionInteractableBehavior>().Interact();
+            shortClick = false;
         }
     }
 

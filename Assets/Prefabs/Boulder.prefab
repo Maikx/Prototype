@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 7332283281472252229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 878150574811372930}
   m_RootOrder: 0
@@ -207,6 +207,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  floatingMaxHeight: 2
+  floatStrength: 2
+  randomRotationStrength: 0
+  isLevitating: 0
+  isStopped: 0
 --- !u!114 &1536079945682383239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,3 +226,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ephemeralReset: 0
   levitation: 1
+  stoppable: 1

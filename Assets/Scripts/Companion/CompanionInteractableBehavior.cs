@@ -6,6 +6,7 @@ public class CompanionInteractableBehavior : MonoBehaviour
 {
     public bool ephemeralReset;
     public bool levitation;
+    public bool stoppable;
 
     /// <summary>
     /// Using the bools this script will understand what the interactable can do..(it wont do it if the script isn't present)
@@ -16,6 +17,35 @@ public class CompanionInteractableBehavior : MonoBehaviour
             GetComponent<EphemeralWellBehavior>().Reset();
 
         if (levitation)
-            GetComponent<ObjectBehavior>();
+        {
+            if(GetComponent<ObjectBehavior>().isLevitating == true)
+                GetComponent<ObjectBehavior>().isLevitating = false;
+            else
+                GetComponent<ObjectBehavior>().isLevitating = true;
+        }
+    }
+
+    public void HeldInteract()
+    {
+        if(stoppable)
+        {
+            GetComponent<ObjectBehavior>().isStopped = true;
+        }
+    }
+
+    public void HeldInteractStop()
+    {
+        if (stoppable)
+        {
+            GetComponent<ObjectBehavior>().isStopped = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 10)
+        {
+            HeldInteractStop();
+        }
     }
 }
