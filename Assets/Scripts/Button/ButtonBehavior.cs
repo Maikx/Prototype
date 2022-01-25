@@ -7,6 +7,8 @@ public class ButtonBehavior : MonoBehaviour
     public enum Type { None, Button1, Button2};
     public Type type;
 
+    public GameObject[] linkedObjects;
+
     [Header("Button2 Settings")]
     public float timer;
     float currentTimer;
@@ -24,6 +26,13 @@ public class ButtonBehavior : MonoBehaviour
         if(type == Type.Button1)
         {
             Debug.Log("Pressed Type1");
+            for (int i = 0; i < linkedObjects.Length; i++)
+            {
+               if(linkedObjects[i].GetComponent<PlatformBehavior>() != null)
+                {
+                    linkedObjects[i].GetComponent<PlatformBehavior>().isMoving = true;
+                }
+            }
         }
         else if(type == Type.Button2)
         {
