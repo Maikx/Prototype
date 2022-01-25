@@ -25,8 +25,10 @@ public class CompanionInteractableBehavior : MonoBehaviour
                 GetComponent<ObjectBehavior>().isLevitating = true;
         }
 
-        if (pressable)
+        if (pressable && GetComponent<ButtonBehavior>().type == ButtonBehavior.Type.ButtonA)
+        {
             GetComponent<ButtonBehavior>().Pressed();
+        }
     }
 
     public void HeldInteract()
@@ -35,6 +37,11 @@ public class CompanionInteractableBehavior : MonoBehaviour
         {
             GetComponent<ObjectBehavior>().isStopped = true;
         }
+
+        if(pressable && GetComponent<ButtonBehavior>().type == ButtonBehavior.Type.ButtonB)
+        {
+            GetComponent<ButtonBehavior>().isActive = true;
+        }
     }
 
     public void HeldInteractStop()
@@ -42,6 +49,11 @@ public class CompanionInteractableBehavior : MonoBehaviour
         if (stoppable)
         {
             GetComponent<ObjectBehavior>().isStopped = false;
+        }
+
+        if (pressable && GetComponent<ButtonBehavior>().type == ButtonBehavior.Type.ButtonB)
+        {
+            GetComponent<ButtonBehavior>().isActive = false;
         }
     }
 

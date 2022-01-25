@@ -4,40 +4,65 @@ using UnityEngine;
 
 public class ButtonBehavior : MonoBehaviour
 {
-    public enum Type { None, Button1, Button2};
+    public enum Type {ButtonA, ButtonB};
     public Type type;
 
     public GameObject[] linkedObjects;
 
-    [Header("Button2 Settings")]
+    [HideInInspector]public bool isActive;
+
+    [Header("ButtonA Settings")]
     public float timer;
     float currentTimer;
 
     private void Update()
     {
+        Timer();
+        Button();
+    }
+
+    void Timer()
+    {
         if (currentTimer > 0)
         {
             currentTimer -= Time.deltaTime;
+        }
+        else if (currentTimer <= 0 && type == Type.ButtonA)
+        {
+            isActive = false;
         }
     }
 
     public void Pressed()
     {
-        if(type == Type.Button1)
+        if(type == Type.ButtonA)
         {
-            Debug.Log("Pressed Type1");
+                currentTimer = timer;
+                isActive = true;
+        }
+    }
+
+    void Button()
+    {
+        if (isActive)
+        {
             for (int i = 0; i < linkedObjects.Length; i++)
             {
-               if(linkedObjects[i].GetComponent<PlatformBehavior>() != null)
+                if (linkedObjects[i].GetComponent<PlatformBehavior>() != null)
                 {
                     linkedObjects[i].GetComponent<PlatformBehavior>().isMoving = true;
                 }
             }
         }
-        else if(type == Type.Button2)
+        else if (!isActive)
         {
-            currentTimer = timer;
-            Debug.Log("Pressed Type2");
+            for (int i = 0; i < linkedObjects.Length; i++)
+            {
+                if (linkedObjects[i].GetComponent<PlatformBehavior>() != null)
+                {
+                    linkedObjects[i].GetComponent<PlatformBehavior>().isMoving = false;
+                }
+            }
         }
     }
 }
