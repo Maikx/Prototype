@@ -1139,26 +1139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7930059682083846245, guid: 514b337b9fcc60c45ab836ee76356935, type: 3}
-      propertyPath: barkKey
-      value: 113
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930059682083846245, guid: 514b337b9fcc60c45ab836ee76356935, type: 3}
-      propertyPath: grabSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930059682083846245, guid: 514b337b9fcc60c45ab836ee76356935, type: 3}
-      propertyPath: jumpForce
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930059682083846245, guid: 514b337b9fcc60c45ab836ee76356935, type: 3}
-      propertyPath: walkSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930059682083846245, guid: 514b337b9fcc60c45ab836ee76356935, type: 3}
-      propertyPath: airborneSpeed
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 514b337b9fcc60c45ab836ee76356935, type: 3}
 --- !u!1 &545713144 stripped
@@ -1608,7 +1588,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812009765}
-  m_LocalRotation: {x: 0.0037158295, y: -8.332586e-11, z: 3.096269e-13, w: 0.9999931}
+  m_LocalRotation: {x: 0.0037158295, y: 8.337505e-11, z: -3.098097e-13, w: 0.9999931}
   m_LocalPosition: {x: -11.272705, y: 5.3, z: -7.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
