@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 426945169499476453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: 1, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 909821854}
   m_Father: {fileID: 0}
@@ -179,3 +179,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  floatingMaxHeight: 2
+  floatStrength: 2
+  randomRotationStrength: 0
+  isLevitating: 0
+  isStopped: 0
