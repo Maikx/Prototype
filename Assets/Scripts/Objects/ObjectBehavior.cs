@@ -6,8 +6,6 @@ public class ObjectBehavior : MonoBehaviour
 {
     [Header("Misc Parameters")]
     public bool isGrounded;
-    [HideInInspector] public Transform groundCheck;
-    public LayerMask groundLayer;
 
     [Header("Levitation Parameters")]
     public float floatingMaxHeight = 2;
@@ -17,14 +15,8 @@ public class ObjectBehavior : MonoBehaviour
     [HideInInspector]public bool isLevitating;
     [HideInInspector]public bool isStopped;
 
-    void Start()
-    {
-        groundCheck = gameObject.transform.Find("GroundCheck");
-    }
-
     private void Update()
     {
-        CheckIfGrounded();
         Levitate();
         Stop();
     }
@@ -55,8 +47,27 @@ public class ObjectBehavior : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
     }
 
-    public void CheckIfGrounded()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.80f, groundLayer);
+        if(collision.gameObject.layer == 8)
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            isGrounded = false;
+        }
     }
 }
