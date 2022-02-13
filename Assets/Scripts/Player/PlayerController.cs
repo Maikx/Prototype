@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
         rB.velocity = new Vector2(direction.x, rB.velocity.y);
 
-        if (Input.GetKey(barkKey))
+        if (Input.GetKey(barkKey) && isGrounded)
         {
             switch (currentDirectionVertical)
             {
