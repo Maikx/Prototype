@@ -203,10 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  groundCheck: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  isTrap: 1
   floatingMaxHeight: 2
   floatStrength: 2
   randomRotationStrength: 0
@@ -224,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd722dc936960ff4389a27b0609939fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ephemeralReset: 0
-  levitation: 1
+  ephemeralResettable: 0
+  levitable: 0
   stoppable: 1
+  pressable: 0

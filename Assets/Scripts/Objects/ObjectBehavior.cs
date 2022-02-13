@@ -6,6 +6,7 @@ public class ObjectBehavior : MonoBehaviour
 {
     [Header("Misc Parameters")]
     public bool isGrounded;
+    public bool isTrap;
 
     [Header("Levitation Parameters")]
     public float floatingMaxHeight = 2;
@@ -15,10 +16,20 @@ public class ObjectBehavior : MonoBehaviour
     [HideInInspector]public bool isLevitating;
     [HideInInspector]public bool isStopped;
 
+    private void Start()
+    {
+        if (isTrap) gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+    }
+
     private void Update()
     {
         Levitate();
         Stop();
+    }
+
+    public void Activate()
+    {
+        if (isTrap) gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
     }
 
     void Levitate()
