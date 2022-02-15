@@ -21,7 +21,7 @@ public class Companion : MonoBehaviour
     private bool resize;
 
     [HideInInspector]public Vector3 point;
-    /*[HideInInspector]*/public GameObject interactable;
+    [HideInInspector]public GameObject interactable;
 
     private void Start()
     {
@@ -116,14 +116,9 @@ public class Companion : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 12)
+        if (collision.gameObject.layer == 12 || collision.gameObject.tag == "Player")
         {
             interactable = null;
-        }
-
-        else if (collision.gameObject.tag == "Player")
-        {
-            interactable = collision.gameObject;
         }
     }
 }

@@ -39,12 +39,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode barkKey = KeyCode.B;
 
     [Header("Movement Parameters")]
-    [HideInInspector] private Vector3 direction;
-    [HideInInspector] public float hInput;
-    [HideInInspector] public float vInput;
-    [HideInInspector] public float accelRatePerSec;
-    [HideInInspector] public float currentSpeed;
-    [HideInInspector] public float jumpTimer = 0;
     public float walkSpeed = 8;
     public float grabSpeed = 4;
     public float airborneSpeed = 4;
@@ -53,11 +47,24 @@ public class PlayerController : MonoBehaviour
     public float timeZeroToMax = 2.5f;
     public float jumpForce = 10;
     public float gravity = -20;
+    [HideInInspector] private Vector3 direction;
+    [HideInInspector] public float hInput;
+    [HideInInspector] public float vInput;
+    [HideInInspector] public float accelRatePerSec;
+    [HideInInspector] public float currentSpeed;
+    [HideInInspector] public float jumpTimer = 0;
+
+    [Header("Fusion Parameters")]
+    public float fusedWalkSpeed = 12;
+    public float fusedJumpForce = 15;
 
     [Header("Misc Parameters")]
-    [HideInInspector] public bool isGrounded;
-    [HideInInspector] public Transform groundCheck;
     public LayerMask groundLayer;
+    public GameObject companionPrefab;
+    [HideInInspector] public bool isGrounded;
+    [HideInInspector]public bool isFused;
+    [HideInInspector] public Transform groundCheck;
+
 
     void Awake()
     {
@@ -120,7 +127,8 @@ public class PlayerController : MonoBehaviour
         //This changes player speed to walking speed if not running.
         if (!isRunning && !oG.isGrabbed && isGrounded)
         {
-            currentSpeed = walkSpeed;
+            if (!isFused) currentSpeed = walkSpeed;
+            else currentSpeed = fusedWalkSpeed;
             jumpTimer = -1;
         }
         else
@@ -149,7 +157,8 @@ public class PlayerController : MonoBehaviour
             if (isJumping)
             {
                 jumpTimer = jumpDelay;
-                rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+                if (!isFused) rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+                else rB.velocity = new Vector2(rB.velocity.x, fusedJumpForce);
             }
         }
 
@@ -174,6 +183,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButtonDown(0) && isFused)
+        {
+            Instantiate(companionPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 2), Quaternion.identity);
+            isFused = false;
+        }
     }
 
     void CheckIfCanDoStuff()
@@ -201,6 +215,11 @@ public class PlayerController : MonoBehaviour
             currentDirectionVertical = FacingDirectionVertical.Down;
         else if (vInput == 0)
             currentDirectionVertical = FacingDirectionVertical.None;
+    }
+
+    public void CompanionFusion()
+    {
+        isFused = true;
     }
 
     /// <summary>

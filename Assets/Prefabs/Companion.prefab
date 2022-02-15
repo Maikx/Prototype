@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2755364555620864688}
   - component: {fileID: 2755364555620864695}
   - component: {fileID: 2755364555620864699}
-  - component: {fileID: 3967685245447778907}
   m_Layer: 10
   m_Name: Companion
   m_TagString: Untagged
@@ -160,19 +159,3 @@ MonoBehaviour:
   scaleSpeed: 1
   point: {x: 0, y: 0, z: 0}
   interactable: {fileID: 0}
---- !u!58 &3967685245447778907
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2755364555620864689}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
