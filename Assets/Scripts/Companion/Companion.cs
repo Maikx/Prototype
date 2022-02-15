@@ -21,12 +21,14 @@ public class Companion : MonoBehaviour
     private bool resize;
 
     [HideInInspector]public Vector3 point;
-    [HideInInspector]public GameObject interactable;
+    /*[HideInInspector]*/public GameObject interactable;
 
     private void Start()
     {
         t0 = 0;
         shortClick = false;
+        cam = Camera.main;
+        player = GameObject.FindWithTag("Player");
     }
 
     private void Update()
@@ -93,12 +95,19 @@ public class Companion : MonoBehaviour
         {
             interactable.GetComponent<CompanionInteractableBehavior>().Interact();
             shortClick = false;
+            if (interactable.gameObject.tag == "Player")
+                Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 12)
+        {
+            interactable = collision.gameObject;
+        }
+
+        else if (collision.gameObject.tag == "Player")
         {
             interactable = collision.gameObject;
         }
@@ -110,6 +119,11 @@ public class Companion : MonoBehaviour
         if (collision.gameObject.layer == 12)
         {
             interactable = null;
+        }
+
+        else if (collision.gameObject.tag == "Player")
+        {
+            interactable = collision.gameObject;
         }
     }
 }

@@ -9,7 +9,7 @@ public class mainmenu : MonoBehaviour
     public void PlayGame()
 
     {
-        SceneManager.LoadScene("Livello 1");
+        SceneManager.LoadScene("Full Scene Tutorial");
     }
 
     public void QuitGame ()
