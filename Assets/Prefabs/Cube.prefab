@@ -144,10 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  groundCheck: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  isTrap: 0
+  objectType: 1
   floatingMaxHeight: 2
   floatStrength: 2
   randomRotationStrength: 0

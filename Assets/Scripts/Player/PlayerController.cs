@@ -213,12 +213,4 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isGrabbed", oG.isGrabbed);
     }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(Input.GetKey(KeyCode.E) && collision.gameObject.layer == 11)
-        {
-            Debug.Log("Rope");
-        }
-    }
 }

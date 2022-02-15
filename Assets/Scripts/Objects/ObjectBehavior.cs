@@ -7,6 +7,8 @@ public class ObjectBehavior : MonoBehaviour
     [Header("Misc Parameters")]
     public bool isGrounded;
     public bool isTrap;
+    public enum ObjectType { Default, Box, Rope}
+    public ObjectType objectType;
 
     [Header("Levitation Parameters")]
     public float floatingMaxHeight = 2;
@@ -30,6 +32,7 @@ public class ObjectBehavior : MonoBehaviour
     public void Activate()
     {
         if (isTrap) gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        else if (objectType == ObjectType.Rope) Rope();
     }
 
     void Levitate()
@@ -49,12 +52,17 @@ public class ObjectBehavior : MonoBehaviour
         }
     }
 
+    void Rope()
+    {
+        gameObject.GetComponent<RopeBehavior>().MakePlanksFall();
+    }
+
     void Stop()
     {
-        if(isStopped)
+        if(isStopped && gameObject.GetComponent<Rigidbody2D>() != null)
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        else
+        else if (!isStopped && gameObject.GetComponent<Rigidbody2D>() != null)
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
     }
 
