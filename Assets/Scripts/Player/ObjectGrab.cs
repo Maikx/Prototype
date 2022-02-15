@@ -8,16 +8,14 @@ public class ObjectGrab : MonoBehaviour
     [SerializeField] private bool canInteract = true;
     [SerializeField] private KeyCode interactKey = KeyCode.E;
     [HideInInspector] public CapsuleCollider2D playerCollider;
-    [HideInInspector] public Transform grabDetect;
-    [HideInInspector] public Transform objectHolder;
+    public Transform grabDetect;
+    public Transform objectHolder;
     [HideInInspector] public bool isGrabbed;
     public float rayDist;
 
     private void Start()
     {
         playerCollider = gameObject.GetComponent<CapsuleCollider2D>();
-        grabDetect = gameObject.transform.Find("GrabDetect");
-        objectHolder = gameObject.transform.Find("ObjectHolder");
     }
 
 

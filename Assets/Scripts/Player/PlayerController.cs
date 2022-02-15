@@ -61,9 +61,9 @@ public class PlayerController : MonoBehaviour
     [Header("Misc Parameters")]
     public LayerMask groundLayer;
     public GameObject companionPrefab;
+    public Transform groundCheck;
     [HideInInspector] public bool isGrounded;
     [HideInInspector]public bool isFused;
-    [HideInInspector] public Transform groundCheck;
 
 
     void Awake()
@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour
         oG = gameObject.GetComponent<ObjectGrab>();
         bI = gameObject.GetComponent<BarkInteraction>();
         anim = gameObject.GetComponent<Animator>();
-        groundCheck = gameObject.transform.Find("GroundCheck");
         Physics.SyncTransforms();
     }
 
