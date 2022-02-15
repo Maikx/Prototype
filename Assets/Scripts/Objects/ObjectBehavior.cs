@@ -6,8 +6,9 @@ public class ObjectBehavior : MonoBehaviour
 {
     [Header("Misc Parameters")]
     public bool isGrounded;
-    [HideInInspector] public Transform groundCheck;
-    public LayerMask groundLayer;
+    public bool isTrap;
+    public enum ObjectType { Default, Box, Rope}
+    public ObjectType objectType;
 
     [Header("Levitation Parameters")]
     public float floatingMaxHeight = 2;
@@ -17,16 +18,21 @@ public class ObjectBehavior : MonoBehaviour
     [HideInInspector]public bool isLevitating;
     [HideInInspector]public bool isStopped;
 
-    void Start()
+    private void Start()
     {
-        groundCheck = gameObject.transform.Find("GroundCheck");
+        if (isTrap) gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
     }
 
     private void Update()
     {
-        CheckIfGrounded();
         Levitate();
         Stop();
+    }
+
+    public void Activate()
+    {
+        if (isTrap) gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        else if (objectType == ObjectType.Rope) Rope();
     }
 
     void Levitate()
@@ -46,17 +52,41 @@ public class ObjectBehavior : MonoBehaviour
         }
     }
 
+    void Rope()
+    {
+        gameObject.GetComponent<RopeBehavior>().MakePlanksFall();
+    }
+
     void Stop()
     {
-        if(isStopped)
+        if(isStopped && gameObject.GetComponent<Rigidbody2D>() != null)
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
-        else
+        else if (!isStopped && gameObject.GetComponent<Rigidbody2D>() != null)
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
     }
 
-    public void CheckIfGrounded()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.80f, groundLayer);
+        if(collision.gameObject.layer == 8)
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            isGrounded = false;
+        }
     }
 }

@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
         rB.velocity = new Vector2(direction.x, rB.velocity.y);
 
-        if (Input.GetKey(barkKey))
+        if (Input.GetKey(barkKey) && isGrounded)
         {
             switch (currentDirectionVertical)
             {
@@ -212,13 +212,5 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isRunning", isRunning);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isGrabbed", oG.isGrabbed);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(Input.GetKey(KeyCode.E) && collision.gameObject.layer == 11)
-        {
-            Debug.Log("Rope");
-        }
     }
 }

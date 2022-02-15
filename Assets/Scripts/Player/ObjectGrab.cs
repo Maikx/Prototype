@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ObjectGrab : MonoBehaviour
 {
+    private bool isInteracting => canInteract && Input.GetKey(interactKey);
+    [SerializeField] private bool canInteract = true;
+    [SerializeField] private KeyCode interactKey = KeyCode.E;
     [HideInInspector] public CapsuleCollider2D playerCollider;
     [HideInInspector] public Transform grabDetect;
     [HideInInspector] public Transform objectHolder;
@@ -35,23 +38,33 @@ public class ObjectGrab : MonoBehaviour
 
             if (grabCheck.collider != null && grabCheck.collider.gameObject.layer == 11)
             {
-                //Player grabs object.
-                if (Input.GetKey(KeyCode.E) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded)
+                if (grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().objectType == ObjectBehavior.ObjectType.Box)
                 {
-                    isGrabbed = true;
-                    Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, true);
-                    grabCheck.collider.gameObject.transform.parent = objectHolder;
-                    grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-                    grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10;
+                    //Player grabs object.
+                    if (Input.GetKey(interactKey) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded)
+                    {
+                        isGrabbed = true;
+                        Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, true);
+                        grabCheck.collider.gameObject.transform.parent = objectHolder;
+                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10;
+                    }
+                    //Player releases object.
+                    else
+                    {
+                        isGrabbed = false;
+                        Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, false);
+                        grabCheck.collider.gameObject.transform.parent = null;
+                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10000;
+                    }
                 }
-                //Player releases object.
-                else
+                else if (grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().objectType == ObjectBehavior.ObjectType.Rope)
                 {
-                    isGrabbed = false;
-                    Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, false);
-                    grabCheck.collider.gameObject.transform.parent = null;
-                    grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                    grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10000;
+                    if (Input.GetKey(interactKey))
+                    {
+                        grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().Activate();
+                    }
                 }
             }
         }
