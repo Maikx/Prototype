@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 426945169499476453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1.9, z: 2}
   m_Children:
   - {fileID: 1499323079}
   m_Father: {fileID: 0}
@@ -174,9 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4b13226889f624b9d1a8a92bf22f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrap: 0
   useGravity: 1
   objectType: 1
+  isTrap: 0
   floatingMaxHeight: 2
   floatStrength: 2
   randomRotationStrength: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   groundCheck: {fileID: 1499323079}
-  groundCheckSize: 0.6
+  groundCheckSize: 1.2
   isGrounded: 0
   isLevitating: 0
   isStopped: 0
