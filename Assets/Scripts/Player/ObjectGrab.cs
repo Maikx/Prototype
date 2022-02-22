@@ -12,6 +12,7 @@ public class ObjectGrab : MonoBehaviour
     public Transform objectHolder;
     [HideInInspector] public bool isGrabbed;
     public float rayDist;
+    [HideInInspector] public Vector3 point;
 
     private void Start()
     {
@@ -42,19 +43,22 @@ public class ObjectGrab : MonoBehaviour
                     if (Input.GetKey(interactKey) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded)
                     {
                         isGrabbed = true;
-                        Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, true);
                         grabCheck.collider.gameObject.transform.parent = objectHolder;
-                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10;
+                        if (grabCheck.collider.gameObject.GetComponent<Rigidbody2D>() != null)
+                        {
+                            Destroy(grabCheck.collider.gameObject.GetComponent<Rigidbody2D>());
+                        }
                     }
                     //Player releases object.
                     else
                     {
                         isGrabbed = false;
-                        Physics2D.IgnoreCollision(grabCheck.collider, playerCollider, false);
+                        if (grabCheck.collider.gameObject.GetComponent<Rigidbody2D>() == null)
+                        {
+                            grabCheck.collider.gameObject.AddComponent<Rigidbody2D>();
+                            grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10000;
+                        }
                         grabCheck.collider.gameObject.transform.parent = null;
-                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                        grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10000;
                     }
                 }
                 else if (grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().objectType == ObjectBehavior.ObjectType.Rope)

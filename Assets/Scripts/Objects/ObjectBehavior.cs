@@ -5,15 +5,21 @@ using UnityEngine;
 public class ObjectBehavior : MonoBehaviour
 {
     [Header("Misc Parameters")]
-    public bool isGrounded;
-    public bool isTrap;
+    public bool useGravity = true;
     public enum ObjectType { Default, Box, Rope}
     public ObjectType objectType;
 
-    [Header("Levitation Parameters")]
+    [Header("Boulders Parameters")]
+    public bool isTrap;
     public float floatingMaxHeight = 2;
     public float floatStrength = 2;
     public float randomRotationStrength;
+
+    [Header("Grounded Parameters")]
+    public LayerMask groundLayer;
+    public Transform groundCheck;
+    public float groundCheckSize = 0.6f;
+    public bool isGrounded;
 
     [HideInInspector]public bool isLevitating;
     [HideInInspector]public bool isStopped;
@@ -21,6 +27,11 @@ public class ObjectBehavior : MonoBehaviour
     private void Start()
     {
         if (isTrap) gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+    }
+
+    private void FixedUpdate()
+    {
+        if(useGravity) GroundCheck();
     }
 
     private void Update()
@@ -66,27 +77,8 @@ public class ObjectBehavior : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void GroundCheck()
     {
-        if(collision.gameObject.layer == 8)
-        {
-            isGrounded = true;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 8)
-        {
-            isGrounded = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 8)
-        {
-            isGrounded = false;
-        }
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckSize, groundLayer);
     }
 }

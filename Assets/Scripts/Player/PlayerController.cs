@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public GameObject companionPrefab;
     public Transform groundCheck;
-    [HideInInspector] public bool isGrounded;
+    [HideInInspector]public bool isGrounded;
     [HideInInspector]public bool isFused;
 
 

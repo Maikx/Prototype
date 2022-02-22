@@ -262,12 +262,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4b13226889f624b9d1a8a92bf22f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
-  isTrap: 0
+  useGravity: 0
   objectType: 2
+  isTrap: 0
   floatingMaxHeight: 0
   floatStrength: 0
   randomRotationStrength: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheck: {fileID: 0}
+  groundCheckSize: 0.6
+  isGrounded: 0
   isLevitating: 0
   isStopped: 0
 --- !u!114 &5299393643219454462

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 7332283281472252229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 878150574811372930}
   m_RootOrder: 0
@@ -202,11 +202,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4b13226889f624b9d1a8a92bf22f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
+  useGravity: 1
+  objectType: 0
   isTrap: 1
   floatingMaxHeight: 2
   floatStrength: 2
   randomRotationStrength: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  groundCheck: {fileID: 8212093416688000012}
+  groundCheckSize: 0.6
+  isGrounded: 0
   isLevitating: 0
   isStopped: 0
 --- !u!114 &1536079945682383239
@@ -225,3 +232,4 @@ MonoBehaviour:
   levitable: 0
   stoppable: 1
   pressable: 0
+  fusable: 0
