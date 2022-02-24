@@ -3921,7 +3921,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553991896}
-  m_LocalRotation: {x: 0.06459251, y: -0.000000007255516, z: 4.696329e-10, w: 0.99791175}
+  m_LocalRotation: {x: 0.06459251, y: -0.000000008585221, z: 5.557015e-10, w: 0.99791175}
   m_LocalPosition: {x: -9, y: 9.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4356,7 +4356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4204501072858665620, guid: 23b1a42f3d315534ab1d84183f161298, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.5
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4204501072858665620, guid: 23b1a42f3d315534ab1d84183f161298, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6580,7 +6580,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920689918}
-  m_LocalRotation: {x: 0.06459251, y: -0.000000007255516, z: 4.696329e-10, w: 0.99791175}
+  m_LocalRotation: {x: 0.06459251, y: -0.000000008585221, z: 5.557015e-10, w: 0.99791175}
   m_LocalPosition: {x: -11.272705, y: 8.759831, z: 1.0606928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7386,6 +7386,14 @@ PrefabInstance:
     - target: {fileID: 2655556005254863601, guid: 96fe0567b154f51409a4711862b1a0e7, type: 3}
       propertyPath: m_Name
       value: Rope&Planks
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962060543744605453, guid: 96fe0567b154f51409a4711862b1a0e7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2684515
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962060543744605453, guid: 96fe0567b154f51409a4711862b1a0e7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.986
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96fe0567b154f51409a4711862b1a0e7, type: 3}
