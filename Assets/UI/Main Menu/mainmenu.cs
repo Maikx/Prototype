@@ -9,6 +9,24 @@ public class mainmenu : MonoBehaviour
     public GameObject pnlSettings;
     public GameObject pnlCredits;
     public GameObject pnlMainMenu;
+    public GameObject pnlPause;
+    public bool isPause = false;
+
+    public void Update ()
+    {
+        if(Input.GetKeyDown("escape") && isPause == false)
+        {
+            pnlPause.SetActive(true);
+            Time.timeScale = 0;
+            isPause = true;
+        }
+        else if (Input.GetKeyDown("escape") && isPause == true)
+        {
+            pnlPause.SetActive(false);
+            Time.timeScale = 1;
+            isPause = false;
+        }
+    }
 
     public void PlayGame()
     {
