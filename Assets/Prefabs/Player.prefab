@@ -56,9 +56,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1635125413}
-  - component: {fileID: 1635125416}
-  - component: {fileID: 1635125415}
   - component: {fileID: 1635125414}
+  - component: {fileID: 7928735166902033672}
   m_Layer: 12
   m_Name: CompanionInteractable
   m_TagString: Player
@@ -80,30 +79,6 @@ Transform:
   m_Father: {fileID: 4211348292944396770}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1635125416
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635125412}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!70 &1635125415
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635125412}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
-  m_Direction: 0
 --- !u!114 &1635125414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +96,32 @@ MonoBehaviour:
   stoppable: 0
   pressable: 0
   fusable: 1
+--- !u!61 &7928735166902033672
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635125412}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.05324435, y: -0.4404772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.12}
+  m_EdgeRadius: 0
 --- !u!1 &155862531441510594
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +958,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4131167453120531014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6000004, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4211348292944396770}
@@ -2152,8 +2153,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7930059682083846174}
-  - component: {fileID: 2181212183701011010}
-  - component: {fileID: 7151060369644027021}
+  - component: {fileID: 1139522062208869181}
+  - component: {fileID: 8235420828221870194}
   - component: {fileID: 1089334446286406782}
   - component: {fileID: 7930059682083846245}
   - component: {fileID: 8492369182405733457}
@@ -2182,8 +2183,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &2181212183701011010
-CapsuleCollider2D:
+--- !u!61 &1139522062208869181
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2195,11 +2196,21 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
---- !u!70 &7151060369644027021
-CapsuleCollider2D:
+  m_Offset: {x: -0.05324435, y: -0.4404772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.12}
+  m_EdgeRadius: 0
+--- !u!61 &8235420828221870194
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2211,9 +2222,19 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: -0.053244352, y: -0.4404772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.12}
+  m_EdgeRadius: 0
 --- !u!50 &1089334446286406782
 Rigidbody2D:
   serializedVersion: 4
@@ -2302,7 +2323,8 @@ MonoBehaviour:
   grabDetect: {fileID: 4410604204002530337}
   objectHolder: {fileID: 7718147140371503937}
   isGrabbed: 0
-  rayDist: 0
+  rayDist: 0.1
+  point: {x: 0, y: 0, z: 0}
 --- !u!114 &7598038222205906989
 MonoBehaviour:
   m_ObjectHideFlags: 0

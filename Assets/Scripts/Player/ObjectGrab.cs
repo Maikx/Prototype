@@ -7,7 +7,7 @@ public class ObjectGrab : MonoBehaviour
     private bool isInteracting => canInteract && Input.GetKey(interactKey);
     [SerializeField] private bool canInteract = true;
     [SerializeField] private KeyCode interactKey = KeyCode.E;
-    [HideInInspector] public CapsuleCollider2D playerCollider;
+    [HideInInspector] public BoxCollider2D playerCollider;
     public Transform grabDetect;
     public Transform objectHolder;
     [HideInInspector] public bool isGrabbed;
@@ -16,7 +16,7 @@ public class ObjectGrab : MonoBehaviour
 
     private void Start()
     {
-        playerCollider = gameObject.GetComponent<CapsuleCollider2D>();
+        playerCollider = gameObject.GetComponent<BoxCollider2D>();
     }
 
 
@@ -34,6 +34,9 @@ public class ObjectGrab : MonoBehaviour
         {
             //The Raycast is used to check if there is a rigidbody that the player can grab.
             RaycastHit2D grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.right * transform.localScale, rayDist);
+
+            if(grabCheck == true)
+                Debug.Log(grabCheck);
 
             if (grabCheck.collider != null && grabCheck.collider.gameObject.layer == 11)
             {
