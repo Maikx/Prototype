@@ -65,6 +65,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isGrounded;
     [HideInInspector]public bool isFused;
 
+    public GameObject transparentObject;
+    public Vector3 transparentObjectSize;
+
 
     void Awake()
     {
@@ -106,6 +109,13 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+
+        TransparentObjcetResizing();
+    }
+
+    void TransparentObjcetResizing()
+    {
+        transparentObject.gameObject.transform.localScale = transparentObjectSize;
     }
 
     /// <summary>
