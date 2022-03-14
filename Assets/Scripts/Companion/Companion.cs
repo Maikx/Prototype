@@ -14,11 +14,10 @@ public class Companion : MonoBehaviour
 
     [Header("Parameters")]
     private float currentBoundary;
-    public float minBoundary = 5.0f;
-    public float maxBoundary = 10.0f;
-    public float movementSpeed = 10f;
-    public float scaleSpeed = 2;
-    private bool resize;
+    public float minBoundary;
+    public float maxBoundary;
+    public float movementSpeed;
+    public float scaleSpeed;
 
     [HideInInspector]public Vector3 point;
     [HideInInspector]public GameObject interactable;
@@ -33,9 +32,9 @@ public class Companion : MonoBehaviour
 
     private void Update()
     {
-        Boundary();
         CompanionInteraction();
         MouseShortClick();
+        Boundary();
     }
 
     void MouseShortClick()
@@ -69,11 +68,6 @@ public class Companion : MonoBehaviour
         this.GetComponent<Rigidbody2D>().AddForce(direction * movementSpeed, ForceMode2D.Impulse);
 
         if (player.GetComponent<PlayerController>().hInput != 0)
-            resize = true;
-        else
-            resize = false;
-
-        if (resize)
             currentBoundary = Mathf.Lerp(currentBoundary, minBoundary, Time.deltaTime * scaleSpeed);
         else
             currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
