@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 7928735166902033672}
   m_Layer: 12
   m_Name: CompanionInteractable
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -945,7 +945,7 @@ GameObject:
   - component: {fileID: 4410604204002530337}
   m_Layer: 0
   m_Name: GrabDetect
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2125,7 +2125,7 @@ GameObject:
   - component: {fileID: 7930059680237973556}
   m_Layer: 0
   m_Name: GroundCheck
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2305,6 +2305,8 @@ MonoBehaviour:
   groundCheck: {fileID: 7930059680237973556}
   isGrounded: 0
   isFused: 0
+  transparentObject: {fileID: 0}
+  transparentObjectSize: {x: 0, y: 0, z: 0}
 --- !u!114 &8492369182405733457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2402,7 +2404,7 @@ GameObject:
   - component: {fileID: 7718147140371503937}
   m_Layer: 0
   m_Name: ObjectHolder
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2415,7 +2417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8392303146868569785}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8000002, y: 0.00999999, z: 0}
+  m_LocalPosition: {x: 1.8000002, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4211348292944396770}
