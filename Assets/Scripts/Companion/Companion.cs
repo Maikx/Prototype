@@ -30,6 +30,11 @@ public class Companion : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
+    private void FixedUpdate()
+    {
+        Movement();
+    }
+
     private void Update()
     {
         CompanionInteraction();
@@ -48,24 +53,27 @@ public class Companion : MonoBehaviour
         }
     }
 
+    public void Movement()
+    {
+        this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        point = Camera.main.WorldToScreenPoint(transform.position);
+
+        Vector3 direction = (Vector3)(Input.mousePosition - point);
+        direction.Normalize();
+
+        this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
+    }
+
     /// <summary>
     /// Makes companion move with cursor & specifies distance from bond object (player)
     /// </summary>
     public void Boundary()
     {
-        this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        point = Camera.main.WorldToScreenPoint(transform.position);
-
         if (gameObject.transform.position.x > player.transform.position.x + currentBoundary)
             gameObject.transform.position = new Vector2(player.transform.position.x + currentBoundary, gameObject.transform.position.y);
 
         else if (gameObject.transform.position.x < player.transform.position.x - currentBoundary)
             gameObject.transform.position = new Vector2(player.transform.position.x - currentBoundary, gameObject.transform.position.y);
-
-        Vector3 direction = (Vector3)(Input.mousePosition - point);
-        direction.Normalize();
-
-        this.GetComponent<Rigidbody2D>().AddForce(direction * movementSpeed, ForceMode2D.Impulse);
 
         if (player.GetComponent<PlayerController>().hInput != 0)
             currentBoundary = Mathf.Lerp(currentBoundary, minBoundary, Time.deltaTime * scaleSpeed);
