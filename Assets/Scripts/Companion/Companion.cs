@@ -8,7 +8,6 @@ public class Companion : MonoBehaviour
     public GameObject player;
 
     [Header("Function Options")]
-    [SerializeField] private bool canInteract = true;
     private float t0;
     private bool shortClick;
 
