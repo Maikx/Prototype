@@ -20,13 +20,13 @@ public class Companion : MonoBehaviour
 
     [HideInInspector]public Vector3 point;
     [HideInInspector]public GameObject interactable;
+    [HideInInspector] public bool isGrabbed;
 
     private void Start()
     {
         t0 = 0;
         shortClick = false;
         cam = Camera.main;
-        player = GameObject.FindWithTag("Player");
     }
 
     private void FixedUpdate()
@@ -39,6 +39,7 @@ public class Companion : MonoBehaviour
         CompanionInteraction();
         MouseShortClick();
         Boundary();
+        CompanionAnimator();
     }
 
     void MouseShortClick()
@@ -84,20 +85,38 @@ public class Companion : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && interactable != null)
         {
-            interactable.GetComponent<CompanionInteractableBehavior>().HeldInteract();
+            if (interactable.gameObject.tag != "Player")
+                interactable.GetComponent<CompanionInteractableBehavior>().HeldInteract();
+            
+            if (interactable.gameObject.tag == "Player")
+            {
+                Debug.Log("Grabbed");
+                player.GetComponent<PlayerController>().CanMove = false;
+                player.GetComponent<Rigidbody2D>().isKinematic = true;
+                isGrabbed = true;
+                player.transform.parent = gameObject.transform;
+            }
         }
 
         else if (Input.GetMouseButtonUp(0) && interactable != null)
         {
-            interactable.GetComponent<CompanionInteractableBehavior>().HeldInteractStop();
+            if (interactable.gameObject.tag != "Player")
+                interactable.GetComponent<CompanionInteractableBehavior>().HeldInteractStop();
+            
+            if (interactable.gameObject.tag == "Player")
+            {
+                Debug.Log("Not Grabbed");
+                player.GetComponentInParent<PlayerController>().CanMove = true;
+                player.GetComponent<Rigidbody2D>().isKinematic = false;
+                isGrabbed = false;
+                player.transform.parent = null;
+            }
         }
 
         else if (shortClick && interactable != null)
         {
             interactable.GetComponent<CompanionInteractableBehavior>().Interact();
             shortClick = false;
-            if (interactable.gameObject.tag == "Player")
-                Destroy(gameObject);
         }
     }
 
@@ -121,5 +140,16 @@ public class Companion : MonoBehaviour
         {
             interactable = null;
         }
+    }
+
+    /// <summary>
+    /// This manages the companion's movement animator, not the animations!
+    /// </summary>
+    public void CompanionAnimator()
+    {
+        //if (hInput != 0 || vInput != 0) anim.SetBool("isMoving", true);
+        //else anim.SetBool("isMoving", false);
+        //anim.SetBool("isGrounded", isGrounded);
+        //anim.SetBool("isGrabbed", oG.isGrabbed);
     }
 }

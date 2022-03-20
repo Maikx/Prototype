@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public CheckPointManager checkPointManager;
 
-    public bool CanMove { get; private set; } = true;
+    public bool CanMove { get; set; } = true;
     public bool IsMoving { get; private set; }
     private bool isJumping => canJump && Input.GetKey(jumpKey);
     private bool isBarking => canBark && Input.GetKey(barkKey);
@@ -39,10 +39,7 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 8;
     public float grabSpeed = 4;
     public float airborneSpeed = 4;
-    public float jumpDelay = 2;
-    public float timeZeroToMax = 2.5f;
     public float jumpForce = 10;
-    public float gravity = -20;
     [HideInInspector] private Vector3 direction;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
@@ -99,7 +96,11 @@ public class PlayerController : MonoBehaviour
             HandleMovementInput();
             PlayerAnimator();
         }
-        CheckPlayerLookingDirection();
+
+        if(!oG.isGrabbed)
+        {
+            CheckPlayerLookingDirection();
+        }
 
         //test HealthStystem
         if (Input.GetKeyDown(KeyCode.K)) healthManager.OnDamage(1);
@@ -195,7 +196,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void PlayerAnimator()
     {
-        anim.SetInteger("hInput", Mathf.RoundToInt(Input.GetAxis("Horizontal")));
+        if(hInput != 0 || vInput != 0) anim.SetBool("isMoving", true);
+        else anim.SetBool("isMoving", false);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isGrabbed", oG.isGrabbed);
     }
