@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public HealthManager healthManager;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public CheckPointManager checkPointManager;
+    [HideInInspector] public Thorns thorns;
 
     public bool CanMove { get; private set; } = true;
     public bool IsMoving { get; private set; }
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isGrounded;
     [HideInInspector]public bool isFused;
 
+    public int health;
+
 
     void Awake()
     {
@@ -73,17 +76,20 @@ public class PlayerController : MonoBehaviour
         bI = gameObject.GetComponent<BarkInteraction>();
         anim = gameObject.GetComponent<Animator>();
         Physics.SyncTransforms();
+        
     }
 
     void Start()
     {
         healthManager = GameObject.FindObjectOfType<HealthManager>();
         checkPointManager = GameObject.FindObjectOfType<CheckPointManager>();
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        transform.position = gameManager.PlayerRestartPos;
+        //gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>(); <- null reference
+        //transform.position = gameManager.PlayerRestartPos;
+        thorns = GameObject.FindObjectOfType<Thorns>();
 
         //This is used to gain speed overtime
         accelRatePerSec = runSpeed / timeZeroToMax;
+        health = 1;
     }
 
 
@@ -106,6 +112,14 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+
+        if(thorns.OnTouchTrap() == true)
+        {
+            health = 0;
+            Debug.Log("player Health = 0, restart level");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        
     }
 
     /// <summary>
@@ -231,4 +245,5 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isGrabbed", oG.isGrabbed);
     }
+
 }
