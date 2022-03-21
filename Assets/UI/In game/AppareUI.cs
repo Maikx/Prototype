@@ -8,12 +8,16 @@ public class AppareUI : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
+        if (UI_Component != null)
         UI_Component.SetActive(true);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        UI_Component.SetActive(false);
-        Destroy(UI_Component);
+        if (UI_Component != null)
+        {
+            UI_Component.SetActive(false);
+            Destroy(UI_Component);
+        }
     }    
 }
