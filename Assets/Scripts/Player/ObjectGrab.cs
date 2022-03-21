@@ -36,7 +36,6 @@ public class ObjectGrab : MonoBehaviour
             RaycastHit2D grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.right * transform.localScale, rayDist);
 
             if(grabCheck == true)
-               //Debug.Log(grabCheck);
 
             if (grabCheck.collider != null && grabCheck.collider.gameObject.layer == 11)
             {

@@ -8,7 +8,6 @@ public class CompanionInteractableBehavior : MonoBehaviour
     public bool levitable;
     public bool stoppable;
     public bool pressable;
-    public bool fusable;
 
     /// <summary>
     /// Using the bools this script will understand what the interactable can do..(it wont do it if the script isn't present)
@@ -37,13 +36,6 @@ public class CompanionInteractableBehavior : MonoBehaviour
                 else
                     GetComponent<LeverBehavior>().isActive = true;
             }
-        }
-
-        if(fusable)
-        {
-            if (GetComponentInParent<PlayerController>() != null)
-                GetComponentInParent<PlayerController>().CompanionFusion();
-            
         }
     }
 
