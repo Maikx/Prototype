@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public ObjectGrab oG;
     [HideInInspector] public BarkInteraction bI;
     [HideInInspector] public Rigidbody2D rB;
-    [HideInInspector] public Animator anim;
+
+    [HideInInspector] public Animator stateMachine;
+    public Animator animHandler;
     private enum FacingDirectionHorizontal { Left, Right }
     private enum FacingDirectionVertical { Up, Down, None }
     [HideInInspector] public HealthManager healthManager;
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
         rB = gameObject.GetComponent<Rigidbody2D>();
         oG = gameObject.GetComponent<ObjectGrab>();
         bI = gameObject.GetComponent<BarkInteraction>();
-        anim = gameObject.GetComponent<Animator>();
+        stateMachine = gameObject.GetComponent<Animator>();
         Physics.SyncTransforms();
     }
 
@@ -91,16 +93,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(CanMove)
+        if (CanMove)
         {
             HandleMovementInput();
-            PlayerAnimator();
         }
 
         if(!oG.isGrabbed)
         {
             CheckPlayerLookingDirection();
         }
+
+        PlayerAnimationHandler();
+        PlayerStateMachine();
 
         //test HealthStystem
         if (Input.GetKeyDown(KeyCode.K)) healthManager.OnDamage(1);
@@ -194,11 +198,19 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// This manages the player's movement animator, not the animations!
     /// </summary>
-    public void PlayerAnimator()
+    public void PlayerStateMachine()
     {
-        if(hInput != 0 || vInput != 0) anim.SetBool("isMoving", true);
-        else anim.SetBool("isMoving", false);
-        anim.SetBool("isGrounded", isGrounded);
-        anim.SetBool("isGrabbed", oG.isGrabbed);
+        if(hInput != 0 || vInput != 0) stateMachine.SetBool("isMoving", true);
+        else stateMachine.SetBool("isMoving", false);
+        stateMachine.SetBool("isGrounded", isGrounded);
+        stateMachine.SetBool("isGrabbed", oG.isGrabbed);
+    }
+
+    public void PlayerAnimationHandler()
+    {
+        if (hInput != 0 || vInput != 0) animHandler.SetBool("isMoving", true);
+        else animHandler.SetBool("isMoving", false);
+        animHandler.SetBool("isGrounded", isGrounded);
+        animHandler.SetBool("isGrabbed", oG.isGrabbed);
     }
 }

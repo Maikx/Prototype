@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 7928735166902033672}
   m_Layer: 12
   m_Name: CompanionInteractable
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,6 @@ MonoBehaviour:
   levitable: 0
   stoppable: 0
   pressable: 0
-  fusable: 1
 --- !u!61 &7928735166902033672
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -109,7 +108,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05324435, y: -0.4404772}
+  m_Offset: {x: 0.18, y: 0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -120,7 +119,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.12}
+  m_Size: {x: 1.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &155862531441510594
 GameObject:
@@ -1914,9 +1913,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7445073774226993907}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d47fa35af1b6f104dbb59e01ce294e7c, type: 2}
+  m_Controller: {fileID: 9100000, guid: bc9c51d31baf837408fefc52f6a85e9a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2271,40 +2270,31 @@ MonoBehaviour:
   oG: {fileID: 0}
   bI: {fileID: 0}
   rB: {fileID: 0}
-  anim: {fileID: 7930059681890519264}
+  stateMachine: {fileID: 0}
+  animHandler: {fileID: 7751643798636106083}
   healthManager: {fileID: 0}
   gameManager: {fileID: 0}
   checkPointManager: {fileID: 0}
-  canRun: 1
   canJump: 1
   canBark: 1
   currentDirectionHorintal: 1
   currentDirectionVertical: 2
-  sprintKey: 304
   jumpKey: 32
   barkKey: 113
   walkSpeed: 6
   grabSpeed: 2
   airborneSpeed: 4.5
-  jumpDelay: 2
-  runSpeed: 20
-  timeZeroToMax: 2.5
   jumpForce: 6.5
-  gravity: -9.8
   hInput: 0
   vInput: 0
-  accelRatePerSec: 0
   currentSpeed: 0
   jumpTimer: 0
-  fusedWalkSpeed: 12
-  fusedJumpForce: 15
   groundLayer:
     serializedVersion: 2
     m_Bits: 2304
   companionPrefab: {fileID: 2755364555620864689, guid: 1f86dac5e622ab94885b7a1a46159476, type: 3}
   groundCheck: {fileID: 7930059680237973556}
   isGrounded: 0
-  isFused: 0
   transparentObject: {fileID: 0}
   transparentObjectSize: {x: 0, y: 0, z: 0}
 --- !u!114 &8492369182405733457
