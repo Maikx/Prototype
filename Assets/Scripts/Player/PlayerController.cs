@@ -66,9 +66,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isGrounded;
     [HideInInspector]public bool isFused;
 
-    public int health;
-
-
     void Awake()
     {
         rB = gameObject.GetComponent<Rigidbody2D>();
@@ -83,13 +80,13 @@ public class PlayerController : MonoBehaviour
     {
         healthManager = GameObject.FindObjectOfType<HealthManager>();
         checkPointManager = GameObject.FindObjectOfType<CheckPointManager>();
-        //gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>(); <- null reference
-        //transform.position = gameManager.PlayerRestartPos;
         thorns = GameObject.FindObjectOfType<Thorns>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         //This is used to gain speed overtime
         accelRatePerSec = runSpeed / timeZeroToMax;
-        health = 1;
+
+        transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
     }
 
 
@@ -103,23 +100,21 @@ public class PlayerController : MonoBehaviour
         }
         CheckPlayerLookingDirection();
 
-        //test HealthStystem
-        if (Input.GetKeyDown(KeyCode.K)) healthManager.OnDamage(1);
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
-            if (!healthManager.playerIsLive)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (thorns.OnTouchTrap() == true) // <- works
+        {
+            GameManager.instance.SetHealth(0);
+
+            if(GameManager.instance.health == 0)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+           
         }
-
-        if(thorns.OnTouchTrap() == true)
-        {
-            health = 0;
-            Debug.Log("player Health = 0, restart level");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        
     }
 
     /// <summary>

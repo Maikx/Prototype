@@ -25,7 +25,4 @@ public class Thorns : MonoBehaviour
     }
 
     // l'oggetto (Health Manager non è presente nel prefab: player)
-
-
-
 }
