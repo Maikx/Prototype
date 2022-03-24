@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public CheckPointManager checkPointManager;
     [HideInInspector] public Thorns thorns;
 
-    public bool CanMove { get; private set; } = true;
+    public bool CanMove { get; set; } = true;
     public bool IsMoving { get; private set; }
     private bool isRunning => canRun && Input.GetKey(sprintKey);
     private bool isJumping => canJump && Input.GetKey(jumpKey);
