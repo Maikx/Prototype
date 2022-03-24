@@ -9333,6 +9333,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7930059682083846244, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
   m_PrefabInstance: {fileID: 697523623}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1113833632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7930059682083846245, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
+  m_PrefabInstance: {fileID: 697523623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113833628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4986895510cad34bb0e0782ad55e421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1120562392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15263,10 +15274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdf2e754ae589c4291722cf95106e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthManager: {fileID: 0}
-  playerController: {fileID: 0}
-  CheckPointManager: {fileID: 0}
-  PlayerRestartPos: {x: 45, y: 6, z: 0}
+  playerController: {fileID: 1113833632}
+  CheckpointManager: {fileID: 0}
+  RestartPlayerPosition: {x: 45, y: 6}
+  health: 0
 --- !u!4 &1887130595
 Transform:
   m_ObjectHideFlags: 0
@@ -16494,7 +16505,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037461664}
-  m_LocalRotation: {x: 0.06584362, y: 0.000000008584522, z: -5.664654e-10, w: 0.99783}
+  m_LocalRotation: {x: 0.06584362, y: -0.00000000858452, z: 5.664652e-10, w: 0.99783}
   m_LocalPosition: {x: 42.727295, y: 7.659831, z: -18.860693}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
