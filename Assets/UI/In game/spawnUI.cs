@@ -2,22 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppareUI : MonoBehaviour
+public class spawnUI : MonoBehaviour
 {
     public GameObject UI_Component;
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (UI_Component != null)
         UI_Component.SetActive(true);
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D col)
     {
         if (UI_Component != null)
-        {
-            UI_Component.SetActive(false);
-            Destroy(UI_Component);
-        }
-    }    
+        Destroy(UI_Component);
+    }
 }

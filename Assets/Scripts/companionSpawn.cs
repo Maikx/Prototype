@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class appareUnCompagno : MonoBehaviour
+public class companionSpawn : MonoBehaviour
 {
     public GameObject companion;
 
-    public void Awake()
+    void Start ()
     {
         companion.SetActive(false);
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter()
     {
         companion.SetActive(true);
     }
