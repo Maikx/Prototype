@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public GameObject companionPrefab;
     public Transform groundCheck;
-    [HideInInspector]public bool isGrounded;
+    [HideInInspector] public bool isGrounded;
 
     public GameObject transparentObject;
     public Vector3 transparentObjectSize;
@@ -71,8 +71,13 @@ public class PlayerController : MonoBehaviour
     {
         healthManager = GameObject.FindObjectOfType<HealthManager>();
         checkPointManager = GameObject.FindObjectOfType<CheckPointManager>();
+        thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        transform.position = gameManager.PlayerRestartPos;
+
+        //This is used to gain speed overtime
+        accelRatePerSec = runSpeed / timeZeroToMax;
+
+        transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
     }
 
     private void FixedUpdate()
@@ -90,38 +95,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void Update()
     {
-        if (CanMove)
+        if(CanMove)
         {
             HandleMovementInput();
+            PlayerAnimator();
+            CheckIfCanDoStuff();
         }
+        CheckPlayerLookingDirection();
 
-        if(!oG.isGrabbed)
+        if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
-            CheckPlayerLookingDirection();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        PlayerAnimationHandler();
-        PlayerStateMachine();
+        //if (thorns.OnTouchTrap() == true) // <- works
+        //{
+            //GameManager.instance.SetHealth(0);
 
-        //test HealthStystem
-        if (Input.GetKeyDown(KeyCode.K)) healthManager.OnDamage(1);
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            if (!healthManager.playerIsLive)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-        }
-
-        TransparentObjcetResizing();
+           // if(GameManager.instance.health == 0)
+            //{
+               // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //}
+           
+        //}
     }
 
     void TransparentObjcetResizing()
     {
-        if(transparentObject != null)
+        if (transparentObject != null)
             transparentObject.gameObject.transform.localScale = transparentObjectSize;
     }
 
@@ -200,7 +203,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void PlayerStateMachine()
     {
-        if(hInput != 0 || vInput != 0) stateMachine.SetBool("isMoving", true);
+        if (hInput != 0 || vInput != 0) stateMachine.SetBool("isMoving", true);
         else stateMachine.SetBool("isMoving", false);
         stateMachine.SetBool("isGrounded", isGrounded);
         stateMachine.SetBool("isGrabbed", oG.isGrabbed);

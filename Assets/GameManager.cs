@@ -1,15 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public HealthManager healthManager;
+
+    //public HealthManager healthManager;  // <- delete once tested
     public PlayerController playerController;
-    public CheckPointManager CheckPointManager;
-    public Vector3 PlayerRestartPos;
+    public CheckPointManager CheckpointManager;
+
+    public Vector2 RestartPlayerPosition;
+
+    public int health;
 
 
     private void Awake()
@@ -26,20 +28,23 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
-    public void Respawn()  //// <--- move the method here once tested
+    private void Start()
     {
-        /*
-        if (!healthManager.playerIsLive)
-        {
-            CheckPointManager.LastCheckpointActive();
-        }
-        */
+        CheckpointManager = GameObject.FindObjectOfType<CheckPointManager>();
+        health = 1;
+    }
+    public void RespawnPlayer() // <- add this 
+    {  
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public int SetHealth(int value)
+    {
+        return health = value;
     }
 
     public void Update()
     {
-        //Respawn();
+
     }
 
 }

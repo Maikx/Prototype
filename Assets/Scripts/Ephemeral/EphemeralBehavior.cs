@@ -25,6 +25,7 @@ public class EphemeralBehavior : MonoBehaviour
 
     public void WellChange()
     {
+        if (assignedWell != null)
         assignedWell.GetComponent<EphemeralWellBehavior>().DeactivateWell();
     }
 
@@ -59,7 +60,7 @@ public class EphemeralBehavior : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
-        else if(collision.gameObject.layer == 8)
+        else if(collision.gameObject.layer == 8 && assignedWell != null)
         {
             assignedWell.GetComponent<EphemeralWellBehavior>().Reset();
         }
