@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     [HideInInspector] public bool isGrounded;
 
+    public Thorns thorns;
     public GameObject transparentObject;
     public Vector3 transparentObjectSize;
 
@@ -73,10 +74,6 @@ public class PlayerController : MonoBehaviour
         checkPointManager = GameObject.FindObjectOfType<CheckPointManager>();
         thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
-        //This is used to gain speed overtime
-        accelRatePerSec = runSpeed / timeZeroToMax;
-
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
     }
 
@@ -100,8 +97,8 @@ public class PlayerController : MonoBehaviour
         if(CanMove)
         {
             HandleMovementInput();
-            PlayerAnimator();
-            CheckIfCanDoStuff();
+            PlayerStateMachine();
+            PlayerAnimationHandler();
         }
         CheckPlayerLookingDirection();
 
@@ -110,16 +107,16 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        //if (thorns.OnTouchTrap() == true) // <- works
-        //{
-            //GameManager.instance.SetHealth(0);
+        if (thorns != null && thorns.OnTouchTrap() == true) // <- works
+        {
+            GameManager.instance.SetHealth(0);
 
-           // if(GameManager.instance.health == 0)
-            //{
-               // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //}
+            if(GameManager.instance.health == 0)
+            {
+               SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
            
-        //}
+        }
     }
 
     void TransparentObjcetResizing()
@@ -203,7 +200,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void PlayerStateMachine()
     {
-        if (hInput != 0 || vInput != 0) stateMachine.SetBool("isMoving", true);
+        if (hInput != 0) stateMachine.SetBool("isMoving", true);
         else stateMachine.SetBool("isMoving", false);
         stateMachine.SetBool("isGrounded", isGrounded);
         stateMachine.SetBool("isGrabbed", oG.isGrabbed);
@@ -211,7 +208,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAnimationHandler()
     {
-        if (hInput != 0 || vInput != 0) animHandler.SetBool("isMoving", true);
+        if (hInput != 0) animHandler.SetBool("isMoving", true);
         else animHandler.SetBool("isMoving", false);
         animHandler.SetBool("isGrounded", isGrounded);
         animHandler.SetBool("isGrabbed", oG.isGrabbed);
