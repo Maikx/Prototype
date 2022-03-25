@@ -4923,7 +4923,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553991896}
-  m_LocalRotation: {x: 0.06459251, y: -0.000000008585227, z: 5.557019e-10, w: 0.99791175}
+  m_LocalRotation: {x: 0.06459251, y: 0.000000008585221, z: -5.557015e-10, w: 0.99791175}
   m_LocalPosition: {x: 47, y: 9.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8016,7 +8016,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920689918}
-  m_LocalRotation: {x: 0.06459251, y: -0.000000008585227, z: 5.557019e-10, w: 0.99791175}
+  m_LocalRotation: {x: 0.06459251, y: 0.000000008585221, z: -5.557015e-10, w: 0.99791175}
   m_LocalPosition: {x: 42.727295, y: 8.759831, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -12429,6 +12429,18 @@ PrefabInstance:
     - target: {fileID: 5321693668084975079, guid: b07290edb08d99845be0558320dcdf15, type: 3}
       propertyPath: m_Name
       value: Blocco10x6_gradino
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079095280773267715, guid: b07290edb08d99845be0558320dcdf15, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079095280773267715, guid: b07290edb08d99845be0558320dcdf15, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0015888214
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079095280773267715, guid: b07290edb08d99845be0558320dcdf15, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08523977
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b07290edb08d99845be0558320dcdf15, type: 3}
