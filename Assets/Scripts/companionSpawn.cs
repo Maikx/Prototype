@@ -11,7 +11,7 @@ public class companionSpawn : MonoBehaviour
         companion.SetActive(false);
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter2D(Collider2D col)
     {
         companion.SetActive(true);
     }
