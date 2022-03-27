@@ -357,6 +357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8235420828221870194, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
 --- !u!1 &482215792 stripped
@@ -954,10 +958,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdf2e754ae589c4291722cf95106e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthManager: {fileID: 0}
   playerController: {fileID: 0}
-  CheckPointManager: {fileID: 0}
-  PlayerRestartPos: {x: 0, y: 0, z: 0}
+  CheckpointManager: {fileID: 0}
+  RestartPlayerPosition: {x: 0, y: 0}
+  health: 0
 --- !u!4 &1719418075
 Transform:
   m_ObjectHideFlags: 0
@@ -1035,5 +1039,9 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 482215792}
+    - target: {fileID: 2755364555620864699, guid: 1f86dac5e622ab94885b7a1a46159476, type: 3}
+      propertyPath: timeAfterDropping
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f86dac5e622ab94885b7a1a46159476, type: 3}

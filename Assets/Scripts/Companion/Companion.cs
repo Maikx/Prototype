@@ -18,6 +18,11 @@ public class Companion : MonoBehaviour
     public float movementSpeed;
     public float scaleSpeed;
 
+    [Header("PlayerGrab")]
+    public float timeAfterBlinking;
+    public float timeAfterDropping;
+    private float currentTime;
+
     [HideInInspector]public Vector3 point;
     [HideInInspector]public GameObject interactable;
     [HideInInspector] public bool isGrabbed;
@@ -36,10 +41,12 @@ public class Companion : MonoBehaviour
 
     private void Update()
     {
-        CompanionInteraction();
+        CompanionInteractionOnObjects();
+        CompanionInteractionOnPlayer();
         MouseShortClick();
         Boundary();
         CompanionAnimator();
+        Timer();
     }
 
     void MouseShortClick()
@@ -81,42 +88,52 @@ public class Companion : MonoBehaviour
             currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
     }
 
-    private void CompanionInteraction()
+
+    private void CompanionInteractionOnPlayer()
     {
-        if (Input.GetMouseButtonDown(0) && interactable != null)
+        if (Input.GetMouseButtonDown(1) && interactable != null && interactable.gameObject.tag == "Player")
         {
-            if (interactable.gameObject.tag != "Player")
+            player.GetComponent<PlayerController>().CanMove = false;
+            player.GetComponent<Rigidbody2D>().isKinematic = true;
+            isGrabbed = true;
+            player.transform.parent = gameObject.transform;
+            currentTime = timeAfterDropping;
+        }
+
+        else if (Input.GetMouseButtonUp(1) && interactable != null && interactable.gameObject.tag == "Player" || currentTime == 0 && interactable != null && interactable.gameObject.tag == "Player")
+        {
+            player.GetComponentInParent<PlayerController>().CanMove = true;
+            player.GetComponent<Rigidbody2D>().isKinematic = false;
+            isGrabbed = false;
+            player.transform.parent = null;
+        }
+    }
+
+    private void CompanionInteractionOnObjects()
+    {
+        if (Input.GetMouseButtonDown(0) && interactable != null && interactable.gameObject.tag != "Player")
+        {
                 interactable.GetComponent<CompanionInteractableBehavior>().HeldInteract();
-            
-            if (interactable.gameObject.tag == "Player")
-            {
-                Debug.Log("Grabbed");
-                player.GetComponent<PlayerController>().CanMove = false;
-                player.GetComponent<Rigidbody2D>().isKinematic = true;
-                isGrabbed = true;
-                player.transform.parent = gameObject.transform;
-            }
         }
 
-        else if (Input.GetMouseButtonUp(0) && interactable != null)
+        else if (Input.GetMouseButtonUp(0) && interactable != null && interactable.gameObject.tag != "Player")
         {
-            if (interactable.gameObject.tag != "Player")
                 interactable.GetComponent<CompanionInteractableBehavior>().HeldInteractStop();
-            
-            if (interactable.gameObject.tag == "Player")
-            {
-                Debug.Log("Not Grabbed");
-                player.GetComponentInParent<PlayerController>().CanMove = true;
-                player.GetComponent<Rigidbody2D>().isKinematic = false;
-                isGrabbed = false;
-                player.transform.parent = null;
-            }
         }
 
-        else if (shortClick && interactable != null)
+        else if (shortClick && interactable != null && interactable.gameObject.tag != "Player")
         {
             interactable.GetComponent<CompanionInteractableBehavior>().Interact();
             shortClick = false;
+        }
+    }
+
+    void Timer()
+    {
+        currentTime -= Time.deltaTime;
+        if (currentTime < 0)
+        {
+            currentTime = 0;
         }
     }
 
@@ -136,7 +153,12 @@ public class Companion : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 12 || collision.gameObject.tag == "Player")
+        if (collision.gameObject.layer == 12)
+        {
+            interactable = null;
+        }
+
+        else if (collision.gameObject.tag == "Player")
         {
             interactable = null;
         }
