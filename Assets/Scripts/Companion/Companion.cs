@@ -6,6 +6,7 @@ public class Companion : MonoBehaviour
 {
     public Camera cam;
     public GameObject player;
+    private Renderer _renderer;
 
     [Header("Function Options")]
     private float t0;
@@ -18,20 +19,26 @@ public class Companion : MonoBehaviour
     public float movementSpeed;
     public float scaleSpeed;
 
-    [Header("PlayerGrab")]
+    [Header("Grab Parameters")]
+    public float grabMovementSpeed;
     public float timeAfterBlinking;
     public float timeAfterDropping;
     private float currentTime;
 
     [HideInInspector]public Vector3 point;
     [HideInInspector]public GameObject interactable;
-    [HideInInspector] public bool isGrabbed;
+    [HideInInspector]public bool canGrab;
+    [HideInInspector]public bool isGrabbed;
+    [HideInInspector]public bool isBlinking;
+
 
     private void Start()
     {
         t0 = 0;
         shortClick = false;
         cam = Camera.main;
+        _renderer = gameObject.GetComponent<Renderer>();
+        currentTime = timeAfterDropping;
     }
 
     private void FixedUpdate()
@@ -41,15 +48,16 @@ public class Companion : MonoBehaviour
 
     private void Update()
     {
-        CompanionInteractionOnObjects();
-        CompanionInteractionOnPlayer();
-        MouseShortClick();
+        LeftMouseInteraction();
+        RightMouseInteraction();
+        LeftMouseShortClick();
         Boundary();
         CompanionAnimator();
         Timer();
+        BlinkEffect();
     }
 
-    void MouseShortClick()
+    void LeftMouseShortClick()
     {
         if (Input.GetMouseButtonDown(0))
             t0 = Time.time;
@@ -68,7 +76,8 @@ public class Companion : MonoBehaviour
         Vector3 direction = (Vector3)(Input.mousePosition - point);
         direction.Normalize();
 
-        this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
+        if(isGrabbed == false) this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
+        else this.GetComponent<Rigidbody2D>().velocity = direction * grabMovementSpeed;
     }
 
     /// <summary>
@@ -89,29 +98,29 @@ public class Companion : MonoBehaviour
     }
 
 
-    private void CompanionInteractionOnPlayer()
+    private void RightMouseInteraction()
     {
-        if (Input.GetMouseButtonDown(1) && interactable != null && interactable.gameObject.tag == "Player")
+        if (Input.GetMouseButtonDown(1) && interactable != null && interactable.gameObject.tag == "Player" && canGrab == true)
         {
-            player.GetComponent<PlayerController>().CanMove = false;
-            player.GetComponent<Rigidbody2D>().isKinematic = true;
-            isGrabbed = true;
-            player.transform.parent = gameObject.transform;
-            currentTime = timeAfterDropping;
+                isGrabbed = true;
+                currentTime = timeAfterDropping;
+                player.GetComponent<PlayerController>().CanMove = false;
+                player.GetComponent<Rigidbody2D>().isKinematic = true;
+                player.transform.parent = gameObject.transform;
         }
 
-        else if (Input.GetMouseButtonUp(1) && interactable != null && interactable.gameObject.tag == "Player" || currentTime == 0 && interactable != null && interactable.gameObject.tag == "Player")
+        else if (Input.GetMouseButtonUp(1) && interactable != null && interactable.gameObject.tag == "Player" || interactable != null && currentTime == 0)
         {
-            player.GetComponentInParent<PlayerController>().CanMove = true;
-            player.GetComponent<Rigidbody2D>().isKinematic = false;
-            isGrabbed = false;
-            player.transform.parent = null;
+                isGrabbed = false;
+                player.GetComponentInParent<PlayerController>().CanMove = true;
+                player.GetComponent<Rigidbody2D>().isKinematic = false;
+                player.transform.parent = null;
         }
     }
 
-    private void CompanionInteractionOnObjects()
+    private void LeftMouseInteraction()
     {
-        if (Input.GetMouseButtonDown(0) && interactable != null && interactable.gameObject.tag != "Player")
+        if (Input.GetMouseButtonDown(0) && interactable != null && interactable.gameObject.tag != "Player" && canGrab)
         {
                 interactable.GetComponent<CompanionInteractableBehavior>().HeldInteract();
         }
@@ -128,12 +137,48 @@ public class Companion : MonoBehaviour
         }
     }
 
+    void BlinkEffect()
+    {
+        if (isBlinking == true)
+        {
+            if (Time.fixedTime % .5 < .2)
+            {
+                _renderer.enabled = false;
+            }
+            else
+            {
+                _renderer.enabled = true;
+            }
+        }
+        else
+        {
+            _renderer.enabled = true;
+        }
+    }
+
     void Timer()
     {
-        currentTime -= Time.deltaTime;
-        if (currentTime < 0)
+        if (isGrabbed)
         {
-            currentTime = 0;
+            currentTime -= Time.deltaTime;
+            if (currentTime < timeAfterBlinking) isBlinking = true;
+        }
+        else
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime > timeAfterBlinking) isBlinking = false;
+        }
+
+        if (currentTime < 0) currentTime = 0;
+        else if (currentTime > timeAfterDropping) currentTime = timeAfterDropping;
+
+        if (currentTime >= timeAfterDropping)
+        {
+            canGrab = true;
+        }
+        else
+        {
+            canGrab = false;
         }
     }
 
