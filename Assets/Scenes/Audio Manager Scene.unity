@@ -477,6 +477,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1852485246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852485244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e4ccf3803f94b4cb947c7d46e25f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DogFootStep1: {fileID: 8300000, guid: 4aca2955d50c4c448b3dbe75072991bf, type: 3}
+  DogFootStep2: {fileID: 8300000, guid: 0150d22208cd48348926f98d4302b280, type: 3}
+  DogFootStep3: {fileID: 8300000, guid: 6c760534dc29883439feebad74b81cae, type: 3}
+  DogFootStep4: {fileID: 8300000, guid: 11482671d36489b47b846429b13f7c5e, type: 3}
+  DogFootSepArray:
+  - {fileID: 8300000, guid: 4aca2955d50c4c448b3dbe75072991bf, type: 3}
+  - {fileID: 8300000, guid: 0150d22208cd48348926f98d4302b280, type: 3}
+  - {fileID: 8300000, guid: 6c760534dc29883439feebad74b81cae, type: 3}
+  - {fileID: 8300000, guid: 11482671d36489b47b846429b13f7c5e, type: 3}
 --- !u!114 &1852485249 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7930059682083846245, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
