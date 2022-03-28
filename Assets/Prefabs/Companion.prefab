@@ -157,9 +157,14 @@ MonoBehaviour:
   maxBoundary: 10
   movementSpeed: 10
   scaleSpeed: 1
+  grabMovementSpeed: 4
+  timeAfterBlinking: 2
+  timeAfterDropping: 4
   point: {x: 0, y: 0, z: 0}
   interactable: {fileID: 0}
+  canGrab: 0
   isGrabbed: 0
+  isBlinking: 0
 --- !u!95 &1589754746690928414
 Animator:
   serializedVersion: 3
