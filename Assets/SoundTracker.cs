@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class SoundTracker : MonoBehaviour
 {
-    public AudioSource[] soundFX;
+    public AudioSource randomSound;
+    public AudioSource[] audioSources;
   
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            soundFX[0].Play();
+            audioSources[0].Play();
         }
+    }
+    void RandomSoundness()
+
+    {
+
+        randomSound.clip = audioSources[Random.Range(0, audioSources.Length)];
+
+        randomSound.Play();
+
     }
 }
