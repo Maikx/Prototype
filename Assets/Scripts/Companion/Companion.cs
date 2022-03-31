@@ -51,7 +51,7 @@ public class Companion : MonoBehaviour
         LeftMouseInteraction();
         RightMouseInteraction();
         LeftMouseShortClick();
-        Boundary();
+        //Boundary();
         CompanionAnimator();
         Timer();
         BlinkEffect();
@@ -83,19 +83,19 @@ public class Companion : MonoBehaviour
     /// <summary>
     /// Makes companion move with cursor & specifies distance from bond object (player)
     /// </summary>
-    public void Boundary()
-    {
-        if (gameObject.transform.position.x > player.transform.position.x + currentBoundary)
-            gameObject.transform.position = new Vector2(player.transform.position.x + currentBoundary, gameObject.transform.position.y);
+    //public void Boundary()
+    //{
+        //if (gameObject.transform.position.x > player.transform.position.x + currentBoundary)
+            //gameObject.transform.position = new Vector2(player.transform.position.x + currentBoundary, gameObject.transform.position.y);
 
-        else if (gameObject.transform.position.x < player.transform.position.x - currentBoundary)
-            gameObject.transform.position = new Vector2(player.transform.position.x - currentBoundary, gameObject.transform.position.y);
+        //else if (gameObject.transform.position.x < player.transform.position.x - currentBoundary)
+            //gameObject.transform.position = new Vector2(player.transform.position.x - currentBoundary, gameObject.transform.position.y);
 
-        if (player.GetComponent<PlayerController>().hInput != 0)
-            currentBoundary = Mathf.Lerp(currentBoundary, minBoundary, Time.deltaTime * scaleSpeed);
-        else
-            currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
-    }
+        //if (player.GetComponent<PlayerController>().hInput != 0)
+            //currentBoundary = Mathf.Lerp(currentBoundary, minBoundary, Time.deltaTime * scaleSpeed);
+        //else
+            //currentBoundary = Mathf.Lerp(currentBoundary, maxBoundary, Time.deltaTime * scaleSpeed);
+    //}
 
 
     private void RightMouseInteraction()
