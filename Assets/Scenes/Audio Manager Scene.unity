@@ -970,8 +970,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61985a95665c66429c99329b19b5856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundFX:
-  - {fileID: 1852485245}
+  randomSound: {fileID: 1852485245}
+  audioSources:
+  - {fileID: 8300000, guid: c114d88097e0df744baf2186cb85da34, type: 3}
+  - {fileID: 8300000, guid: c4784f8d380dedc478cfc8c883518b4f, type: 3}
+  - {fileID: 8300000, guid: c5f2121ff10a352448594607cb5a6178, type: 3}
+  - {fileID: 8300000, guid: 85d250bd15d10424f9ca8ad99770886a, type: 3}
 --- !u!1 &1864050106
 GameObject:
   m_ObjectHideFlags: 0

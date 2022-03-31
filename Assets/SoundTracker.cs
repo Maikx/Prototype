@@ -5,14 +5,14 @@ using UnityEngine;
 public class SoundTracker : MonoBehaviour
 {
     public AudioSource randomSound;
-    public AudioSource[] audioSources;
+    public AudioClip[] audioSources;
   
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            audioSources[0].Play();
+            RandomSoundness();
         }
     }
     void RandomSoundness()
