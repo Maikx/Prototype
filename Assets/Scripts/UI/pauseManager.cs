@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class pauseManager : MonoBehaviour
+{
+    public GameObject pnlPause;
+    public GameObject pnlSettings;
+    public GameObject pnlAudio;
+    public GameObject pnlControls;
+    public GameObject pnlVideo;
+
+    public bool isPause = false;
+
+    public void Update()
+    {
+        if (Input.GetKeyDown("escape") && isPause == false)
+        {
+            pnlPause.SetActive(true);
+            Time.timeScale = 0;
+            isPause = true;
+            Cursor.visible = true;
+        }
+        else if (Input.GetKeyDown("escape") && isPause == true)
+        {
+            pnlPause.SetActive(false);
+            Time.timeScale = 1;
+            isPause = false;
+            Cursor.visible = false;
+        }
+    }
+
+    public void OpenSetting()
+    {
+        pnlPause.SetActive(false);
+        pnlSettings.SetActive(true);
+    }
+
+    public void openAudioSettings()
+    {
+        pnlAudio.SetActive(true);
+        pnlControls.SetActive(false);
+        pnlVideo.SetActive(false);
+    }
+
+    public void openVideoSettings()
+    {
+        pnlAudio.SetActive(false);
+        pnlControls.SetActive(false);
+        pnlVideo.SetActive(true);
+    }
+
+    public void openControlsSettings()
+    {
+        pnlAudio.SetActive(false);
+        pnlControls.SetActive(true);
+        pnlVideo.SetActive(false);
+    }
+
+    public void returnMainMenu()
+    {
+        Application.Quit();
+    }
+
+    public void CloseSetting()
+    {
+        pnlPause.SetActive(true);
+        pnlSettings.SetActive(false);
+    }
+}
