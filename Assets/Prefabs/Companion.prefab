@@ -151,12 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe946b8d741b3c4bb7cf8145461b960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   player: {fileID: 0}
+  movementSpeed: 10
   minBoundary: 5
   maxBoundary: 10
-  movementSpeed: 10
   scaleSpeed: 1
+  stopDistance: 20
   grabMovementSpeed: 4
   timeAfterBlinking: 2
   timeAfterDropping: 4
@@ -165,6 +165,7 @@ MonoBehaviour:
   canGrab: 0
   isGrabbed: 0
   isBlinking: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!95 &1589754746690928414
 Animator:
   serializedVersion: 3
