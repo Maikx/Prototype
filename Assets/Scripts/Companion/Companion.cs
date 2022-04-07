@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Companion : MonoBehaviour
 {
-    public Camera cam;
+    [Header("Set These GameObjects!")]
     public GameObject player;
+    private Camera cam;
     private Renderer _renderer;
 
     [Header("Function Options")]
@@ -13,11 +14,13 @@ public class Companion : MonoBehaviour
     private bool shortClick;
 
     [Header("Parameters")]
+    public float movementSpeed;
     private float currentBoundary;
     public float minBoundary;
     public float maxBoundary;
-    public float movementSpeed;
     public float scaleSpeed;
+    public float stopDistance;
+
 
     [Header("Grab Parameters")]
     public float grabMovementSpeed;
@@ -30,6 +33,7 @@ public class Companion : MonoBehaviour
     [HideInInspector]public bool canGrab;
     [HideInInspector]public bool isGrabbed;
     [HideInInspector]public bool isBlinking;
+    [HideInInspector] public Vector3 direction;
 
 
     private void Start()
@@ -73,11 +77,16 @@ public class Companion : MonoBehaviour
         this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         point = Camera.main.WorldToScreenPoint(transform.position);
 
-        Vector3 direction = (Vector3)(Input.mousePosition - point);
+        direction = (Input.mousePosition - point);
         direction.Normalize();
 
         if(isGrabbed == false) this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
         else this.GetComponent<Rigidbody2D>().velocity = direction * grabMovementSpeed;
+
+        if (Vector3.Distance(point, Input.mousePosition) < stopDistance)
+        {
+            this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        }
     }
 
     /// <summary>
