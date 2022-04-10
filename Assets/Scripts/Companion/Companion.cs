@@ -19,6 +19,7 @@ public class Companion : MonoBehaviour
     public float minBoundary;
     public float maxBoundary;
     public float scaleSpeed;
+    public float decreaseSpeedDistance;
     public float stopDistance;
 
 
@@ -80,12 +81,22 @@ public class Companion : MonoBehaviour
         direction = (Input.mousePosition - point);
         direction.Normalize();
 
-        if(isGrabbed == false) this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
-        else this.GetComponent<Rigidbody2D>().velocity = direction * grabMovementSpeed;
-
-        if (Vector3.Distance(point, Input.mousePosition) < stopDistance)
+        if (Vector3.Distance(point, Input.mousePosition) > decreaseSpeedDistance)
         {
-            this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            if (isGrabbed == false) this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
+            else this.GetComponent<Rigidbody2D>().velocity = direction * grabMovementSpeed;
+        }
+        else if (Vector3.Distance(point, Input.mousePosition) < decreaseSpeedDistance)
+        {
+            if (Vector3.Distance(point, Input.mousePosition) <= stopDistance)
+            {
+                this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+            else
+            {
+                float deceleration = Vector3.Distance(point, Input.mousePosition) / 10;
+                this.GetComponent<Rigidbody2D>().velocity = direction * deceleration;
+            }
         }
     }
 

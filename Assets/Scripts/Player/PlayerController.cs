@@ -52,7 +52,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public GameObject companionPrefab;
     public Transform groundCheck;
+    public Transform groundCheckBack;
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool hasGroundBehind;
 
     public Thorns thorns;
     public GameObject transparentObject;
@@ -82,6 +84,8 @@ public class PlayerController : MonoBehaviour
         //This is the sphere that checks if the player is grounded.
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundLayer);
 
+        hasGroundBehind = Physics2D.OverlapCircle(groundCheckBack.position, 0.15f, groundLayer);
+
         //This HandlesPlayerMovement
         rB.velocity = new Vector2(direction.x, rB.velocity.y);
 
@@ -94,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if(CanMove)
         {
             HandleMovementInput();
