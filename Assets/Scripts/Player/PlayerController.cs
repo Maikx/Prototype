@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public float grabSpeed = 4;
     public float airborneSpeed = 4;
     public float jumpForce = 10;
+    public float grounCheckSize;
     [HideInInspector] private Vector3 direction;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
@@ -82,7 +83,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //This is the sphere that checks if the player is grounded.
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, grounCheckSize, groundLayer);
 
         hasGroundBehind = Physics2D.OverlapCircle(groundCheckBack.position, 0.15f, groundLayer);
 
