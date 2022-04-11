@@ -153,15 +153,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  movementSpeed: 10
+  movementSpeed: 30
   minBoundary: 5
   maxBoundary: 10
   scaleSpeed: 1
-  decreaseSpeedDistance: 50
+  decreaseSpeedDistance: 110
   stopDistance: 20
   grabMovementSpeed: 4
   timeAfterBlinking: 0.8
-  timeAfterDropping: 1.2
+  timeAfterDropping: 1.1
   point: {x: 0, y: 0, z: 0}
   interactable: {fileID: 0}
   canGrab: 0
@@ -231,7 +231,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.96970475, b: 0, a: 0.6745098}
   m_Intensity: 2
-  m_Range: 4
+  m_Range: 6
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
