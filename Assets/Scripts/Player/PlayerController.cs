@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public ObjectGrab oG;
     [HideInInspector] public BarkInteraction bI;
     [HideInInspector] public Rigidbody2D rB;
+    private SoundTracker sT;
 
     [HideInInspector] public Animator stateMachine;
     public Animator animHandler;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public bool CanMove { get; set; } = true;
     public bool IsMoving { get; private set; }
     private bool isJumping => canJump && Input.GetKey(jumpKey);
-    private bool isBarking => canBark && Input.GetKey(barkKey);
+    public bool isBarking => canBark && Input.GetKey(barkKey);
 
     [Header("Function Options")]
     [SerializeField] private bool canJump = true;
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
         oG = gameObject.GetComponent<ObjectGrab>();
         bI = gameObject.GetComponent<BarkInteraction>();
         stateMachine = gameObject.GetComponent<Animator>();
+        sT = gameObject.GetComponent<SoundTracker>();
         Physics.SyncTransforms();
     }
 
@@ -179,6 +181,8 @@ public class PlayerController : MonoBehaviour
                         bI.BarkLeft();
                     break;
             }
+
+            sT.BarkSound();
         }
     }
 
