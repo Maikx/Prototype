@@ -222,5 +222,7 @@ public class PlayerController : MonoBehaviour
         else animHandler.SetBool("isMoving", false);
         animHandler.SetBool("isGrounded", isGrounded);
         animHandler.SetBool("isGrabbed", oG.isGrabbed);
+        animHandler.SetBool("isBarking", isBarking);
+        animHandler.SetInteger("BarkDirection", bI.lastDirection);
     }
 }
