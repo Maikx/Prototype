@@ -236,5 +236,6 @@ public class PlayerController : MonoBehaviour
         animHandler.SetBool("isBarking", isBarking);
         animHandler.SetInteger("BarkDirection", bI.lastDirection);
         animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
+        if (Input.GetKeyDown(jumpKey) && isGrounded) animHandler.SetTrigger("isJumping");
     }
 }
