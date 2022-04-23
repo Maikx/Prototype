@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Function Options")]
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canBark = true;
-    [SerializeField] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
+    [SerializeField] [HideInInspector] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
     [SerializeField] [HideInInspector] FacingDirectionVertical currentDirectionVertical = FacingDirectionVertical.None;
 
     [Header("Controls")]
@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Misc Parameters")]
     public LayerMask groundLayer;
-    public GameObject companionPrefab;
     public Transform groundCheck;
     public Transform groundCheckBack;
     [HideInInspector] public bool isGrounded;
@@ -109,6 +108,7 @@ public class PlayerController : MonoBehaviour
             PlayerAnimationHandler();
         }
         CheckPlayerLookingDirection();
+        CheckIfMovingBackGrabbed();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -191,18 +191,29 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void CheckPlayerLookingDirection()
     {
-        if (hInput > 0)
+        if (hInput > 0 && oG.isGrabbed == false)
             currentDirectionHorintal = FacingDirectionHorizontal.Right;
 
-        else if (hInput < 0)
+        else if (hInput < 0 && oG.isGrabbed == false)
             currentDirectionHorintal = FacingDirectionHorizontal.Left;
 
-        else if (vInput > 0)
+        else if (vInput > 0 && oG.isGrabbed == false)
             currentDirectionVertical = FacingDirectionVertical.Up;
-        else if (vInput < 0)
+        else if (vInput < 0 && oG.isGrabbed == false)
             currentDirectionVertical = FacingDirectionVertical.Down;
-        else if (vInput == 0)
+        else if (vInput == 0 && oG.isGrabbed == false)
             currentDirectionVertical = FacingDirectionVertical.None;
+    }
+
+    /// <summary>
+    /// This is used to memorize if the player moving backwards in grabbed state
+    /// </summary>
+    void CheckIfMovingBackGrabbed()
+    {
+        if (oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Right && hInput < 0 || oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Left && hInput > 0)
+            oG.isMovingBackGrabbed = true;
+        else if(oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Right && hInput >= 0 || oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Left && hInput <= 0)
+            oG.isMovingBackGrabbed = false;
     }
 
     /// <summary>
@@ -224,5 +235,6 @@ public class PlayerController : MonoBehaviour
         animHandler.SetBool("isGrabbed", oG.isGrabbed);
         animHandler.SetBool("isBarking", isBarking);
         animHandler.SetInteger("BarkDirection", bI.lastDirection);
+        animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
     }
 }
