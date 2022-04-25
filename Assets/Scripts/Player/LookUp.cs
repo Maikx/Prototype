@@ -12,6 +12,7 @@ public class LookUp : MonoBehaviour
     {
         PlayerLookUp();
         PlayerLookDown();
+        CameraZoom();
     }
 
     void PlayerLookUp()
@@ -39,6 +40,18 @@ public class LookUp : MonoBehaviour
         {
             animator.SetBool("LookDown", false);
             isLookingDown = false;
+        }
+    }
+
+    void CameraZoom()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            animator.SetBool("isZoomActive", true);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            animator.SetBool("isZoomActive", false);
         }
     }
 }
