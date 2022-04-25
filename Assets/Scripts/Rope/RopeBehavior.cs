@@ -6,6 +6,7 @@ public class RopeBehavior : MonoBehaviour
 {
     public GameObject planks;
     public GameObject ephemeral;
+    public GameObject[] rope;
 
     [Header("Ephemeral")]
     public float fallSpeed;
@@ -23,6 +24,8 @@ public class RopeBehavior : MonoBehaviour
     {
         Destroy(planks);
         isFalling = true;
+        for (int i = 0; i < rope.Length; i++)
+            Destroy(rope[i]);
     }
 
     public void MakeEphemeralFall()
