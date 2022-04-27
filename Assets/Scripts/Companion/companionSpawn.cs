@@ -5,16 +5,12 @@ using UnityEngine;
 public class companionSpawn : MonoBehaviour
 {
     public GameObject companion;
-    public GameObject triggerNumber2;
-
-    void Start ()
-    {
-        triggerNumber2.SetActive(true);
-    }
+    public GameObject trigger;
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        triggerNumber2.SetActive(false);
         companion.SetActive(true);
+        companion.transform.position = col.transform.position;
+        trigger.SetActive(false);
     }
 }

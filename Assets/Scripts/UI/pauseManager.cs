@@ -11,6 +11,7 @@ public class pauseManager : MonoBehaviour
     public GameObject pnlAudio;
     public GameObject pnlControls;
     public GameObject pnlVideo;
+    public GameObject skipLevel;
 
     public bool isPause = false;
 
@@ -23,6 +24,7 @@ public class pauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown("escape") && isPause == false)
         {
+            skipLevel.SetActive(false);
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
             isPause = true;
@@ -30,6 +32,7 @@ public class pauseManager : MonoBehaviour
         }
         else if (Input.GetKeyDown("escape") && isPause == true)
         {
+            skipLevel.SetActive(true);
             pauseMenu.SetActive(false);
             Time.timeScale = 1;
             isPause = false;
