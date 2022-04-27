@@ -7,11 +7,21 @@ public class SkipLevel : MonoBehaviour
 {
     public Transform checkpoint;
     public GameObject player;
+    public KeyCode key;
     
-    public void SkipToPosition()
-    {
-        GameManager.instance.RestartPlayerPosition = checkpoint.position;
-        SceneManager.LoadScene("Full Scene Tutorial");
+    //public void SkipToPosition()
+    //{
+        //GameManager.instance.RestartPlayerPosition = checkpoint.position;
+        //SceneManager.LoadScene("Full Scene Tutorial");
         //player.transform.position = checkpoint.position;
+    //}
+    void Update()
+    {
+        if(Input.GetKeyDown(key))
+        {
+            GameManager.instance.RestartPlayerPosition = checkpoint.position;
+            SceneManager.LoadScene("Full Scene Tutorial");
+            //player.transform.position = checkpoint.position;
+        }
     }
 }

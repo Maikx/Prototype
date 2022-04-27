@@ -9,6 +9,7 @@ public class Continue : MonoBehaviour
 
     public void LoadNextScene(int levelIndex)
     {
+        Cursor.visible = false;
         levelIndex = levelToLoad;
         SceneManager.LoadScene(levelToLoad);
     }
