@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5919713142785934198}
   - component: {fileID: 7316326464913706195}
   - component: {fileID: 4786243805511186457}
-  - component: {fileID: 3069922664817112258}
-  - component: {fileID: 5866446100923059369}
+  - component: {fileID: 1344736927370765414}
+  - component: {fileID: 2079894942379796799}
   m_Layer: 8
   m_Name: Blocco2x2x4
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6443766036633737676}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 200, y: 200, z: 400}
   m_Children: []
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!68 &3069922664817112258
-EdgeCollider2D:
+--- !u!61 &1344736927370765414
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -96,24 +96,21 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0000007012859, y: 0.0000000144355}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.009942937, y: 0.01}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.004702967, y: 0.005000321}
-  - {x: -0.0049722884, y: 0.0047042086}
-  - {x: -0.0040866868, y: -0.0047174185}
-  - {x: -0.003775225, y: -0.0050009}
-  - {x: 0.0037750439, y: -0.0050009987}
-  - {x: 0.00408668, y: -0.0047176834}
-  - {x: 0.004973047, y: 0.004686613}
-  - {x: 0.004689663, y: 0.0049998853}
-  - {x: -0.004702967, y: 0.005000321}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
---- !u!68 &5866446100923059369
-EdgeCollider2D:
+--- !u!61 &2079894942379796799
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -125,19 +122,16 @@ EdgeCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0000007012859, y: 0.0000000144355}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.009942937, y: 0.01}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.004702967, y: 0.005000321}
-  - {x: -0.0049722884, y: 0.0047042086}
-  - {x: -0.0040866868, y: -0.0047174185}
-  - {x: -0.003775225, y: -0.0050009}
-  - {x: 0.0037750439, y: -0.0050009987}
-  - {x: 0.00408668, y: -0.0047176834}
-  - {x: 0.004973047, y: 0.004686613}
-  - {x: 0.004689663, y: 0.0049998853}
-  - {x: -0.004702967, y: 0.005000321}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0

@@ -5,16 +5,30 @@ using UnityEngine;
 public class spawnUI : MonoBehaviour
 {
     public GameObject UI_Component;
+    public KeyCode keyPressed = KeyCode.E;
+    private bool UIActivated;
 
-    void OnTriggerEnter2D(Collider2D col)
+    void Start()
     {
-        if (UI_Component != null)
-        UI_Component.SetActive(true);
+        UI_Component.SetActive(false);
     }
 
-    void OnTriggerExit2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D target)
     {
-        if (UI_Component != null)
-        Destroy(UI_Component);
+        if (target.tag == "Player" && UI_Component != null)
+        UI_Component.SetActive(true);
+        UIActivated = true;
+    }
+
+    //void OnTriggerExit2D(Collider2D target)
+    //{
+        //if (target.tag == "Player" && UI_Component != null)
+        //Destroy(UI_Component);
+    //}
+
+    void Update()
+    {
+        if (UI_Component != null && Input.GetKeyDown(keyPressed) && UIActivated == true)
+            Destroy(UI_Component);
     }
 }

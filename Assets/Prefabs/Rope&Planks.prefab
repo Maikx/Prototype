@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planks: {fileID: 3900456121974941348}
   ephemeral: {fileID: 0}
+  rope: []
   fallSpeed: 5
   fallHeight: -0.5
 --- !u!1001 &946412561049915630
@@ -277,6 +278,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ccb24dff2f3bcda42a0c565297d968bc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fef393763bbdfb74f904f92429980004, type: 2}
     - target: {fileID: 919132149155446097, guid: ccb24dff2f3bcda42a0c565297d968bc, type: 3}
       propertyPath: m_Name
       value: Corda_avvolta_al_tronco_Corta
@@ -359,6 +364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tronco
       objectReference: {fileID: 0}
+    - target: {fileID: 8599750273274031508, guid: 870f45121435b7043915925b675f7eb1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 870f45121435b7043915925b675f7eb1, type: 3}
 --- !u!1 &3900456121974941348 stripped
@@ -439,6 +448,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: bc1fbbbc43990f544bf80a93b6f576be, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fef393763bbdfb74f904f92429980004, type: 2}
     - target: {fileID: 919132149155446097, guid: bc1fbbbc43990f544bf80a93b6f576be, type: 3}
       propertyPath: m_Name
       value: Corda_Lunga
@@ -517,6 +530,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 66527339cae8048449bb8c1094635a2e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fef393763bbdfb74f904f92429980004, type: 2}
     - target: {fileID: 919132149155446097, guid: 66527339cae8048449bb8c1094635a2e, type: 3}
       propertyPath: m_Name
       value: Corda_Corta
@@ -595,6 +612,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 52674e2b463b6bd4b9c0a6e3aefd9562, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fef393763bbdfb74f904f92429980004, type: 2}
     - target: {fileID: 919132149155446097, guid: 52674e2b463b6bd4b9c0a6e3aefd9562, type: 3}
       propertyPath: m_Name
       value: Corda_avvolta_al_tronco_Lunga
