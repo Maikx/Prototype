@@ -7,7 +7,6 @@ public class EphemeralBehavior : MonoBehaviour
     [HideInInspector] public Animator ephemeralController;
     public GameObject assignedWell;
 
-
     [Header("Function Options")]
     [SerializeField] public bool canMove;
 
@@ -57,7 +56,7 @@ public class EphemeralBehavior : MonoBehaviour
         }
         else if(collision.tag == "Totem")
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
             Destroy(gameObject);
         }
         else if(collision.gameObject.layer == 8 && assignedWell != null)

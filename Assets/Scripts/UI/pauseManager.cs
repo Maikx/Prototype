@@ -77,7 +77,8 @@ public class pauseManager : MonoBehaviour
 
     public void returnMainMenu()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 
     public void CloseSetting()

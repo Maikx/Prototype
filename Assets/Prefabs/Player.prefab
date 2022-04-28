@@ -1608,7 +1608,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: f70d984735367a842a4c117c91341740, type: 3}
+  - {fileID: 2100000, guid: fc40171b7a7c48d4eae4e54a466dc3f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1952,7 +1952,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2304
-  companionPrefab: {fileID: 2755364555620864689, guid: 1f86dac5e622ab94885b7a1a46159476, type: 3}
   groundCheck: {fileID: 7930059680237973556}
   groundCheckBack: {fileID: 792106949}
   isGrounded: 0
@@ -1978,6 +1977,7 @@ MonoBehaviour:
   grabDetect: {fileID: 4410604204002530337}
   objectHolder: {fileID: 7718147140371503937}
   isGrabbed: 0
+  isMovingBackGrabbed: 0
   rayDist: 0.01
   point: {x: 0, y: 0, z: 0}
 --- !u!114 &7598038222205906989

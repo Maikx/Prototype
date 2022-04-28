@@ -68,5 +68,10 @@ public class mainmenu : MonoBehaviour
         pnlControls.SetActive(true);
         pnlVideo.SetActive(false);
     }
+
+    public void LoadTestLightning()
+    {
+        SceneManager.LoadScene("Test Lighting");
+    }
 }
  
