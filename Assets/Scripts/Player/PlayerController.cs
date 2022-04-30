@@ -50,6 +50,11 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float currentSpeed;
     [HideInInspector] public float jumpTimer = 0;
 
+    [Header("Physics Parameters")]
+    public float acceleration;
+    public float friction;
+    public float gravity;
+
     [Header("Misc Parameters")]
     public LayerMask groundLayer;
     public Transform groundCheck;
@@ -83,13 +88,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandleMovementInput();
         //This is the sphere that checks if the player is grounded.
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, grounCheckSize, groundLayer);
 
         hasGroundBehind = Physics2D.OverlapCircle(groundCheckBack.position, 0.15f, groundLayer);
 
         //This HandlesPlayerMovement
-        rB.velocity = new Vector2(direction.x, rB.velocity.y);
+        rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
+        rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, gravity * Time.deltaTime);
 
         //This plays when the player jumps
         if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump)
@@ -103,7 +110,6 @@ public class PlayerController : MonoBehaviour
 
         if(CanMove)
         {
-            HandleMovementInput();
             PlayerStateMachine();
             PlayerAnimationHandler();
         }
