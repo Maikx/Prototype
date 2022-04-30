@@ -100,7 +100,6 @@ public class PlayerController : MonoBehaviour
         //This HandlesPlayerMovement
         rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
         rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, gravity * Time.deltaTime);
-
         //This plays when the player jumps
         if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump)
         {
@@ -112,9 +111,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        PlayerStateMachine();
-        PlayerAnimationHandler();
-        CheckPlayerLookingDirection();
+            PlayerStateMachine();
+            PlayerAnimationHandler();
+            CheckPlayerLookingDirection();
+
         CheckIfMovingBackGrabbed();
         JumpTimer();
 
@@ -147,8 +147,17 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
         //This makes the player move with horizontal inputs (A/D & arrows).
-        hInput = Input.GetAxis("Horizontal");
-        vInput = Input.GetAxis("Vertical");
+        if (CanMove)
+        {
+            hInput = Input.GetAxis("Horizontal");
+            vInput = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            hInput = 0;
+            vInput = 0;
+        }
+
         direction.x = hInput * (currentSpeed);
 
         //This is for the player's facing direction!
