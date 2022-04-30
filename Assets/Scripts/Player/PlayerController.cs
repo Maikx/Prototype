@@ -39,16 +39,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode barkKey = KeyCode.B;
 
     [Header("Movement Parameters")]
-    public float walkSpeed = 8;
-    public float grabSpeed = 4;
-    public float airborneSpeed = 4;
-    public float jumpForce = 10;
+    public float walkSpeed;
+    public float grabSpeed;
+    public float airborneSpeed;
+    public float jumpForce;
     public float grounCheckSize;
-    [HideInInspector] private Vector3 direction;
+    public float timeAfterJumpAgain;
+    private float currentTime;
+    private float currentSpeed;
+    private Vector3 direction;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
-    [HideInInspector] public float currentSpeed;
-    [HideInInspector] public float jumpTimer = 0;
 
     [Header("Physics Parameters")]
     public float acceleration;
@@ -59,8 +60,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheck;
     public Transform groundCheckBack;
+    private bool animIsJumping;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasGroundBehind;
+    
 
     public Thorns thorns;
     public GameObject transparentObject;
@@ -102,19 +105,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump)
         {
             rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+            animIsJumping = true;
+            currentTime = timeAfterJumpAgain;
         }
     }
 
     void Update()
     {
-
-        if(CanMove)
-        {
-            PlayerStateMachine();
-            PlayerAnimationHandler();
-        }
+        PlayerStateMachine();
+        PlayerAnimationHandler();
         CheckPlayerLookingDirection();
         CheckIfMovingBackGrabbed();
+        JumpTimer();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -222,6 +224,20 @@ public class PlayerController : MonoBehaviour
             oG.isMovingBackGrabbed = false;
     }
 
+    void JumpTimer()
+    {
+        if (currentTime > 0)
+        {
+            canJump = false;
+            animIsJumping = false;
+            currentTime -= Time.deltaTime;
+        }
+        else if (currentTime <= 0)
+        {
+            canJump = true;
+        }
+    }
+
     /// <summary>
     /// This manages the player's movement animator, not the animations!
     /// </summary>
@@ -242,6 +258,6 @@ public class PlayerController : MonoBehaviour
         animHandler.SetBool("isBarking", isBarking);
         animHandler.SetInteger("BarkDirection", bI.lastDirection);
         animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
-        if (Input.GetKeyDown(jumpKey) && isGrounded) animHandler.SetTrigger("isJumping");
+        if (animIsJumping) animHandler.SetTrigger("isJumping");
     }
 }

@@ -1975,10 +1975,11 @@ MonoBehaviour:
   airborneSpeed: 4.5
   jumpForce: 6.5
   grounCheckSize: 0.2
+  timeAfterJumpAgain: 2
+  currentTime: 0
   hInput: 0
   vInput: 0
   currentSpeed: 0
-  jumpTimer: 0
   acceleration: 2
   friction: 5
   gravity: 9
