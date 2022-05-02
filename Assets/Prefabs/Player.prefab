@@ -1888,8 +1888,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 72c359bfe6c4b28499de4fd2953edf0e, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1945,10 +1945,14 @@ MonoBehaviour:
   airborneSpeed: 4.5
   jumpForce: 6.5
   grounCheckSize: 0.2
+  timeAfterJumpAgain: 2
+  currentTime: 0
   hInput: 0
   vInput: 0
   currentSpeed: 0
-  jumpTimer: 0
+  acceleration: 2
+  friction: 5
+  gravity: 9
   groundLayer:
     serializedVersion: 2
     m_Bits: 2304
