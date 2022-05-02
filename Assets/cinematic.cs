@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cinematic : MonoBehaviour
+public class Cinematic : MonoBehaviour
 {
-    [HideInInspector] public PlayerController pC;
+    
+    public GameObject companion;
+    public GameObject companionSpawnObj;
     public float targetTime = 6.0f;
+    private float currentTime;
 
-    public bool stopPlayer = false;
+    [HideInInspector] public PlayerController pC;
+    [HideInInspector] public bool playerIsStopped;
+    [HideInInspector] public bool companionIsSpawned;
 
     void Start()
     {
         pC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        currentTime = targetTime;
     }
 
     void Update()
@@ -21,33 +27,37 @@ public class cinematic : MonoBehaviour
 
     void TimerDown ()
     {
-        if (stopPlayer == true)
+        if (playerIsStopped == true)
         {
-
-             targetTime -= Time.deltaTime;
- 
-             if (targetTime <= 0.0f)
-             {
-                 timerEnded();
-             } 
+             if(currentTime > 0) currentTime -= Time.deltaTime;
+             if (currentTime <= 0.0f) TimerEnded();
         }
+    }
+
+    void SpawnCompanion()
+    {
+        companion.SetActive(true);
+        if (companionSpawnObj != null) companion.transform.position = companionSpawnObj.transform.position;
+        else companion.transform.position = pC.transform.position;
+        companionIsSpawned = true;
     }
 
     void StopPlayer ()
     {
         pC.CanMove = false;
-        stopPlayer = true;
+        playerIsStopped = true;
     }
 
-    void timerEnded()
+    void TimerEnded()
     {
         pC.CanMove = true;
-        stopPlayer = false;
+        if(!companionIsSpawned) SpawnCompanion();
+        playerIsStopped = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 9 && stopPlayer == true)
+        if (collision.gameObject.layer == 9 && playerIsStopped == false && companionIsSpawned == false)
         {
             StopPlayer();
         }
