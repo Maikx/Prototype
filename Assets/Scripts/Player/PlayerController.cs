@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Function Options")]
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canBark = true;
-    [SerializeField] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
+    [SerializeField] [HideInInspector] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
     [SerializeField] [HideInInspector] FacingDirectionVertical currentDirectionVertical = FacingDirectionVertical.None;
 
     [Header("Controls")]
@@ -39,24 +39,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode barkKey = KeyCode.B;
 
     [Header("Movement Parameters")]
-    public float walkSpeed = 8;
-    public float grabSpeed = 4;
-    public float airborneSpeed = 4;
-    public float jumpForce = 10;
+    public float walkSpeed;
+    public float grabSpeed;
+    public float airborneSpeed;
+    public float jumpForce;
     public float grounCheckSize;
-    [HideInInspector] private Vector3 direction;
+    public float timeAfterJumpAgain;
+    private float currentTime;
+    private float currentSpeed;
+    private Vector3 direction;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
-    [HideInInspector] public float currentSpeed;
-    [HideInInspector] public float jumpTimer = 0;
+
+    [Header("Physics Parameters")]
+    public float acceleration;
+    public float friction;
+    public float gravity;
 
     [Header("Misc Parameters")]
     public LayerMask groundLayer;
-    public GameObject companionPrefab;
     public Transform groundCheck;
     public Transform groundCheckBack;
+    private bool animIsJumping;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasGroundBehind;
+    
 
     public Thorns thorns;
     public GameObject transparentObject;
@@ -84,31 +91,32 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandleMovementInput();
         //This is the sphere that checks if the player is grounded.
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, grounCheckSize, groundLayer);
 
         hasGroundBehind = Physics2D.OverlapCircle(groundCheckBack.position, 0.15f, groundLayer);
 
         //This HandlesPlayerMovement
-        rB.velocity = new Vector2(direction.x, rB.velocity.y);
-
+        rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
+        rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, gravity * Time.deltaTime);
         //This plays when the player jumps
         if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump)
         {
             rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+            animIsJumping = true;
+            currentTime = timeAfterJumpAgain;
         }
     }
 
     void Update()
     {
-
-        if(CanMove)
-        {
-            HandleMovementInput();
             PlayerStateMachine();
             PlayerAnimationHandler();
-        }
-        CheckPlayerLookingDirection();
+            CheckPlayerLookingDirection();
+
+        CheckIfMovingBackGrabbed();
+        JumpTimer();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -139,8 +147,17 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
         //This makes the player move with horizontal inputs (A/D & arrows).
-        hInput = Input.GetAxis("Horizontal");
-        vInput = Input.GetAxis("Vertical");
+        if (CanMove)
+        {
+            hInput = Input.GetAxis("Horizontal");
+            vInput = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            hInput = 0;
+            vInput = 0;
+        }
+
         direction.x = hInput * (currentSpeed);
 
         //This is for the player's facing direction!
@@ -191,18 +208,43 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void CheckPlayerLookingDirection()
     {
-        if (hInput > 0)
+        if (hInput > 0 && oG.isGrabbed == false)
             currentDirectionHorintal = FacingDirectionHorizontal.Right;
 
-        else if (hInput < 0)
+        else if (hInput < 0 && oG.isGrabbed == false)
             currentDirectionHorintal = FacingDirectionHorizontal.Left;
 
-        else if (vInput > 0)
+        else if (vInput > 0 && oG.isGrabbed == false)
             currentDirectionVertical = FacingDirectionVertical.Up;
-        else if (vInput < 0)
+        else if (vInput < 0 && oG.isGrabbed == false)
             currentDirectionVertical = FacingDirectionVertical.Down;
-        else if (vInput == 0)
+        else if (vInput == 0 && oG.isGrabbed == false)
             currentDirectionVertical = FacingDirectionVertical.None;
+    }
+
+    /// <summary>
+    /// This is used to memorize if the player moving backwards in grabbed state
+    /// </summary>
+    void CheckIfMovingBackGrabbed()
+    {
+        if (oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Right && hInput < 0 || oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Left && hInput > 0)
+            oG.isMovingBackGrabbed = true;
+        else if(oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Right && hInput >= 0 || oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Left && hInput <= 0)
+            oG.isMovingBackGrabbed = false;
+    }
+
+    void JumpTimer()
+    {
+        if (currentTime > 0)
+        {
+            canJump = false;
+            animIsJumping = false;
+            currentTime -= Time.deltaTime;
+        }
+        else if (currentTime <= 0)
+        {
+            canJump = true;
+        }
     }
 
     /// <summary>
@@ -224,5 +266,7 @@ public class PlayerController : MonoBehaviour
         animHandler.SetBool("isGrabbed", oG.isGrabbed);
         animHandler.SetBool("isBarking", isBarking);
         animHandler.SetInteger("BarkDirection", bI.lastDirection);
+        animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
+        if (animIsJumping) animHandler.SetTrigger("isJumping");
     }
 }

@@ -11,6 +11,7 @@ public class ObjectGrab : MonoBehaviour
     public Transform grabDetect;
     public Transform objectHolder;
     [HideInInspector] public bool isGrabbed;
+    [HideInInspector] public bool isMovingBackGrabbed;
     public float rayDist;
     [HideInInspector] public Vector3 point;
 
