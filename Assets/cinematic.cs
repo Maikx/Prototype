@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class cinematic : MonoBehaviour
 {
-    public PlayerController pC;
+    [HideInInspector] public PlayerController pC;
     public float targetTime = 6.0f;
-    public bool stopPlayer;
+
+    public bool stopPlayer = false;
 
     void Start()
     {
@@ -15,26 +16,33 @@ public class cinematic : MonoBehaviour
 
     void Update()
     {
-        targetTime -= Time.deltaTime;
+        TimerDown();
+    }
 
-        if (targetTime <= 0.0f)
+    void TimerDown ()
+    {
+        if (stopPlayer == true)
         {
-            timerEnded();
-        }
 
+             targetTime -= Time.deltaTime;
+ 
+             if (targetTime <= 0.0f)
+             {
+                 timerEnded();
+             } 
+        }
     }
 
     void StopPlayer ()
     {
-        pC.hInput = 0;
-        pC.vInput = 0;
         pC.CanMove = false;
-        stopPlayer = false;
+        stopPlayer = true;
     }
 
     void timerEnded()
     {
         pC.CanMove = true;
+        stopPlayer = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
