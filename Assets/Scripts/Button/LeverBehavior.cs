@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LeverBehavior : MonoBehaviour
 {
+    public Animator animatorLever;    
+
     public GameObject[] linkedObjects;
     [HideInInspector]public bool isActive;
 
@@ -16,6 +18,7 @@ public class LeverBehavior : MonoBehaviour
     {
         if (isActive)
         {
+            animatorLever.SetBool("IsTurnedOn", true);            
             for (int i = 0; i < linkedObjects.Length; i++)
             {
                 if (linkedObjects[i].GetComponent<PlatformBehavior>() != null)
@@ -26,6 +29,7 @@ public class LeverBehavior : MonoBehaviour
         }
         else if (!isActive)
         {
+            animatorLever.SetBool("IsTurnedOn", false);
             for (int i = 0; i < linkedObjects.Length; i++)
             {
                 if (linkedObjects[i].GetComponent<PlatformBehavior>() != null)
@@ -34,5 +38,5 @@ public class LeverBehavior : MonoBehaviour
                 }
             }
         }
-    }
+    }    
 }
