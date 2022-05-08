@@ -39,23 +39,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode barkKey = KeyCode.B;
 
     [Header("Movement Parameters")]
-    public float walkSpeed = 8;
-    public float grabSpeed = 4;
-    public float airborneSpeed = 4;
-    public float jumpForce = 10;
+    public float walkSpeed;
+    public float grabSpeed;
+    public float airborneSpeed;
+    public float jumpForce;
     public float grounCheckSize;
-    [HideInInspector] private Vector3 direction;
+    public float timeAfterJumpAgain;
+    private float currentTime;
+    private float currentSpeed;
+    private Vector3 direction;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
-    [HideInInspector] public float currentSpeed;
-    [HideInInspector] public float jumpTimer = 0;
+
+    [Header("Physics Parameters")]
+    public float acceleration;
+    public float friction;
+    public float gravity;
 
     [Header("Misc Parameters")]
     public LayerMask groundLayer;
     public Transform groundCheck;
     public Transform groundCheckBack;
+    private bool animIsJumping;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasGroundBehind;
+    
 
     public Thorns thorns;
     public GameObject transparentObject;
@@ -83,32 +91,32 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandleMovementInput();
         //This is the sphere that checks if the player is grounded.
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, grounCheckSize, groundLayer);
 
         hasGroundBehind = Physics2D.OverlapCircle(groundCheckBack.position, 0.15f, groundLayer);
 
         //This HandlesPlayerMovement
-        rB.velocity = new Vector2(direction.x, rB.velocity.y);
-
+        rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
+        rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, gravity * Time.deltaTime);
         //This plays when the player jumps
         if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump)
         {
             rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+            animIsJumping = true;
+            currentTime = timeAfterJumpAgain;
         }
     }
 
     void Update()
     {
-
-        if(CanMove)
-        {
-            HandleMovementInput();
             PlayerStateMachine();
             PlayerAnimationHandler();
-        }
-        CheckPlayerLookingDirection();
+            CheckPlayerLookingDirection();
+
         CheckIfMovingBackGrabbed();
+        JumpTimer();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -139,8 +147,17 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
         //This makes the player move with horizontal inputs (A/D & arrows).
-        hInput = Input.GetAxis("Horizontal");
-        vInput = Input.GetAxis("Vertical");
+        if (CanMove)
+        {
+            hInput = Input.GetAxis("Horizontal");
+            vInput = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            hInput = 0;
+            vInput = 0;
+        }
+
         direction.x = hInput * (currentSpeed);
 
         //This is for the player's facing direction!
@@ -216,6 +233,20 @@ public class PlayerController : MonoBehaviour
             oG.isMovingBackGrabbed = false;
     }
 
+    void JumpTimer()
+    {
+        if (currentTime > 0)
+        {
+            canJump = false;
+            animIsJumping = false;
+            currentTime -= Time.deltaTime;
+        }
+        else if (currentTime <= 0)
+        {
+            canJump = true;
+        }
+    }
+
     /// <summary>
     /// This manages the player's movement animator, not the animations!
     /// </summary>
@@ -236,6 +267,6 @@ public class PlayerController : MonoBehaviour
         animHandler.SetBool("isBarking", isBarking);
         animHandler.SetInteger("BarkDirection", bI.lastDirection);
         animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
-        if (Input.GetKeyDown(jumpKey) && isGrounded) animHandler.SetTrigger("isJumping");
+        if (animIsJumping) animHandler.SetTrigger("isJumping");
     }
 }

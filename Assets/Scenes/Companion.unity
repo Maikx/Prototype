@@ -313,10 +313,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5875907152135621912, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7930059682083846174, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -364,22 +360,6 @@ PrefabInstance:
     - target: {fileID: 7930059682083846244, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930059682083846245, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
-      propertyPath: cCHitBox
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930059682083846245, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
-      propertyPath: pCHitBox
-      value: 
-      objectReference: {fileID: 1536634602}
-    - target: {fileID: 8235420828221870194, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8652986044647732163, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
@@ -816,11 +796,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2031976287567357633, guid: 8c93f45e69ee011449131d465d6009b3, type: 3}
   m_PrefabInstance: {fileID: 1492598288}
-  m_PrefabAsset: {fileID: 0}
---- !u!60 &1536634602 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1113833635, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
-  m_PrefabInstance: {fileID: 338050195}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1539150073
 GameObject:
