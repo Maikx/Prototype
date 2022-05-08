@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class pauseManager : MonoBehaviour
 {
+    public GameObject pauseMenu;
     public GameObject pnlPause;
     public GameObject pnlSettings;
     public GameObject pnlAudio;
@@ -15,20 +16,33 @@ public class pauseManager : MonoBehaviour
 
     public void Update()
     {
+        GamePause();
+    }
+
+    public void GamePause()
+    {
         if (Input.GetKeyDown("escape") && isPause == false)
         {
-            pnlPause.SetActive(true);
+            pauseMenu.SetActive(true);
             Time.timeScale = 0;
             isPause = true;
             Cursor.visible = true;
         }
         else if (Input.GetKeyDown("escape") && isPause == true)
         {
-            pnlPause.SetActive(false);
+            pauseMenu.SetActive(false);
             Time.timeScale = 1;
             isPause = false;
             Cursor.visible = false;
         }
+    }
+
+    public void Resume()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+        isPause = false;
+        Cursor.visible = false;
     }
 
     public void OpenSetting()
