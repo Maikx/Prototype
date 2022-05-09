@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public CheckPointManager checkPointManager;
 
-    public bool CanMove { get; set; } = true;
+    public bool CanMove;
     public bool IsMoving { get; private set; }
     private bool isJumping => canJump && Input.GetKey(jumpKey);
     public bool isBarking => canBark && Input.GetKey(barkKey);
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Function Options")]
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canBark = true;
+    public bool canMoveBark = true;
     [SerializeField] [HideInInspector] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
     [SerializeField] [HideInInspector] FacingDirectionVertical currentDirectionVertical = FacingDirectionVertical.None;
 
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
         thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
+        canMoveBark = true;
     }
 
     private void FixedUpdate()
@@ -147,7 +149,7 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
         //This makes the player move with horizontal inputs (A/D & arrows).
-        if (CanMove)
+        if (CanMove && canMoveBark)
         {
             hInput = Input.GetAxis("Horizontal");
             vInput = Input.GetAxis("Vertical");
@@ -181,24 +183,31 @@ public class PlayerController : MonoBehaviour
         }
 
         //This Handles the bark function
-        if (Input.GetKey(barkKey) && isGrounded && !oG.isGrabbed && canBark)
+        if (Input.GetKey(barkKey) && isGrounded && !oG.isGrabbed && canBark && canMoveBark)
         {
             switch (currentDirectionVertical)
             {
                 case FacingDirectionVertical.Up:
                     bI.BarkUp();
+                    canMoveBark = false;
                     break;
                 case FacingDirectionVertical.Down:
                     bI.BarkDown();
+                    canMoveBark = false;
                     break;
                 case FacingDirectionVertical.None:
                     if (currentDirectionHorintal == FacingDirectionHorizontal.Right)
+                    {
                         bI.BarkRight();
+                        canMoveBark = false;
+                    }
                     else if (currentDirectionHorintal == FacingDirectionHorizontal.Left)
+                    {
                         bI.BarkLeft();
-                    break;
+                        canMoveBark = false;
+                    }
+                        break;
             }
-
             sT.BarkSound();
         }
     }
@@ -208,17 +217,17 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void CheckPlayerLookingDirection()
     {
-        if (hInput > 0 && oG.isGrabbed == false)
+        if (hInput > 0 && !oG.isGrabbed && canMoveBark)
             currentDirectionHorintal = FacingDirectionHorizontal.Right;
 
-        else if (hInput < 0 && oG.isGrabbed == false)
+        else if (hInput < 0 && !oG.isGrabbed && canMoveBark)
             currentDirectionHorintal = FacingDirectionHorizontal.Left;
 
-        else if (vInput > 0 && oG.isGrabbed == false)
+        else if (vInput > 0 && !oG.isGrabbed && canMoveBark)
             currentDirectionVertical = FacingDirectionVertical.Up;
-        else if (vInput < 0 && oG.isGrabbed == false)
+        else if (vInput < 0 && !oG.isGrabbed && canMoveBark)
             currentDirectionVertical = FacingDirectionVertical.Down;
-        else if (vInput == 0 && oG.isGrabbed == false)
+        else if (vInput == 0 && !oG.isGrabbed && canMoveBark)
             currentDirectionVertical = FacingDirectionVertical.None;
     }
 

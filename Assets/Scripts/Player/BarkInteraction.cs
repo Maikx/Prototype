@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class BarkInteraction : MonoBehaviour
 {
+    [HideInInspector] private PlayerController pC;
     [HideInInspector] public GameObject barkTrigger;
-    [HideInInspector] public CapsuleDirection2D directionVertical;
-    [HideInInspector] public CapsuleDirection2D directionHorizontal;
+    [HideInInspector] private CapsuleDirection2D directionVertical;
+    [HideInInspector] private CapsuleDirection2D directionHorizontal;
+
+    public float barkTriggerDuration = 0.5f;
     
     //0 = none, 1 = right, 2 = left, 3 = up, 4 = down..
     [HideInInspector]public int lastDirection;
+
+    private void Start()
+    {
+        pC = gameObject.GetComponent<PlayerController>();
+    }
 
     public void BarkLeft()
     {
@@ -18,7 +26,7 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 2);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionVertical;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        StartCoroutine(waitForSec(.5f));
+        StartCoroutine(waitForSec(barkTriggerDuration));
     }
 
     public void BarkRight()
@@ -28,7 +36,7 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 2);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionVertical;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        StartCoroutine(waitForSec(.5f));
+        StartCoroutine(waitForSec(barkTriggerDuration));
     }
 
     public void BarkUp()
@@ -38,7 +46,7 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 1f);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionHorizontal;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        StartCoroutine(waitForSec(.5f));
+        StartCoroutine(waitForSec(barkTriggerDuration));
     }
 
     public void BarkDown()
@@ -48,13 +56,15 @@ public class BarkInteraction : MonoBehaviour
         barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 1f);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionHorizontal;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
-        StartCoroutine(waitForSec(.5f));
+        StartCoroutine(waitForSec(barkTriggerDuration));
     }
 
     private IEnumerator waitForSec(float sec)
     {
+        pC.canMoveBark = false;
         yield return new WaitForSeconds(sec);
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = false;
         lastDirection = 0;
+        pC.canMoveBark = true;
     }
 }
