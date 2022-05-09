@@ -2122,23 +2122,25 @@ MonoBehaviour:
   healthManager: {fileID: 0}
   gameManager: {fileID: 0}
   checkPointManager: {fileID: 0}
+  CanMove: 1
   canJump: 1
   canBark: 1
+  canMoveBark: 1
   currentDirectionHorintal: 1
   currentDirectionVertical: 2
   jumpKey: 32
   barkKey: 113
   walkSpeed: 17
   grabSpeed: 6.5
-  airborneSpeed: 10
+  airborneSpeed: 12
   jumpForce: 7.5
   grounCheckSize: 0.2
   timeAfterJumpAgain: 1.7
   hInput: 0
   vInput: 0
-  acceleration: 1.7
-  friction: 5
-  gravity: 9
+  acceleration: 2.5
+  friction: 6.5
+  gravity: 9.81
   groundLayer:
     serializedVersion: 2
     m_Bits: 2304
@@ -2183,8 +2185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barkTrigger: {fileID: 278732940}
-  directionVertical: 0
-  directionHorizontal: 1
+  barkTriggerDuration: 0.5
   lastDirection: 0
 --- !u!114 &1113833636
 MonoBehaviour:
