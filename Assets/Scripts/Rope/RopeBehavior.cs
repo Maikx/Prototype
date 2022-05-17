@@ -23,9 +23,13 @@ public class RopeBehavior : MonoBehaviour
     public void MakePlanksFall()
     {
         Destroy(planks);
+
         isFalling = true;
         for (int i = 0; i < rope.Length; i++)
-            Destroy(rope[i]);
+        {
+            rope[i].GetComponent<MeshRenderer>().enabled = false;
+            rope[i].GetComponent<BoxCollider2D>().enabled = false;
+        }
     }
 
     public void MakeEphemeralFall()
