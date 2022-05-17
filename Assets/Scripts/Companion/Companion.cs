@@ -35,6 +35,7 @@ public class Companion : MonoBehaviour
     [HideInInspector]public bool isGrabbed;
     [HideInInspector]public bool isBlinking;
     [HideInInspector] public Vector3 direction;
+    public Animator playerAnimator;
 
 
     private void Start()
@@ -127,6 +128,8 @@ public class Companion : MonoBehaviour
                 player.GetComponent<PlayerController>().CanMove = false;
                 player.GetComponent<Rigidbody2D>().isKinematic = true;
                 player.transform.parent = gameObject.transform;
+                
+                playerAnimator.SetBool("isFlying", true);
         }
 
         else if (Input.GetMouseButtonUp(1) && interactable != null && interactable.gameObject.tag == "Player" || interactable != null && currentTime == 0)
@@ -135,6 +138,9 @@ public class Companion : MonoBehaviour
                 player.GetComponentInParent<PlayerController>().CanMove = true;
                 player.GetComponent<Rigidbody2D>().isKinematic = false;
                 player.transform.parent = null;
+
+                playerAnimator.SetBool("isFlying", false);
+
         }
     }
 
