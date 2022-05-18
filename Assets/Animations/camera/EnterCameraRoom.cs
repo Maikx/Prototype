@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnterCameraRoom : MonoBehaviour
 {
     [HideInInspector] public Animator player;
+    public GameObject cameraOn;
 
     void Start()
     {
@@ -14,6 +15,6 @@ public class EnterCameraRoom : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D target)
     {
         if(target.tag == "Player")
-        player.SetBool("Dolly 1", true);
+        cameraOn.SetActive(true);
     }
 }

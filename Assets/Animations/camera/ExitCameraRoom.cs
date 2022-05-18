@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExitCameraRoom : MonoBehaviour
 {
     [HideInInspector] public Animator player;
+    public GameObject cameraOff;
 
     void Start()
     {
@@ -14,6 +15,6 @@ public class ExitCameraRoom : MonoBehaviour
     public void OnTriggerExit2D(Collider2D target)
     {
         if(target.tag == "Player")
-        player.SetBool("Dolly 1", false);
+        cameraOff.SetActive(false);
     }
 }
