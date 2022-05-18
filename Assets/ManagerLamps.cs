@@ -5,8 +5,8 @@ using UnityEngine;
 public class ManagerLamps : MonoBehaviour
 {
     public GameObject lampPrefab;
-    public GameObject oldLamp;
-    public GameObject newLamp;
+    private GameObject oldLamp;
+    private GameObject newLamp;
     private GameObject companion;
     private float lastClickTime;
     private const float doubleClickTime = .4f;
@@ -20,13 +20,13 @@ public class ManagerLamps : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(1) && newLamp == null)
-        {
-            Destroy(oldLamp);
-            oldLamp = null;
+        {            
             float timeSinceLastClick = Time.time - lastClickTime;
 
             if (timeSinceLastClick <= doubleClickTime)
             {
+                Destroy(oldLamp);
+                oldLamp = null;
                 newLamp = Instantiate(lampPrefab, companion.gameObject.transform.position, Quaternion.identity);
             }
 

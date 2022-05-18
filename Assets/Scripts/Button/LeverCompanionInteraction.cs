@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class LeverCompanionInteraction : MonoBehaviour
 {
-    public GameObject companion;
+    private GameObject companion;
 
-    void Start()
+    void Update()
     {
-        //companion = GameObject.FindWithTag("Companion");
+        if(companion == null)
+        companion = GameObject.FindWithTag("Companion");
     }
 
     public void OnTriggerEnter2D(Collider2D target)

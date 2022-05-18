@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74bf09bd1f1527348949740e390ba470, type: 2}
+  - {fileID: 2100000, guid: d1688af02bbdea943a2ae15a496fbf3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,6 +140,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5486481248226091556}
     m_Modifications:
+    - target: {fileID: 2770863865682264904, guid: 77a1d53c4c7e8c4488b8f95856409ba0, type: 3}
+      propertyPath: m_Range
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3218589356975064188, guid: 77a1d53c4c7e8c4488b8f95856409ba0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -154,7 +158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3218589356975064188, guid: 77a1d53c4c7e8c4488b8f95856409ba0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 3218589356975064188, guid: 77a1d53c4c7e8c4488b8f95856409ba0, type: 3}
       propertyPath: m_LocalRotation.w
