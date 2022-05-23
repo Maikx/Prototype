@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canBark = true;
     public bool canMoveBark = true;
+    public bool canMoveTurnAround = true;
+    [SerializeField] [HideInInspector] FacingDirectionHorizontal lastKnownFacingDirection;
     [SerializeField] [HideInInspector] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
     [SerializeField] [HideInInspector] FacingDirectionVertical currentDirectionVertical = FacingDirectionVertical.None;
 
@@ -46,7 +48,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public float grounCheckSize;
     public float timeAfterJumpAgain;
-    private float currentTime;
+    public float timeToTurnAround;
+    private float currentJumpTime;
+    private float currentTurnAroundTime;
     private float currentSpeed;
     private Vector3 direction;
     [HideInInspector] public float hInput;
@@ -89,6 +93,7 @@ public class PlayerController : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
         canMoveBark = true;
+        canMoveTurnAround = true;
     }
 
     private void FixedUpdate()
@@ -107,7 +112,7 @@ public class PlayerController : MonoBehaviour
         {
             rB.velocity = new Vector2(rB.velocity.x, jumpForce);
             animIsJumping = true;
-            currentTime = timeAfterJumpAgain;
+            currentJumpTime = timeAfterJumpAgain;
         }
     }
 
@@ -119,6 +124,7 @@ public class PlayerController : MonoBehaviour
 
         CheckIfMovingBackGrabbed();
         JumpTimer();
+        TurnAroundTimer();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -149,7 +155,7 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
         //This makes the player move with horizontal inputs (A/D & arrows).
-        if (CanMove && canMoveBark)
+        if (CanMove && canMoveBark && canMoveTurnAround)
         {
             hInput = Input.GetAxis("Horizontal");
             vInput = Input.GetAxis("Vertical");
@@ -183,7 +189,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //This Handles the bark function
-        if (Input.GetKey(barkKey) && isGrounded && !oG.isGrabbed && canBark && canMoveBark)
+        if (Input.GetKey(barkKey) && isGrounded && !oG.isGrabbed && canBark && canMoveBark && canMoveTurnAround)
         {
             switch (currentDirectionVertical)
             {
@@ -217,17 +223,17 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void CheckPlayerLookingDirection()
     {
-        if (hInput > 0 && !oG.isGrabbed && canMoveBark)
+        if (hInput > 0 && !oG.isGrabbed && canMoveBark && canMoveTurnAround)
             currentDirectionHorintal = FacingDirectionHorizontal.Right;
 
-        else if (hInput < 0 && !oG.isGrabbed && canMoveBark)
+        else if (hInput < 0 && !oG.isGrabbed && canMoveBark && canMoveTurnAround)
             currentDirectionHorintal = FacingDirectionHorizontal.Left;
 
-        else if (vInput > 0 && !oG.isGrabbed && canMoveBark)
+        else if (vInput > 0 && !oG.isGrabbed && canMoveBark && canMoveTurnAround)
             currentDirectionVertical = FacingDirectionVertical.Up;
-        else if (vInput < 0 && !oG.isGrabbed && canMoveBark)
+        else if (vInput < 0 && !oG.isGrabbed && canMoveBark && canMoveTurnAround)
             currentDirectionVertical = FacingDirectionVertical.Down;
-        else if (vInput == 0 && !oG.isGrabbed && canMoveBark)
+        else if (vInput == 0 && !oG.isGrabbed && canMoveBark && canMoveTurnAround)
             currentDirectionVertical = FacingDirectionVertical.None;
     }
 
@@ -244,15 +250,34 @@ public class PlayerController : MonoBehaviour
 
     void JumpTimer()
     {
-        if (currentTime > 0)
+        if (currentJumpTime > 0)
         {
             canJump = false;
             animIsJumping = false;
-            currentTime -= Time.deltaTime;
+            currentJumpTime -= Time.deltaTime;
         }
-        else if (currentTime <= 0)
+        else if (currentJumpTime <= 0)
         {
             canJump = true;
+        }
+    }
+
+    void TurnAroundTimer()
+    {
+        if(lastKnownFacingDirection != currentDirectionHorintal)
+        {
+            currentTurnAroundTime = timeToTurnAround;
+            lastKnownFacingDirection = currentDirectionHorintal;
+        }
+
+        if (currentTurnAroundTime > 0)
+        {
+            canMoveTurnAround = false;
+            currentTurnAroundTime -= Time.deltaTime;
+        }
+        else if (currentTurnAroundTime <= 0)
+        {
+            canMoveTurnAround = true;
         }
     }
 
