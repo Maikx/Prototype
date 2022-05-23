@@ -373,6 +373,10 @@ PrefabInstance:
       propertyPath: canMoveBark
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7930059682083846245, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
+      propertyPath: timeToTurnAround
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
 --- !u!1 &540963620
@@ -415,9 +419,7 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 0}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras:
-  - {fileID: 1455302133}
-  - {fileID: 1314657652}
+  m_ChildCameras: []
   m_Instructions:
   - m_FullHash: 1432961145
     m_VirtualCamera: {fileID: 1455302133}

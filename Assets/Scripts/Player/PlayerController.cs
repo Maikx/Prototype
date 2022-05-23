@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public Transform groundCheckBack;
     private bool animIsJumping;
+    public bool animIsTurning;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasGroundBehind;
     
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
         thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
+        lastKnownFacingDirection = currentDirectionHorintal;
         canMoveBark = true;
         canMoveTurnAround = true;
     }
@@ -169,7 +171,7 @@ public class PlayerController : MonoBehaviour
         direction.x = hInput * (currentSpeed);
 
         //This is for the player's facing direction!
-        if (hInput != 0 && !oG.isGrabbed) transform.right = direction;
+        if (hInput != 0 && !oG.isGrabbed && currentTurnAroundTime <= 0) transform.right = direction;
 
         //This changes player speed depending on the state ex: walk/grab/airborne
         if (!oG.isGrabbed && isGrounded)
@@ -266,7 +268,11 @@ public class PlayerController : MonoBehaviour
     {
         if(lastKnownFacingDirection != currentDirectionHorintal)
         {
-            currentTurnAroundTime = timeToTurnAround;
+            if (isGrounded)
+            {
+                animIsTurning = true;
+                currentTurnAroundTime = timeToTurnAround;
+            }
             lastKnownFacingDirection = currentDirectionHorintal;
         }
 
@@ -277,6 +283,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (currentTurnAroundTime <= 0)
         {
+            animIsTurning = false;
             canMoveTurnAround = true;
         }
     }
@@ -294,6 +301,8 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAnimationHandler()
     {
+        if (animIsTurning) animHandler.SetBool("isTurning", true);
+        else animHandler.SetBool("isTurning", false);
         if (hInput != 0) animHandler.SetBool("isMoving", true);
         else animHandler.SetBool("isMoving", false);
         animHandler.SetBool("isGrounded", isGrounded);
