@@ -2173,6 +2173,7 @@ MonoBehaviour:
   isMovingBackGrabbed: 0
   rayDist: 0.01
   point: {x: 0, y: 0, z: 0}
+  GrabSound: {fileID: 6349562485898003252, guid: 46bf3e33fb995d3428f34a91f3816b8f, type: 3}
 --- !u!114 &7598038222205906989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2186,7 +2187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barkTrigger: {fileID: 278732940}
-  barkTriggerDuration: 0.5
+  barkTriggerDuration: 0.1
   lastDirection: 0
 --- !u!114 &1113833636
 MonoBehaviour:

@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class settingMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
+    public AudioSource ParameterUpDown;
 
     public void SetVolume (float volume)
     {
         audioMixer.SetFloat("Volume", volume);
+        ParameterUpDown.Play();
     }
 
     public void SetMusic(float volume)
