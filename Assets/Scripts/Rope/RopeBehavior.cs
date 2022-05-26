@@ -8,6 +8,8 @@ public class RopeBehavior : MonoBehaviour
     public GameObject ephemeral;
     public GameObject[] rope;
 
+    public AudioSource WoodCrack;
+
     [Header("Ephemeral")]
     public float fallSpeed;
     public float fallHeight;
@@ -23,7 +25,7 @@ public class RopeBehavior : MonoBehaviour
     public void MakePlanksFall()
     {
         Destroy(planks);
-
+        WoodCrack.Play();
         isFalling = true;
         for (int i = 0; i < rope.Length; i++)
         {

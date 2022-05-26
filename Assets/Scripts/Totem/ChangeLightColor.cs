@@ -7,6 +7,9 @@ public class ChangeLightColor : MonoBehaviour
     public Color color;
     public GameObject spotlight;
 
+    public AudioSource TotemActive, RockLift;
+    public float TimeToWait;
+
     [Header("Animators")]
     public Animator totemAnimator;
     //public Animator carattere1Animator;
@@ -24,9 +27,17 @@ public class ChangeLightColor : MonoBehaviour
             //carattere1Animator.SetTrigger("Carattere1Up");
             //carattere6Animator.SetTrigger("Carattere6Up");
             spotlight.GetComponent<Light>().color = color;
-
+            TotemActive.Play();
+            StartCoroutine(WaitRockLift());
             //carattere1.GetComponent<MeshRenderer>().material = newMaterial;
             //carattere2.GetComponent<MeshRenderer>().material = newMaterial;
         }
+    }
+
+    IEnumerator WaitRockLift()
+    {
+        yield return new WaitForSeconds(TimeToWait);
+        RockLift.Play();
+        StopCoroutine(WaitRockLift());
     }
 }
