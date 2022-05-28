@@ -26,9 +26,9 @@ public class spawnUI : MonoBehaviour
         //Destroy(UI_Component);
     //}
 
-    void OnTriggerStay2D(Collider2D target)
+    void OnTriggerExit2D(Collider2D target)
     {
-        if (UI_Component != null && Input.GetKeyDown(keyPressed) && UIActivated == true && target.tag == "Player")
+        if (UI_Component != null && UIActivated == true && target.tag == "Player")
             Destroy(UI_Component);
     }
 }
