@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public Animator stateMachine;
     public Animator animHandler;
-    private enum FacingDirectionHorizontal { Left, Right }
+    public enum FacingDirectionHorizontal { Left, Right }
     private enum FacingDirectionVertical { Up, Down, None }
     [HideInInspector] public HealthManager healthManager;
     [HideInInspector] public GameManager gameManager;
@@ -50,8 +50,8 @@ public class PlayerController : MonoBehaviour
     public float timeAfterJumpAgain;
     public float timeToTurnAround;
     private float currentJumpTime;
-    private float currentTurnAroundTime;
-    private Vector3 direction;
+    public float currentTurnAroundTime;
+    [HideInInspector] public Vector3 direction;
     /*[HideInInspector]*/ public float currentSpeed;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
@@ -110,11 +110,11 @@ public class PlayerController : MonoBehaviour
         rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
         rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, gravity * Time.deltaTime);
         //This plays when the player jumps
-        if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump)
+        if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump && currentTurnAroundTime <= 0)
         {
             rB.velocity = new Vector2(rB.velocity.x, jumpForce);
-            animIsJumping = true;
             currentJumpTime = timeAfterJumpAgain;
+            animIsJumping = true;
         }
     }
 
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
         CheckIfMovingBackGrabbed();
         JumpTimer();
-        TurnAroundTimer();
+        TurnAround();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -172,11 +172,6 @@ public class PlayerController : MonoBehaviour
 
         //This is for the player's facing direction!
         if (hInput != 0 && !oG.isGrabbed && currentTurnAroundTime <= 0) transform.right = direction;
-
-            if (oG.isGrabbed)
-            {
-                currentSpeed = grabSpeed;
-            }
 
         //This Handles the bark function
         if (Input.GetKey(barkKey) && isGrounded && !oG.isGrabbed && canBark && canMoveBark && canMoveTurnAround)
@@ -230,7 +225,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// This is used to memorize if the player moving backwards in grabbed state
     /// </summary>
-    void CheckIfMovingBackGrabbed()
+    public void CheckIfMovingBackGrabbed()
     {
         if (oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Right && hInput < 0 || oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Left && hInput > 0)
             oG.isMovingBackGrabbed = true;
@@ -252,27 +247,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void TurnAroundTimer()
+    void TurnAround()
     {
-        if(lastKnownFacingDirection != currentDirectionHorintal)
+        if (lastKnownFacingDirection != currentDirectionHorintal)
         {
             if (isGrounded)
             {
-                animIsTurning = true;
-                currentTurnAroundTime = timeToTurnAround;
+                stateMachine.SetTrigger("isTurning");
+                animHandler.SetTrigger("isTurning");
             }
             lastKnownFacingDirection = currentDirectionHorintal;
-        }
-
-        if (currentTurnAroundTime > 0)
-        {
-            canMoveTurnAround = false;
-            currentTurnAroundTime -= Time.deltaTime;
-        }
-        else if (currentTurnAroundTime <= 0)
-        {
-            animIsTurning = false;
-            canMoveTurnAround = true;
         }
     }
 
@@ -283,16 +267,12 @@ public class PlayerController : MonoBehaviour
     {
         if (hInput != 0) stateMachine.SetBool("isMoving", true);
         else stateMachine.SetBool("isMoving", false);
-        if (animIsTurning) animHandler.SetBool("isTurning", true);
-        else stateMachine.SetBool("isTurning", false);
         stateMachine.SetBool("isGrounded", isGrounded);
         stateMachine.SetBool("isGrabbed", oG.isGrabbed);
     }
 
     public void PlayerAnimationHandler()
     {
-        if (animIsTurning) animHandler.SetBool("isTurning", true);
-        else animHandler.SetBool("isTurning", false);
         if (hInput != 0) animHandler.SetBool("isMoving", true);
         else animHandler.SetBool("isMoving", false);
         animHandler.SetBool("isGrounded", isGrounded);
