@@ -51,8 +51,8 @@ public class PlayerController : MonoBehaviour
     public float timeToTurnAround;
     private float currentJumpTime;
     private float currentTurnAroundTime;
-    private float currentSpeed;
     private Vector3 direction;
+    /*[HideInInspector]*/ public float currentSpeed;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
 
@@ -173,22 +173,10 @@ public class PlayerController : MonoBehaviour
         //This is for the player's facing direction!
         if (hInput != 0 && !oG.isGrabbed && currentTurnAroundTime <= 0) transform.right = direction;
 
-        //This changes player speed depending on the state ex: walk/grab/airborne
-        if (!oG.isGrabbed && isGrounded)
-        {
-            currentSpeed = walkSpeed;
-        }
-        else
-        {
             if (oG.isGrabbed)
             {
                 currentSpeed = grabSpeed;
             }
-            if (!isGrounded)
-            {
-                currentSpeed = airborneSpeed;
-            }
-        }
 
         //This Handles the bark function
         if (Input.GetKey(barkKey) && isGrounded && !oG.isGrabbed && canBark && canMoveBark && canMoveTurnAround)
@@ -295,6 +283,8 @@ public class PlayerController : MonoBehaviour
     {
         if (hInput != 0) stateMachine.SetBool("isMoving", true);
         else stateMachine.SetBool("isMoving", false);
+        if (animIsTurning) animHandler.SetBool("isTurning", true);
+        else stateMachine.SetBool("isTurning", false);
         stateMachine.SetBool("isGrounded", isGrounded);
         stateMachine.SetBool("isGrabbed", oG.isGrabbed);
     }
