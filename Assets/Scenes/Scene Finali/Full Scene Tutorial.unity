@@ -22622,6 +22622,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7930059682083846244, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
   m_PrefabInstance: {fileID: 697523623}
   m_PrefabAsset: {fileID: 0}
+--- !u!119 &1113833629
+Projector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113833628}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.1
+  m_FarClipPlane: 100
+  m_FieldOfView: 60
+  m_AspectRatio: 1
+  m_Orthographic: 0
+  m_OrthographicSize: 10
+  m_Material: {fileID: 0}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1113833632 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7930059682083846245, guid: e153cdba5468c1443be213c9b42687a4, type: 3}
