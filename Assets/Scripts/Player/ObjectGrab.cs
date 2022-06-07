@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class ObjectGrab : MonoBehaviour
 {
-    private bool isInteracting => canInteract && Input.GetKey(interactKey);
-    [SerializeField] private bool canInteract = true;
     [SerializeField] private KeyCode interactKey = KeyCode.E;
-    [HideInInspector] public BoxCollider2D playerCollider;
-    public Transform grabDetect;
-    public Transform objectHolder;
+    [HideInInspector] public bool isInteracting => canInteract && Input.GetKey(interactKey);
+    [HideInInspector] public bool canInteract = true;
     [HideInInspector] public bool isGrabbed;
     [HideInInspector] public bool isMovingBackGrabbed;
-    public float rayDist;
+    [HideInInspector] public BoxCollider2D playerCollider;
     [HideInInspector] public Vector3 point;
+    public int objectType;
+    public Transform grabDetect;
+    public Transform objectHolder;
+    public float rayDist;
 
     private void Start()
     {
@@ -36,12 +37,11 @@ public class ObjectGrab : MonoBehaviour
             //The Raycast is used to check if there is a rigidbody that the player can grab.
             RaycastHit2D grabCheck = Physics2D.Raycast(grabDetect.position, Vector2.right * transform.localScale, rayDist);
 
-            if(grabCheck == true)
-
             if (grabCheck.collider != null && grabCheck.collider.gameObject.layer == 11)
             {
                 if (grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().objectType == ObjectBehavior.ObjectType.Box)
                 {
+                    objectType = 1;
                     //Player grabs object.
                     if (Input.GetKey(interactKey) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded && gameObject.GetComponent<PlayerController>().isGrounded && gameObject.GetComponent<PlayerController>().hasGroundBehind)
                     {
@@ -66,11 +66,16 @@ public class ObjectGrab : MonoBehaviour
                 }
                 else if (grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().objectType == ObjectBehavior.ObjectType.Rope)
                 {
+                    objectType = 2;
                     if (Input.GetKey(interactKey))
                     {
                         grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().Activate();
                     }
                 }
+            }
+            else
+            {
+                objectType = 0;
             }
         }
     }

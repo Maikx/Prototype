@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_StateMachine_TurnAround_Enter : StateMachineBehaviour
+public class Player_StateMachine_Bark_Enter : StateMachineBehaviour
 {
     PlayerController pC = null;
 
@@ -11,6 +11,7 @@ public class Player_StateMachine_TurnAround_Enter : StateMachineBehaviour
     {
         if (!pC) pC = animator.gameObject.GetComponent<PlayerController>();
         animator.SetBool("Delay", true);
-        pC.currentDelayTime = pC.timeToTurnAround;
+        pC.currentDelayTime = pC.timeToBark;
+        pC.Bark();
     }
 }
