@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &531900926
 Transform:
   m_ObjectHideFlags: 0
@@ -2200,7 +2200,8 @@ MonoBehaviour:
   CanMove: 1
   canJump: 1
   canBark: 1
-  canMoveBark: 1
+  canMoveScript: 1
+  lastKnownFacingDirection: 0
   currentDirectionHorintal: 1
   currentDirectionVertical: 2
   jumpKey: 32
@@ -2210,9 +2211,15 @@ MonoBehaviour:
   airborneSpeed: 12
   jumpForce: 7.5
   grounCheckSize: 0.2
-  timeAfterJumpAgain: 1
+  direction: {x: 0, y: 0, z: 0}
+  currentSpeed: 0
   hInput: 0
   vInput: 0
+  timeAfterJumpAgain: 1
+  timeToTurnAround: 0
+  timeToInteract: 0
+  timeToBark: 0
+  currentDelayTime: 0
   acceleration: 2.5
   friction: 6.5
   gravity: 9.81
@@ -2221,11 +2228,11 @@ MonoBehaviour:
     m_Bits: 2304
   groundCheck: {fileID: 7930059680237973556}
   groundCheckBack: {fileID: 792106949}
+  transparentObject: {fileID: 0}
+  transparentObjectSize: {x: 0, y: 0, z: 0}
   isGrounded: 0
   hasGroundBehind: 0
   thorns: {fileID: 0}
-  transparentObject: {fileID: 0}
-  transparentObjectSize: {x: 0, y: 0, z: 0}
 --- !u!114 &8492369182405733457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2238,15 +2245,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ad659153fde584bb2ec780d66bbf9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 1
   interactKey: 101
-  playerCollider: {fileID: 0}
-  grabDetect: {fileID: 4410604204002530337}
-  objectHolder: {fileID: 7718147140371503937}
+  canInteract: 1
   isGrabbed: 0
   isMovingBackGrabbed: 0
-  rayDist: 0.01
+  playerCollider: {fileID: 0}
   point: {x: 0, y: 0, z: 0}
+  objectType: 0
+  grabDetect: {fileID: 4410604204002530337}
+  objectHolder: {fileID: 7718147140371503937}
+  rayDist: 0.01
   GrabSound: {fileID: 637674520760827321}
 --- !u!114 &7598038222205906989
 MonoBehaviour:
@@ -2261,7 +2269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barkTrigger: {fileID: 278732940}
-  barkTriggerDuration: 0.1
   lastDirection: 0
 --- !u!114 &1113833636
 MonoBehaviour:
@@ -2431,7 +2438,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2483798846391732975, guid: c035b934b7340de4c85812629f0c57fc, type: 2}
   m_audioClip: {fileID: 8300000, guid: 3a488f2aee5586c458705e763e1a9d80, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.254
   m_Pitch: 3
   Loop: 1
   Mute: 0
@@ -2524,7 +2531,7 @@ AudioSource:
   m_GameObject: {fileID: 7930059682083846244}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2483798846391732975, guid: c035b934b7340de4c85812629f0c57fc, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2d34365f0e8dc2146a105ce98c27edb1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

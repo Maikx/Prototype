@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1149689043479080808}
   - component: {fileID: 7891644470386810888}
   - component: {fileID: -6648779066568031424}
+  - component: {fileID: 7415691844886135860}
   m_Layer: 0
   m_Name: Sfera_Roccia_LOW
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 342085260517504466}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 122.84691, y: 11.709956, z: 5.547785}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 6917494937450052408}
   - {fileID: 5143527192373206308}
@@ -76,6 +77,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.309135, y: 11.000803}
   m_EdgeRadius: 0
+--- !u!114 &7415691844886135860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342085260517504466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c660ea310685a409820647fae8a608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posA: {x: 327, y: 19}
+  posB: {x: 327, y: 25}
+  speed: 0
+  isMoving: 0
 --- !u!1 &4652447636596409067
 GameObject:
   m_ObjectHideFlags: 0
