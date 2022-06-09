@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1694042139896492224}
   - component: {fileID: 7709077096824620482}
   - component: {fileID: 1385003754514497220}
+  - component: {fileID: 7003959367485214676}
   m_Layer: 8
   m_Name: BlocchiPNG_OK_17
   m_TagString: Untagged
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7213c72cd9590a74f9ab62e1d6fde7c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +128,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.068850115}
+  m_Offset: {x: 0, y: 0.27611756}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -138,5 +139,31 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.29, y: 0.95229995}
+  m_Size: {x: 1.29, y: 0.26236463}
   m_EdgeRadius: 0
+--- !u!114 &7003959367485214676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8357227501674338331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.62612915, y: -0.52926666, z: 0}
+  - {x: 0.65319157, y: -0.5473053, z: 0}
+  - {x: 0.6351528, y: 0.42103496, z: 0}
+  - {x: -0.6441679, y: 0.41201565, z: 0}
+  m_ShapePathHash: -1123932203
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 35196

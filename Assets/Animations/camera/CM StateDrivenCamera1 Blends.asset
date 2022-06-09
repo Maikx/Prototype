@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CustomBlends:
   - m_From: Idle
-    m_To: Zoom out
+    m_To: Zoom Out
     m_Blend:
       m_Style: 2
       m_Time: 1.2
@@ -24,55 +24,11 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Idle
-    m_To: Grab
-    m_Blend:
-      m_Style: 2
-      m_Time: 0.5
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Grab
-    m_To: Zoom out
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Grab
+  - m_From: Zoom Out
     m_To: Idle
     m_Blend:
-      m_Style: 3
-      m_Time: 0.5
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Zoom out
-    m_To: Idle
-    m_Blend:
-      m_Style: 5
-      m_Time: 1.5
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Zoom out
-    m_To: Grab
-    m_Blend:
       m_Style: 1
-      m_Time: 1
+      m_Time: 1.2
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
