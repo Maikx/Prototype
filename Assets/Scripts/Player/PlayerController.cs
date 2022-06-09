@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public Animator stateMachine;
     public Animator animHandler;
-    private enum FacingDirectionHorizontal { Left, Right }
+    public enum FacingDirectionHorizontal { Left, Right }
     private enum FacingDirectionVertical { Up, Down, None }
     [HideInInspector] public HealthManager healthManager;
     [HideInInspector] public GameManager gameManager;
@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour
     [Header("Function Options")]
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canBark = true;
-    public bool canMoveBark = true;
+    [HideInInspector]public bool canMoveScript = true;
+    [SerializeField] [HideInInspector] FacingDirectionHorizontal lastKnownFacingDirection;
     [SerializeField] [HideInInspector] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
     [SerializeField] [HideInInspector] FacingDirectionVertical currentDirectionVertical = FacingDirectionVertical.None;
 
@@ -45,12 +46,18 @@ public class PlayerController : MonoBehaviour
     public float airborneSpeed;
     public float jumpForce;
     public float grounCheckSize;
-    public float timeAfterJumpAgain;
-    private float currentTime;
-    private float currentSpeed;
-    private Vector3 direction;
+    [HideInInspector] public Vector3 direction;
+    [HideInInspector] public float currentSpeed;
     [HideInInspector] public float hInput;
     [HideInInspector] public float vInput;
+
+    [Header("Timers")]
+    public float timeAfterJumpAgain;
+    public float timeToTurnAround;
+    public float timeToInteract;
+    public float timeToBark;
+    private float currentJumpTime;
+    [HideInInspector] public float currentDelayTime;
 
     [Header("Physics Parameters")]
     public float acceleration;
@@ -61,14 +68,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheck;
     public Transform groundCheckBack;
-    private bool animIsJumping;
-    [HideInInspector] public bool isGrounded;
-    [HideInInspector] public bool hasGroundBehind;
-    
-
-    public Thorns thorns;
     public GameObject transparentObject;
     public Vector3 transparentObjectSize;
+    private bool animIsJumping;
+    //public bool animIsTurning;
+    [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool hasGroundBehind;
+    [HideInInspector] public Thorns thorns;
 
 
     void Awake()
@@ -88,7 +94,8 @@ public class PlayerController : MonoBehaviour
         thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
-        canMoveBark = true;
+        lastKnownFacingDirection = currentDirectionHorintal;
+        canMoveScript = true;
     }
 
     private void FixedUpdate()
@@ -103,22 +110,22 @@ public class PlayerController : MonoBehaviour
         rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
         rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, gravity * Time.deltaTime);
         //This plays when the player jumps
-        if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump)
+        if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump && currentDelayTime <= 0)
         {
             rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+            currentJumpTime = timeAfterJumpAgain;
             animIsJumping = true;
-            currentTime = timeAfterJumpAgain;
         }
     }
 
     void Update()
     {
-            PlayerStateMachine();
-            PlayerAnimationHandler();
-            CheckPlayerLookingDirection();
-
+        PlayerStateMachine();
+        PlayerAnimationHandler();
+        CheckPlayerLookingDirection();
         CheckIfMovingBackGrabbed();
         JumpTimer();
+        TurnAround();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -149,7 +156,7 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
         //This makes the player move with horizontal inputs (A/D & arrows).
-        if (CanMove && canMoveBark)
+        if (CanMove && canMoveScript)
         {
             hInput = Input.GetAxis("Horizontal");
             vInput = Input.GetAxis("Vertical");
@@ -161,55 +168,6 @@ public class PlayerController : MonoBehaviour
         }
 
         direction.x = hInput * (currentSpeed);
-
-        //This is for the player's facing direction!
-        if (hInput != 0 && !oG.isGrabbed) transform.right = direction;
-
-        //This changes player speed depending on the state ex: walk/grab/airborne
-        if (!oG.isGrabbed && isGrounded)
-        {
-            currentSpeed = walkSpeed;
-        }
-        else
-        {
-            if (oG.isGrabbed)
-            {
-                currentSpeed = grabSpeed;
-            }
-            if (!isGrounded)
-            {
-                currentSpeed = airborneSpeed;
-            }
-        }
-
-        //This Handles the bark function
-        if (Input.GetKey(barkKey) && isGrounded && !oG.isGrabbed && canBark && canMoveBark)
-        {
-            switch (currentDirectionVertical)
-            {
-                case FacingDirectionVertical.Up:
-                    bI.BarkUp();
-                    canMoveBark = false;
-                    break;
-                case FacingDirectionVertical.Down:
-                    bI.BarkDown();
-                    canMoveBark = false;
-                    break;
-                case FacingDirectionVertical.None:
-                    if (currentDirectionHorintal == FacingDirectionHorizontal.Right)
-                    {
-                        bI.BarkRight();
-                        canMoveBark = false;
-                    }
-                    else if (currentDirectionHorintal == FacingDirectionHorizontal.Left)
-                    {
-                        bI.BarkLeft();
-                        canMoveBark = false;
-                    }
-                        break;
-            }
-            sT.BarkSound();
-        }
     }
 
     /// <summary>
@@ -217,24 +175,48 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void CheckPlayerLookingDirection()
     {
-        if (hInput > 0 && !oG.isGrabbed && canMoveBark)
+        if (hInput > 0 && !oG.isGrabbed && canMoveScript)
             currentDirectionHorintal = FacingDirectionHorizontal.Right;
 
-        else if (hInput < 0 && !oG.isGrabbed && canMoveBark)
+        else if (hInput < 0 && !oG.isGrabbed && canMoveScript)
             currentDirectionHorintal = FacingDirectionHorizontal.Left;
 
-        else if (vInput > 0 && !oG.isGrabbed && canMoveBark)
+        else if (vInput > 0 && !oG.isGrabbed && canMoveScript)
             currentDirectionVertical = FacingDirectionVertical.Up;
-        else if (vInput < 0 && !oG.isGrabbed && canMoveBark)
+        else if (vInput < 0 && !oG.isGrabbed && canMoveScript)
             currentDirectionVertical = FacingDirectionVertical.Down;
-        else if (vInput == 0 && !oG.isGrabbed && canMoveBark)
+        else if (vInput == 0 && !oG.isGrabbed && canMoveScript)
             currentDirectionVertical = FacingDirectionVertical.None;
+    }
+
+    public void Bark()
+    {
+        switch (currentDirectionVertical)
+        {
+            case FacingDirectionVertical.Up:
+                bI.BarkUp();
+                break;
+            case FacingDirectionVertical.Down:
+                bI.BarkDown();
+                break;
+            case FacingDirectionVertical.None:
+                if (currentDirectionHorintal == FacingDirectionHorizontal.Right)
+                {
+                    bI.BarkRight();
+                }
+                else if (currentDirectionHorintal == FacingDirectionHorizontal.Left)
+                {
+                    bI.BarkLeft();
+                }
+                break;
+        }
+        sT.BarkSound();
     }
 
     /// <summary>
     /// This is used to memorize if the player moving backwards in grabbed state
     /// </summary>
-    void CheckIfMovingBackGrabbed()
+    public void CheckIfMovingBackGrabbed()
     {
         if (oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Right && hInput < 0 || oG.isGrabbed && currentDirectionHorintal == FacingDirectionHorizontal.Left && hInput > 0)
             oG.isMovingBackGrabbed = true;
@@ -244,15 +226,32 @@ public class PlayerController : MonoBehaviour
 
     void JumpTimer()
     {
-        if (currentTime > 0)
+        if (currentJumpTime > 0)
         {
             canJump = false;
             animIsJumping = false;
-            currentTime -= Time.deltaTime;
+            currentJumpTime -= Time.deltaTime;
         }
-        else if (currentTime <= 0)
+        else if (currentJumpTime <= 0)
         {
             canJump = true;
+        }
+    }
+
+    void TurnAround()
+    {
+        if (lastKnownFacingDirection != currentDirectionHorintal)
+        {
+            if (isGrounded)
+            {
+                stateMachine.SetTrigger("isTurning");
+                animHandler.SetTrigger("isTurning");
+            }
+            else
+            {
+                gameObject.transform.Rotate(gameObject.transform.rotation.x, 180, gameObject.transform.rotation.z);
+            }
+            lastKnownFacingDirection = currentDirectionHorintal;
         }
     }
 
@@ -265,6 +264,9 @@ public class PlayerController : MonoBehaviour
         else stateMachine.SetBool("isMoving", false);
         stateMachine.SetBool("isGrounded", isGrounded);
         stateMachine.SetBool("isGrabbed", oG.isGrabbed);
+        stateMachine.SetBool("isInteracting", oG.isInteracting);
+        stateMachine.SetInteger("objectType", oG.objectType);
+        stateMachine.SetBool("isBarking", isBarking);
     }
 
     public void PlayerAnimationHandler()
