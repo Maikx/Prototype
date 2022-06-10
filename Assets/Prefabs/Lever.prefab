@@ -17,7 +17,7 @@ MonoBehaviour:
   turnOnMaterial: {fileID: 2100000, guid: 4b41c525548f2794faecb9872a22eb5d, type: 2}
   turnOffMaterial: {fileID: 2100000, guid: c437b3f5753baa841ac0301cfab48921, type: 2}
   sphereLight: {fileID: 320437612558725743}
-  pointlight: {fileID: 8769474993108626428}
+  pointlight: {fileID: 6730145118759247761}
 --- !u!1 &3357647475398270698
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +94,9 @@ MonoBehaviour:
   animatorLever: {fileID: 8814751524277619263}
   linkedObjects:
   - {fileID: 0}
+  linkedObjectsMaterial:
+  - {fileID: 0}
+  - {fileID: 0}
   isActive: 0
 --- !u!114 &3713388277221188290
 MonoBehaviour:
@@ -123,7 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85be807769808404d9c078dc6e397469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  companion: {fileID: 0}
 --- !u!1001 &4249373583223895105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -228,8 +230,8 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 4660248206643019390, guid: bd96961919a670749b4e70145bbb6284, type: 3}
   m_PrefabInstance: {fileID: 4249373583223895105}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8769474993108626428 stripped
+--- !u!1 &6730145118759247761 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4849147311258083261, guid: bd96961919a670749b4e70145bbb6284, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7466556489759747024, guid: bd96961919a670749b4e70145bbb6284, type: 3}
   m_PrefabInstance: {fileID: 4249373583223895105}
   m_PrefabAsset: {fileID: 0}
