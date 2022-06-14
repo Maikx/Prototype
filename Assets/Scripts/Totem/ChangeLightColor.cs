@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChangeLightColor : MonoBehaviour
 {
     public Color color;
-    public GameObject spotlight;
+    
 
     public AudioSource TotemActive, RockLift;
     public float TimeToWait;
@@ -26,7 +26,6 @@ public class ChangeLightColor : MonoBehaviour
             totemAnimator.SetTrigger("TotemUp");
             //carattere1Animator.SetTrigger("Carattere1Up");
             //carattere6Animator.SetTrigger("Carattere6Up");
-            spotlight.GetComponent<Light>().color = color;
             TotemActive.Play();
             StartCoroutine(WaitRockLift());
             //carattere1.GetComponent<MeshRenderer>().material = newMaterial;

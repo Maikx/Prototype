@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b4a6ce09529294c9c69cf948c58e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0.37664843, b: 1, a: 0}
+  color: {r: 0, g: 0.37231016, b: 1, a: 1}
   spotlight: {fileID: 0}
   TotemActive: {fileID: 7751304450142819270}
   RockLift: {fileID: 1700583342266820373}
@@ -108,7 +108,7 @@ AudioSource:
   m_GameObject: {fileID: 1134212377093551733}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2483798846391732975, guid: c035b934b7340de4c85812629f0c57fc, type: 2}
   m_audioClip: {fileID: 8300000, guid: bc2efc2a2f215a84ca5cd5a0863ce1aa, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -204,7 +204,7 @@ AudioSource:
   m_GameObject: {fileID: 1134212377093551733}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2483798846391732975, guid: c035b934b7340de4c85812629f0c57fc, type: 2}
   m_audioClip: {fileID: 8300000, guid: c9eaaa6741aa86149a33ac84f00f9e5f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -361,15 +361,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d008691b6fc7d6428cd02b62503fbd8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.036865234
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d008691b6fc7d6428cd02b62503fbd8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0728482
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d008691b6fc7d6428cd02b62503fbd8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.5225043
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d008691b6fc7d6428cd02b62503fbd8, type: 3}
       propertyPath: m_LocalRotation.w

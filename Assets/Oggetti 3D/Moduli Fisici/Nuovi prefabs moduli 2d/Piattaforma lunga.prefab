@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8530922061502674491}
   - component: {fileID: 7580650364674222854}
   - component: {fileID: 7587746263408205960}
+  - component: {fileID: 1229325950}
   m_Layer: 8
   m_Name: Piattaforma lunga
   m_TagString: Untagged
@@ -109,3 +110,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.587977, y: 0.88788486}
   m_EdgeRadius: 0
+--- !u!114 &1229325950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510599663977955506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 0
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 19f21269ffaef62500000000
+  m_ShapePath:
+  - {x: -3.13, y: -0.72, z: 0}
+  - {x: 3.13, y: -0.72, z: 0}
+  - {x: 3.0816917, y: 0.40600204, z: 0}
+  - {x: -3.1058502, y: 0.38184834, z: 0}
+  m_ShapePathHash: 2139376285
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 23286
