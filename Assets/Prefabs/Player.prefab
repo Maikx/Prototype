@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &531900926
 Transform:
   m_ObjectHideFlags: 0
@@ -123,10 +123,10 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.469
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+  m_Intensity: 0.2
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: b35ff42619f21269ffaef62500000000
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -135,8 +135,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 1.07
-  m_PointLightOuterRadius: 4.49
+  m_PointLightInnerRadius: 0.6736934
+  m_PointLightOuterRadius: 2.681058
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 11
@@ -1827,6 +1827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6130209655970929657}
   - component: {fileID: 4549555874611154217}
+  - component: {fileID: 1410925853}
   m_Layer: 9
   m_Name: Cane_low
   m_TagString: Player
@@ -1841,13 +1842,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7487414223373821565}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 31079201455962185}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!137 &4549555874611154217
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -1940,6 +1941,36 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.045046173, y: -0.03479351, z: -0.00001897104}
     m_Extent: {x: 0.2206774, y: 0.13228197, z: 0.04880842}
   m_DirtyAABB: 0
+--- !u!114 &1410925853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487414223373821565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 19f21269ffaef62500000000
+  m_ShapePath:
+  - {x: -0.14031413, y: -0.0014513731, z: 0.0000780092}
+  - {x: 0.076762855, y: 0.00039632322, z: 0.00007751674}
+  - {x: 0.058719266, y: 0.014205313, z: 0.00007751221}
+  - {x: 0.033485606, y: 0.024576355, z: 0.000000007983574}
+  - {x: -0.004264164, y: 0.03049848, z: -0.0000000010166573}
+  - {x: -0.048295636, y: 0.03049848, z: -0.000000011514561}
+  - {x: -0.086379334, y: 0.02425524, z: -0.000000020594426}
+  - {x: -0.11579351, y: 0.013220513, z: 0.000078015095}
+  m_ShapePathHash: -585070889
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 21872
 --- !u!1 &7526594333247180044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,7 +2238,7 @@ MonoBehaviour:
   jumpKey: 32
   barkKey: 113
   walkSpeed: 17
-  grabSpeed: 6.5
+  grabSpeed: 5
   airborneSpeed: 12
   jumpForce: 7.5
   grounCheckSize: 0.2
@@ -2216,9 +2247,9 @@ MonoBehaviour:
   hInput: 0
   vInput: 0
   timeAfterJumpAgain: 1
-  timeToTurnAround: 0
-  timeToInteract: 0
-  timeToBark: 0
+  timeToTurnAround: 0.7
+  timeToInteract: 1
+  timeToBark: 0.7
   currentDelayTime: 0
   acceleration: 2.5
   friction: 6.5
