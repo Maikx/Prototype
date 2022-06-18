@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canBark = true;
     [HideInInspector]public bool canMoveScript = true;
     [SerializeField] [HideInInspector] FacingDirectionHorizontal lastKnownFacingDirection;
-    [SerializeField] /*[HideInInspector]*/ FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
+    [SerializeField] [HideInInspector] FacingDirectionHorizontal currentDirectionHorintal = FacingDirectionHorizontal.Right;
     [SerializeField] [HideInInspector] FacingDirectionVertical currentDirectionVertical = FacingDirectionVertical.None;
 
     [Header("Controls")]
@@ -71,12 +71,13 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckBack;
     public GameObject transparentObject;
     public Vector3 transparentObjectSize;
+    public bool playerIsGrabbed;
     private bool animIsJumping;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasGroundBehind;
     [HideInInspector] public Thorns thorns;
-    public float oldPosY;
-    public bool isFalling;
+    private float oldPosY;
+    [HideInInspector] public bool isFalling;
 
 
     void Awake()
@@ -130,7 +131,7 @@ public class PlayerController : MonoBehaviour
         CheckIfMovingBackGrabbed();
         JumpTimer();
         TurnAround();
-        Test();
+        CheckIfFalling();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -146,19 +147,6 @@ public class PlayerController : MonoBehaviour
                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
            
-        }
-    }
-
-    void Test()
-    {
-        if(oldPosY != gameObject.transform.position.y)
-        {
-            isFalling = true;
-            oldPosY = gameObject.transform.position.y;
-        }
-        else
-        {
-            isFalling = false;
         }
     }
 
@@ -284,6 +272,19 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
 
+    void CheckIfFalling()
+    {
+        if (oldPosY != gameObject.transform.position.y)
+        {
+            isFalling = true;
+            oldPosY = gameObject.transform.position.y;
+        }
+        else
+        {
+            isFalling = false;
+        }
+    }
+
     /// <summary>
     /// This manages the player's movement animator, not the animations!
     /// </summary>
@@ -296,6 +297,7 @@ public class PlayerController : MonoBehaviour
         stateMachine.SetBool("isInteracting", oG.isInteracting);
         stateMachine.SetInteger("objectType", oG.objectType);
         stateMachine.SetBool("isBarking", isBarking);
+        stateMachine.SetBool("playerIsGrabbed", playerIsGrabbed);
     }
 
     public void PlayerAnimationHandler()
@@ -308,6 +310,7 @@ public class PlayerController : MonoBehaviour
         animHandler.SetInteger("BarkDirection", bI.lastDirection);
         animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
         animHandler.SetBool("isFalling", isFalling);
+        animHandler.SetBool("playerIsGrabbed", playerIsGrabbed);
         if (animIsJumping) animHandler.SetTrigger("isJumping");
     }
 }

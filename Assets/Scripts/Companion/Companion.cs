@@ -32,7 +32,7 @@ public class Companion : MonoBehaviour
     [HideInInspector]public Vector3 point;
     [HideInInspector]public GameObject interactable;
     [HideInInspector]public bool canGrab;
-    [HideInInspector]public bool isGrabbed;
+    [HideInInspector]public bool playerIsGrabbed;
     [HideInInspector]public bool isBlinking;
     [HideInInspector] public Vector3 direction;
 
@@ -83,7 +83,7 @@ public class Companion : MonoBehaviour
 
         if (Vector3.Distance(point, Input.mousePosition) > decreaseSpeedDistance)
         {
-            if (isGrabbed == false) this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
+            if (playerIsGrabbed == false) this.GetComponent<Rigidbody2D>().velocity = direction * movementSpeed;
             else this.GetComponent<Rigidbody2D>().velocity = direction * grabMovementSpeed;
         }
         else if (Vector3.Distance(point, Input.mousePosition) < decreaseSpeedDistance)
@@ -122,17 +122,19 @@ public class Companion : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && interactable != null && interactable.gameObject.tag == "Player" && canGrab == true)
         {
-                isGrabbed = true;
+                playerIsGrabbed = true;
                 currentTime = timeAfterDropping;
                 player.GetComponent<PlayerController>().CanMove = false;
+                player.GetComponent<PlayerController>().playerIsGrabbed = true;
                 player.GetComponent<Rigidbody2D>().isKinematic = true;
                 player.transform.parent = gameObject.transform;
         }
 
         else if (Input.GetMouseButtonUp(1) && interactable != null && interactable.gameObject.tag == "Player" || interactable != null && currentTime == 0)
         {
-                isGrabbed = false;
+                playerIsGrabbed = false;
                 player.GetComponentInParent<PlayerController>().CanMove = true;
+                player.GetComponent<PlayerController>().playerIsGrabbed = false;
                 player.GetComponent<Rigidbody2D>().isKinematic = false;
                 player.transform.parent = null;
         }
@@ -178,7 +180,7 @@ public class Companion : MonoBehaviour
 
     void Timer()
     {
-        if (isGrabbed)
+        if (playerIsGrabbed)
         {
             currentTime -= Time.deltaTime;
             if (currentTime < timeAfterBlinking) isBlinking = true;
