@@ -1113,6 +1113,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7783820295655240592, guid: 1da59c30df4b8dc4491cb8612f351408, type: 3}
+      propertyPath: levelToLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783820295655240592, guid: 1da59c30df4b8dc4491cb8612f351408, type: 3}
       propertyPath: animCutscene
       value: 
       objectReference: {fileID: 1916158274}
@@ -2996,7 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2643044b691f549b15cff02ea3d721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: 2
+  levelToLoad: 1
   animatorCutScene: {fileID: 1916158274}
   animatorFadeInOut: {fileID: 350422489}
   objectsToShutDown:
