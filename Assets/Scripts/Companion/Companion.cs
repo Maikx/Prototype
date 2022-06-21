@@ -72,6 +72,10 @@ public class Companion : MonoBehaviour
         {
             shortClick = true;
         }
+        else
+        {
+            shortClick = false;
+        }
     }
 
     public void Movement()

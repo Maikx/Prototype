@@ -49,7 +49,7 @@ public class PlatformBehavior : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<PlayerController>().playerIsGrabbed == false)
         {
-            isMoving = true;
+            //isMoving = true;
             collision.collider.transform.SetParent(transform);
         }
     }
@@ -66,7 +66,7 @@ public class PlatformBehavior : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            isMoving = false;
+            //isMoving = false;
             collision.collider.transform.SetParent(null);
         }
     }
