@@ -60,6 +60,7 @@ public class Companion : MonoBehaviour
         CompanionAnimator();
         Timer();
         BlinkEffect();
+        CheckIfInTransform();
     }
 
     void LeftMouseShortClick()
@@ -137,6 +138,14 @@ public class Companion : MonoBehaviour
                 player.GetComponent<PlayerController>().playerIsGrabbed = false;
                 player.GetComponent<Rigidbody2D>().isKinematic = false;
                 player.transform.parent = null;
+        }
+    }
+
+    void CheckIfInTransform()
+    {
+        if(playerIsGrabbed && player.transform.parent == null)
+        {
+            player.transform.parent = gameObject.transform;
         }
     }
 
