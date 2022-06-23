@@ -49,7 +49,7 @@ public class pauseManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
         isPause = false;
-        Cursor.visible = false;
+        //Cursor.visible = false;
         MenuOut.Play();
     }
 
