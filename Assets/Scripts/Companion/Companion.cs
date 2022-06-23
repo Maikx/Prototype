@@ -31,6 +31,7 @@ public class Companion : MonoBehaviour
 
     [HideInInspector]public Vector3 point;
     [HideInInspector]public GameObject interactable;
+    [HideInInspector]public GameObject lastInteractable;
     [HideInInspector]public bool canGrab;
     [HideInInspector]public bool playerIsGrabbed;
     [HideInInspector]public bool isBlinking;
@@ -60,7 +61,7 @@ public class Companion : MonoBehaviour
         CompanionAnimator();
         Timer();
         BlinkEffect();
-        CheckIfInTransform();
+        FailSafePlayerGrabbed();
     }
 
     void LeftMouseShortClick()
@@ -133,23 +134,30 @@ public class Companion : MonoBehaviour
                 player.GetComponent<PlayerController>().playerIsGrabbed = true;
                 player.GetComponent<Rigidbody2D>().isKinematic = true;
                 player.transform.parent = gameObject.transform;
+
         }
 
-        else if (Input.GetMouseButtonUp(1) && interactable != null && interactable.gameObject.tag == "Player" || interactable != null && currentTime == 0)
+        else if (Input.GetMouseButtonUp(1) && interactable != null || interactable != null && currentTime == 0)
         {
                 playerIsGrabbed = false;
                 player.GetComponentInParent<PlayerController>().CanMove = true;
-                player.GetComponent<PlayerController>().playerIsGrabbed = false;
                 player.GetComponent<Rigidbody2D>().isKinematic = false;
                 player.transform.parent = null;
+                player.GetComponent<PlayerController>().playerIsGrabbed = false;
         }
     }
 
-    void CheckIfInTransform()
+    void FailSafePlayerGrabbed()
     {
-        if(playerIsGrabbed && player.transform.parent == null)
+        if (playerIsGrabbed && player.transform.parent == null)
+                player.transform.parent = gameObject.transform;
+        
+        else if(!playerIsGrabbed && player.GetComponent<PlayerController>().playerIsGrabbed == true)
         {
-            player.transform.parent = gameObject.transform;
+            player.GetComponentInParent<PlayerController>().CanMove = true;
+            player.GetComponent<Rigidbody2D>().isKinematic = false;
+            player.transform.parent = null;
+            player.GetComponent<PlayerController>().playerIsGrabbed = false;
         }
     }
 
