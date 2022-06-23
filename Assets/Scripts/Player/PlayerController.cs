@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     public float acceleration;
     public float friction;
     public float gravity;
+    [HideInInspector] public float currentGravity;
 
     [Header("Misc Parameters")]
     public LayerMask groundLayer;
@@ -70,11 +71,13 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckBack;
     public GameObject transparentObject;
     public Vector3 transparentObjectSize;
+    public bool playerIsGrabbed;
     private bool animIsJumping;
-    //public bool animIsTurning;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasGroundBehind;
     [HideInInspector] public Thorns thorns;
+    private float oldPosY;
+    [HideInInspector] public bool isFalling;
 
 
     void Awake()
@@ -96,6 +99,8 @@ public class PlayerController : MonoBehaviour
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
         lastKnownFacingDirection = currentDirectionHorintal;
         canMoveScript = true;
+        currentGravity = gravity;
+        oldPosY = transform.position.y;
     }
 
     private void FixedUpdate()
@@ -108,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
         //This HandlesPlayerMovement
         rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
-        rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, gravity * Time.deltaTime);
+        rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, currentGravity * Time.deltaTime);
         //This plays when the player jumps
         if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump && currentDelayTime <= 0)
         {
@@ -126,6 +131,7 @@ public class PlayerController : MonoBehaviour
         CheckIfMovingBackGrabbed();
         JumpTimer();
         TurnAround();
+        CheckIfFalling();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -226,15 +232,18 @@ public class PlayerController : MonoBehaviour
 
     void JumpTimer()
     {
-        if (currentJumpTime > 0)
+        if (canMoveScript && CanMove)
         {
-            canJump = false;
-            animIsJumping = false;
-            currentJumpTime -= Time.deltaTime;
-        }
-        else if (currentJumpTime <= 0)
-        {
-            canJump = true;
+            if (currentJumpTime > 0)
+            {
+                canJump = false;
+                animIsJumping = false;
+                currentJumpTime -= Time.deltaTime;
+            }
+            else if (currentJumpTime <= 0)
+            {
+                canJump = true;
+            }
         }
     }
 
@@ -249,9 +258,30 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                gameObject.transform.Rotate(gameObject.transform.rotation.x, 180, gameObject.transform.rotation.z);
+                RotateModel();
             }
             lastKnownFacingDirection = currentDirectionHorintal;
+        }
+    }
+
+    public void RotateModel()
+    {
+        if (currentDirectionHorintal == FacingDirectionHorizontal.Right)
+            gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        else if (currentDirectionHorintal == FacingDirectionHorizontal.Left)
+            gameObject.transform.localRotation = Quaternion.Euler(0, 180, 0);
+    }
+
+    void CheckIfFalling()
+    {
+        if (oldPosY != gameObject.transform.position.y)
+        {
+            isFalling = true;
+            oldPosY = gameObject.transform.position.y;
+        }
+        else
+        {
+            isFalling = false;
         }
     }
 
@@ -267,6 +297,7 @@ public class PlayerController : MonoBehaviour
         stateMachine.SetBool("isInteracting", oG.isInteracting);
         stateMachine.SetInteger("objectType", oG.objectType);
         stateMachine.SetBool("isBarking", isBarking);
+        stateMachine.SetBool("playerIsGrabbed", playerIsGrabbed);
     }
 
     public void PlayerAnimationHandler()
@@ -278,6 +309,8 @@ public class PlayerController : MonoBehaviour
         animHandler.SetBool("isBarking", isBarking);
         animHandler.SetInteger("BarkDirection", bI.lastDirection);
         animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
+        animHandler.SetBool("isFalling", isFalling);
+        animHandler.SetBool("playerIsGrabbed", playerIsGrabbed);
         if (animIsJumping) animHandler.SetTrigger("isJumping");
     }
 }

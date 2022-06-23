@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_StateMachine_Idle : StateMachineBehaviour
+public class Player_Animator_TurnAround_Animation_Exit : StateMachineBehaviour
 {
     PlayerController pC = null;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!pC) pC = animator.gameObject.GetComponent<PlayerController>();
-
-        pC.currentSpeed = 0;
-        pC.currentGravity = 0;
+        if (!pC) pC = animator.gameObject.GetComponentInParent<PlayerController>();
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        pC.currentGravity = pC.gravity;
+        pC.RotateModel();
     }
 }

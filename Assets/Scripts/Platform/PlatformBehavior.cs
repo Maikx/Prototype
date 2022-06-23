@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformBehavior : MonoBehaviour
 {
-    [Header("Posizioni")]
+    [Header("Positions")]
     public Vector2 posA, posB;
 
     [Header("Parameters")]
@@ -47,18 +47,26 @@ public class PlatformBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<PlayerController>().playerIsGrabbed == false)
         {
-            isMoving = true;
+            //isMoving = true;
             collision.collider.transform.SetParent(transform);
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<PlayerController>().playerIsGrabbed == true)
+        {
+            collision.collider.transform.SetParent(null);
+        }
+    }
+
+        private void OnCollisionExit2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            isMoving = false;
+            //isMoving = false;
             collision.collider.transform.SetParent(null);
         }
     }
