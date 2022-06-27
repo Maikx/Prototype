@@ -343,10 +343,10 @@ ParticleSystemForceField:
   m_Enabled: 1
   m_Parameters:
     m_Shape: 3
-    m_StartRange: 0
+    m_StartRange: 0.2
     m_EndRange: 1
     m_Length: 1
-    m_GravityFocus: 0
+    m_GravityFocus: 0.8
     m_RotationRandomness: {x: 0, y: 0}
     m_DirectionCurveX:
       serializedVersion: 2
@@ -403,7 +403,7 @@ ParticleSystemForceField:
         m_RotationOrder: 4
     m_DirectionCurveY:
       serializedVersion: 2
-      minMaxState: 3
+      minMaxState: 0
       scalar: 4
       minScalar: 2
       maxCurve:
@@ -510,8 +510,8 @@ ParticleSystemForceField:
     m_GravityCurve:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
-      minScalar: 0.1
+      scalar: 1
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -563,7 +563,7 @@ ParticleSystemForceField:
     m_RotationSpeedCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -669,7 +669,7 @@ ParticleSystemForceField:
     m_DragCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2496,7 +2496,7 @@ MonoBehaviour:
   - {x: -0.11579351, y: 0.013220513, z: 0.000078015095}
   m_ShapePathHash: -585070889
   m_Mesh: {fileID: 0}
-  m_InstanceId: -3390
+  m_InstanceId: -3558
 --- !u!1 &7526594333247180044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,9 +2774,9 @@ MonoBehaviour:
   hInput: 0
   vInput: 0
   timeAfterJumpAgain: 1
-  timeToTurnAround: 0.3
+  timeToTurnAround: 0.4
   timeToInteract: 1
-  timeToBark: 0.7
+  timeToBark: 0.1
   currentDelayTime: 0
   acceleration: 2.5
   friction: 6.5

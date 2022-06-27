@@ -7,7 +7,6 @@ public class LeverBehavior : MonoBehaviour
     public Animator animatorLever;    
 
     public GameObject[] linkedObjects;
-    public GameObject[] linkedObjectsMaterial;
     [HideInInspector]public bool isActive;
 
     private void Update()
@@ -25,7 +24,6 @@ public class LeverBehavior : MonoBehaviour
                 if (linkedObjects[i].GetComponent<PlatformBehavior>() != null)
                 {
                     linkedObjects[i].GetComponent<PlatformBehavior>().isMoving = true;
-                    linkedObjectsMaterial[i].GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
                 }
             }
         }
@@ -37,7 +35,6 @@ public class LeverBehavior : MonoBehaviour
                 if (linkedObjects[i].GetComponent<PlatformBehavior>() != null)
                 {
                     linkedObjects[i].GetComponent<PlatformBehavior>().isMoving = false;
-                    linkedObjectsMaterial[i].GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
                 }
             }
         }

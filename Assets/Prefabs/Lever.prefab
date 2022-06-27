@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnOnColor: {r: 0, g: 0.99215686, b: 1, a: 0}
-  turnOffColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0}
+  turnOffColor: {r: 0.019607844, g: 0.019607844, b: 0.019607844, a: 0}
   turnOnMaterial: {fileID: 2100000, guid: 4b41c525548f2794faecb9872a22eb5d, type: 2}
   turnOffMaterial: {fileID: 2100000, guid: c437b3f5753baa841ac0301cfab48921, type: 2}
   sphereLight: {fileID: 320437612558725743}
@@ -30,7 +30,6 @@ GameObject:
   - component: {fileID: 1254133225717426573}
   - component: {fileID: 7210010333227051116}
   - component: {fileID: 3713388277221188290}
-  - component: {fileID: 3386880804660267093}
   m_Layer: 12
   m_Name: Lever
   m_TagString: Untagged
@@ -94,9 +93,6 @@ MonoBehaviour:
   animatorLever: {fileID: 8814751524277619263}
   linkedObjects:
   - {fileID: 0}
-  linkedObjectsMaterial:
-  - {fileID: 0}
-  - {fileID: 0}
   isActive: 0
 --- !u!114 &3713388277221188290
 MonoBehaviour:
@@ -114,18 +110,6 @@ MonoBehaviour:
   levitable: 0
   stoppable: 0
   pressable: 1
---- !u!114 &3386880804660267093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3357647475398270698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85be807769808404d9c078dc6e397469, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4249373583223895105
 PrefabInstance:
   m_ObjectHideFlags: 0

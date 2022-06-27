@@ -7,7 +7,7 @@ public class Companion : MonoBehaviour
     [Header("Set These GameObjects!")]
     public GameObject player;
     private Camera cam;
-    private Renderer _renderer;
+    //private Renderer _renderer;
 
     [Header("Function Options")]
     private float t0;
@@ -43,7 +43,7 @@ public class Companion : MonoBehaviour
         t0 = 0;
         shortClick = false;
         cam = Camera.main;
-        _renderer = gameObject.GetComponent<Renderer>();
+        //_renderer = gameObject.GetComponent<Renderer>();
         currentTime = timeAfterDropping;
     }
 
@@ -60,7 +60,7 @@ public class Companion : MonoBehaviour
         //Boundary();
         CompanionAnimator();
         Timer();
-        BlinkEffect();
+        //BlinkEffect();
         CheckIfInTransform();
     }
 
@@ -178,24 +178,23 @@ public class Companion : MonoBehaviour
         }
     }
 
-    void BlinkEffect()
-    {
-        if (isBlinking == true)
-        {
-            if (Time.fixedTime % .5 < .2)
-            {
-                _renderer.enabled = false;
-            }
-            else
-            {
-                _renderer.enabled = true;
-            }
-        }
-        else
-        {
-            _renderer.enabled = true;
-        }
-    }
+    //void BlinkEffect()
+    //{
+    //if (isBlinking == true)
+    //{
+    //if (Time.fixedTime % .5 < .2)
+    //{
+    //_renderer.enabled = false;
+    //}
+    //else
+    //{
+    //_renderer.enabled = true;
+    //}
+    //}
+    //else
+    //{
+    //_renderer.enabled = true;
+    //}
 
     void Timer()
     {
@@ -261,3 +260,6 @@ public class Companion : MonoBehaviour
         //anim.SetBool("isGrabbed", oG.isGrabbed);
     }
 }
+
+    
+
