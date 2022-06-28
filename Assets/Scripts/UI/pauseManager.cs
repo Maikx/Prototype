@@ -11,6 +11,7 @@ public class pauseManager : MonoBehaviour
     public GameObject pnlAudio;
     public GameObject pnlControls;
     public GameObject pnlVideo;
+    public Texture2D crosshair;
 
     public AudioSource MenuIn, MenuOut;
     //public GameObject skipLevel;
@@ -84,6 +85,8 @@ public class pauseManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
+        Vector2 cursorOffset = new Vector2(0, 0);
+        Cursor.SetCursor(crosshair, cursorOffset, CursorMode.Auto);
     }
 
     public void CloseSetting()

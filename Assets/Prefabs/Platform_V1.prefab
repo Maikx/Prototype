@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4416766819881140304}
-  - component: {fileID: 4728965256790893240}
+  - component: {fileID: 5943522482087165477}
   - component: {fileID: 2205835479787467168}
   m_Layer: 8
   m_Name: Platform_V1
@@ -26,15 +26,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862881031082176119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2495212609435800978}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4728965256790893240
-BoxCollider2D:
+--- !u!60 &5943522482087165477
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -46,7 +46,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0050992966, y: 0.6310886}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,9 +56,24 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.8498526, y: 1.2596507}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.3747679, y: 0.38401356}
+      - {x: 1.606445, y: 0.64960575}
+      - {x: 1.8078346, y: 0.8826696}
+      - {x: 2.2225554, y: 0.8750186}
+      - {x: 2.4094088, y: 1.2572337}
+      - {x: -2.4096556, y: 1.257234}
+      - {x: -2.2271805, y: 0.87425214}
+      - {x: -1.8107159, y: 0.87997663}
+      - {x: -1.376584, y: 0.38896337}
+      - {x: -1.1956844, y: 0.2897817}
+      - {x: -0.7190984, y: 0.11581801}
+      - {x: -0.36271897, y: 0.02208428}
+      - {x: -0.0013356507, y: -0.008132011}
+      - {x: 0.36659595, y: 0.021200836}
+      - {x: 0.7126348, y: 0.11252925}
+      - {x: 1.2003391, y: 0.28862125}
 --- !u!114 &2205835479787467168
 MonoBehaviour:
   m_ObjectHideFlags: 0
