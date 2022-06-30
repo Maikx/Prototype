@@ -9,6 +9,7 @@ public class LeverBehavior : MonoBehaviour
     public GameObject[] linkedObjects;
     [HideInInspector]public bool isActive;
 
+    
     private void Update()
     {
         Lever();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EphemeralBehavior : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class EphemeralBehavior : MonoBehaviour
     public int vDistance;
     public int hSpeed;
     public int vSpeed;
+
+    //[Header("Particle Systems")]
+    //public ParticleSystem body;
+    //public ParticleSystem flame;
+    //public ParticleSystem explosion;
 
     private void Awake()
     {
@@ -56,6 +62,9 @@ public class EphemeralBehavior : MonoBehaviour
         }
         else if(collision.tag == "Totem")
         {
+            //body.Stop();
+            //flame.Stop();
+            //explosion.Play();
             //Destroy(collision.gameObject);
             Destroy(gameObject);
         }

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.VFX;
 
 public class ChangeLightColor : MonoBehaviour
 {
     public Color color;
     public GameObject totem, Light;
-    
+
+    public ParticleSystem explosion;
 
     public AudioSource TotemActive, RockLift;
     public float TimeToWait;
@@ -25,8 +27,9 @@ public class ChangeLightColor : MonoBehaviour
     {
         if (target.tag == "Ephemeral")
         {
+            explosion.Play();
             //Light.SetActive(true);
-            Light.GetComponent<Light2D>().intensity = Mathf.PingPong(10, 2);
+            Light.GetComponent<Light2D>().intensity = Mathf.PingPong(Time.time, 1);
             totemAnimator.SetTrigger("TotemUp");
             //carattere1Animator.SetTrigger("Carattere1Up");
             //carattere6Animator.SetTrigger("Carattere6Up");
