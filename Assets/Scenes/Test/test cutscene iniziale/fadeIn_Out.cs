@@ -38,4 +38,9 @@ public class fadeIn_Out : MonoBehaviour
     {
         pnlFadeInOut.SetActive(false);
     }
+
+    public void StartFadeOut()
+    {
+        animator.SetTrigger("Fade Out");
+    }
 }
