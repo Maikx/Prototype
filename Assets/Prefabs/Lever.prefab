@@ -30,7 +30,6 @@ GameObject:
   - component: {fileID: 1254133225717426573}
   - component: {fileID: 7210010333227051116}
   - component: {fileID: 3713388277221188290}
-  - component: {fileID: 8198555663385948214}
   m_Layer: 12
   m_Name: Lever
   m_TagString: Untagged
@@ -95,6 +94,9 @@ MonoBehaviour:
   linkedObjects:
   - {fileID: 0}
   isActive: 0
+  platformLight: {fileID: 0}
+  onMaterial: {fileID: 2100000, guid: 15f187e78c73a1e448e1847c02e5f0d6, type: 2}
+  offMaterial: {fileID: 2100000, guid: 322b6e9644b69c74fa5874deb53a53e3, type: 2}
 --- !u!114 &3713388277221188290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,22 +113,6 @@ MonoBehaviour:
   levitable: 0
   stoppable: 0
   pressable: 1
---- !u!114 &8198555663385948214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3357647475398270698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e75d04011c48f4cbdd3dbca6462109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platform: []
-  isCompanionIn: 0
-  onMaterial: {fileID: 2100000, guid: 15f187e78c73a1e448e1847c02e5f0d6, type: 2}
-  offMaterial: {fileID: 2100000, guid: 322b6e9644b69c74fa5874deb53a53e3, type: 2}
 --- !u!1001 &4249373583223895105
 PrefabInstance:
   m_ObjectHideFlags: 0

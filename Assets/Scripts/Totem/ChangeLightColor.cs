@@ -8,11 +8,12 @@ public class ChangeLightColor : MonoBehaviour
 {
     public Color color;
     public GameObject totem, Light;
-
-    public ParticleSystem explosion;
-
     public AudioSource TotemActive, RockLift;
     public float TimeToWait;
+
+    [Header("Particle Systems")]
+    public ParticleSystem explosion;
+    public ParticleSystem smoke;    
 
     [Header("Animators")]
     public Animator totemAnimator;
@@ -28,6 +29,7 @@ public class ChangeLightColor : MonoBehaviour
         if (target.tag == "Ephemeral")
         {
             explosion.Play();
+            smoke.Stop();
             //Light.SetActive(true);
             Light.GetComponent<Light2D>().intensity = Mathf.PingPong(Time.time, 1);
             totemAnimator.SetTrigger("TotemUp");

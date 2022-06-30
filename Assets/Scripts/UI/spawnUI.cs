@@ -5,7 +5,7 @@ using UnityEngine;
 public class spawnUI : MonoBehaviour
 {
     public GameObject UI_Component;
-    public KeyCode keyPressed = KeyCode.E;
+    //public KeyCode keyPressed = KeyCode.E;
     private bool UIActivated;
 
     void Start()

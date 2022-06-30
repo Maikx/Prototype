@@ -17,10 +17,10 @@ public class EphemeralBehavior : MonoBehaviour
     public int hSpeed;
     public int vSpeed;
 
-    //[Header("Particle Systems")]
+    [Header("Particle Systems")]
     //public ParticleSystem body;
     //public ParticleSystem flame;
-    //public ParticleSystem explosion;
+    public ParticleSystem explosion;
 
     private void Awake()
     {
@@ -70,6 +70,8 @@ public class EphemeralBehavior : MonoBehaviour
         }
         else if(collision.gameObject.layer == 8 && assignedWell != null)
         {
+            Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+            //explosion.Play();
             assignedWell.GetComponent<EphemeralWellBehavior>().Reset();
         }
 

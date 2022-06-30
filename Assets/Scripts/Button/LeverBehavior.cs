@@ -9,7 +9,13 @@ public class LeverBehavior : MonoBehaviour
     public GameObject[] linkedObjects;
     [HideInInspector]public bool isActive;
 
-    
+    public GameObject platformLight;
+
+    [Header("Materials")]
+    public Material onMaterial;
+    public Material offMaterial;
+
+
     private void Update()
     {
         Lever();
@@ -19,6 +25,7 @@ public class LeverBehavior : MonoBehaviour
     {
         if (isActive)
         {
+            platformLight.SetActive(true);
             animatorLever.SetBool("IsTurnedOn", true);            
             for (int i = 0; i < linkedObjects.Length; i++)
             {
@@ -30,6 +37,7 @@ public class LeverBehavior : MonoBehaviour
         }
         else if (!isActive)
         {
+            platformLight.SetActive(false);
             animatorLever.SetBool("IsTurnedOn", false);
             for (int i = 0; i < linkedObjects.Length; i++)
             {

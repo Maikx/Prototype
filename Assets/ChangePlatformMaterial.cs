@@ -29,7 +29,13 @@ public class ChangePlatformMaterial : MonoBehaviour
 
     public void Update()
     {
-        if(isCompanionIn && !isPlatformLightUp && Input.GetMouseButtonDown(0))
+        PlatformOn();
+        PlatformOff();
+    }
+
+    public void PlatformOn()
+    {
+        if (isCompanionIn && Input.GetMouseButtonDown(0))
         {
             isPlatformLightUp = true;
 
@@ -38,8 +44,11 @@ public class ChangePlatformMaterial : MonoBehaviour
                 platform[i].GetComponent<MeshRenderer>().material = onMaterial;
             }
         }
-        
-        if(isCompanionIn && isPlatformLightUp && Input.GetMouseButtonDown(0))
+    }
+
+    public void PlatformOff()
+    {
+        if (isCompanionIn && isPlatformLightUp && Input.GetMouseButtonDown(0))
         {
             isPlatformLightUp = false;
 
@@ -48,6 +57,5 @@ public class ChangePlatformMaterial : MonoBehaviour
                 platform[i].GetComponent<MeshRenderer>().material = offMaterial;
             }
         }
-
     }
 }
