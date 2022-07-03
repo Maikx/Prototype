@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ObjectGrab))]
 [RequireComponent(typeof(BarkInteraction))]
@@ -78,11 +78,13 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Thorns thorns;
     private float oldPosY;
     [HideInInspector] public bool isFalling;
+    [HideInInspector] public PhysicsMaterial2D pM2D;
 
 
     void Awake()
     {
         rB = gameObject.GetComponent<Rigidbody2D>();
+        pM2D = rB.sharedMaterial;
         oG = gameObject.GetComponent<ObjectGrab>();
         bI = gameObject.GetComponent<BarkInteraction>();
         stateMachine = gameObject.GetComponent<Animator>();
@@ -111,15 +113,27 @@ public class PlayerController : MonoBehaviour
 
         hasGroundBehind = Physics2D.OverlapCircle(groundCheckBack.position, 0.15f, groundLayer);
 
-        //This HandlesPlayerMovement
-        rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
-        rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, currentGravity * Time.deltaTime);
-        //This plays when the player jumps
-        if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump && currentDelayTime <= 0)
+        if (rB != null)
         {
-            rB.velocity = new Vector2(rB.velocity.x, jumpForce);
-            currentJumpTime = timeAfterJumpAgain;
-            animIsJumping = true;
+            //This HandlesPlayerMovement
+            rB.velocity += new Vector2(direction.x * acceleration * Time.deltaTime, 0);
+            rB.velocity -= new Vector2(rB.velocity.x * friction * Time.deltaTime, currentGravity * Time.deltaTime);
+
+            //This plays when the player jumps
+            if (Input.GetKey(jumpKey) && isGrounded && !oG.isGrabbed && canJump && currentDelayTime <= 0)
+            {
+                rB.velocity = new Vector2(rB.velocity.x, jumpForce);
+                currentJumpTime = timeAfterJumpAgain;
+                animIsJumping = true;
+            }
+        }
+        else if (rB == null && !playerIsGrabbed)
+        {
+            rB = gameObject.GetComponent<Rigidbody2D>();
+            rB.freezeRotation = true;
+            rB.sharedMaterial = pM2D;
+            rB.gravityScale = 0;
+            rB.angularDrag = 0;
         }
     }
 

@@ -126,22 +126,28 @@ public class Companion : MonoBehaviour
 
     private void RightMouseInteraction()
     {
-        if (Input.GetMouseButtonDown(1) && interactable != null && interactable.gameObject.tag == "Player" && canGrab == true)
+        if (interactable != null && interactable.gameObject.tag == "Player" && canGrab == true)
         {
+            if (Input.GetMouseButtonDown(1))
+            {
                 playerIsGrabbed = true;
                 currentTime = timeAfterDropping;
                 player.GetComponent<PlayerController>().CanMove = false;
                 player.GetComponent<PlayerController>().playerIsGrabbed = true;
-                player.GetComponent<Rigidbody2D>().isKinematic = true;
+                //player.GetComponent<Rigidbody2D>().isKinematic = true;
+                Destroy(player.GetComponent<Rigidbody2D>());
                 player.transform.parent = gameObject.transform;
-
+                gameObject.layer = LayerMask.NameToLayer("Companion&Player");
+            }
         }
 
-        else if (Input.GetMouseButtonUp(1) && interactable != null || interactable != null && currentTime == 0)
+        else if (Input.GetMouseButtonUp(1) /*&& interactable != null*/ || /*interactable != null &&*/ currentTime == 0)
         {
                 playerIsGrabbed = false;
+                gameObject.layer = LayerMask.NameToLayer("Companion");
                 player.GetComponentInParent<PlayerController>().CanMove = true;
-                player.GetComponent<Rigidbody2D>().isKinematic = false;
+                //player.GetComponent<Rigidbody2D>().isKinematic = false;
+                player.AddComponent<Rigidbody2D>();
                 player.transform.parent = null;
                 player.GetComponent<PlayerController>().playerIsGrabbed = false;
         }
