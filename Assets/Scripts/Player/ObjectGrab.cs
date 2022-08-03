@@ -45,7 +45,7 @@ public class ObjectGrab : MonoBehaviour
                 {
                     objectType = 1;
                     //Player grabs object.
-                    if (Input.GetKey(interactKey) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded && gameObject.GetComponent<PlayerController>().isGrounded && gameObject.GetComponent<PlayerController>().hasGroundBehind)
+                    if (Input.GetKey(interactKey) && grabCheck.collider.GetComponent<ObjectBehavior>().isGrounded && gameObject.GetComponent<PlayerController>().isGrounded && gameObject.GetComponent<PlayerController>().hasGroundBehind && canInteract)
                     {
                         isGrabbed = true;
                         grabCheck.collider.gameObject.transform.parent = objectHolder;
@@ -68,7 +68,7 @@ public class ObjectGrab : MonoBehaviour
                         grabCheck.collider.gameObject.transform.parent = null;
                     }
                 }
-                else if (grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().objectType == ObjectBehavior.ObjectType.Rope)
+                else if (grabCheck.collider.gameObject.GetComponent<ObjectBehavior>().objectType == ObjectBehavior.ObjectType.Rope && canInteract)
                 {
                     objectType = 2;
                     if (Input.GetKey(interactKey))

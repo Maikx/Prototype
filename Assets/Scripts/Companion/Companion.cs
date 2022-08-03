@@ -49,19 +49,25 @@ public class Companion : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
+        if (this.gameObject != null)
+        {
+            Movement();
+        }
     }
 
     private void Update()
     {
-        LeftMouseInteraction();
-        RightMouseInteraction();
-        LeftMouseShortClick();
-        //Boundary();
-        CompanionAnimator();
-        Timer();
-        BlinkEffect();
-        FailSafePlayerGrabbed();
+        if (this.gameObject != null)
+        {
+            LeftMouseInteraction();
+            RightMouseInteraction();
+            LeftMouseShortClick();
+            //Boundary();
+            CompanionAnimator();
+            Timer();
+            //BlinkEffect();
+            FailSafePlayerGrabbed();
+        }
     }
 
     void LeftMouseShortClick()
@@ -134,7 +140,6 @@ public class Companion : MonoBehaviour
                 currentTime = timeAfterDropping;
                 player.GetComponent<PlayerController>().CanMove = false;
                 player.GetComponent<PlayerController>().playerIsGrabbed = true;
-                //player.GetComponent<Rigidbody2D>().isKinematic = true;
                 Destroy(player.GetComponent<Rigidbody2D>());
                 player.transform.parent = gameObject.transform;
                 gameObject.layer = LayerMask.NameToLayer("Companion&Player");
@@ -146,7 +151,6 @@ public class Companion : MonoBehaviour
                 playerIsGrabbed = false;
                 gameObject.layer = LayerMask.NameToLayer("Companion");
                 player.GetComponentInParent<PlayerController>().CanMove = true;
-                //player.GetComponent<Rigidbody2D>().isKinematic = false;
                 player.AddComponent<Rigidbody2D>();
                 player.transform.parent = null;
                 player.GetComponent<PlayerController>().playerIsGrabbed = false;
@@ -186,7 +190,7 @@ public class Companion : MonoBehaviour
         }
     }
 
-    void BlinkEffect()
+    /*void BlinkEffect()
     {
         if (isBlinking == true)
         {
@@ -203,7 +207,7 @@ public class Companion : MonoBehaviour
         {
             _renderer.enabled = true;
         }
-    }
+    }*/
 
     void Timer()
     {

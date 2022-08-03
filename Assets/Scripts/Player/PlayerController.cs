@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     private enum FacingDirectionVertical { Up, Down, None }
     [HideInInspector] public HealthManager healthManager;
     [HideInInspector] public GameManager gameManager;
-    [HideInInspector] public CheckPointManager checkPointManager;
 
     public bool CanMove;
     public bool IsMoving { get; private set; }
@@ -56,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public float timeToTurnAround;
     public float timeToInteract;
     public float timeToBark;
+    public float timeWhileDead;
     private float currentJumpTime;
     [HideInInspector] public float currentDelayTime;
 
@@ -72,12 +72,13 @@ public class PlayerController : MonoBehaviour
     public GameObject transparentObject;
     public Vector3 transparentObjectSize;
     public bool playerIsGrabbed;
+    public float FallingThreshold = -0.001f;
     private bool animIsJumping;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool hasGroundBehind;
     [HideInInspector] public Thorns thorns;
     private float oldPosY;
-    [HideInInspector] public bool isFalling;
+    [HideInInspector] public bool isFalling = false;
     [HideInInspector] public PhysicsMaterial2D pM2D;
 
 
@@ -95,7 +96,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         healthManager = GameObject.FindObjectOfType<HealthManager>();
-        checkPointManager = GameObject.FindObjectOfType<CheckPointManager>();
         thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
@@ -152,15 +152,9 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        if (thorns != null && thorns.OnTouchTrap() == true) // <- works
+        if (thorns != null && thorns.OnTouchTrap() == true)
         {
-            GameManager.instance.SetHealth(0);
-
-            if(GameManager.instance.health == 0)
-            {
-               SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-           
+            GameManager.instance.SetHealth(0);           
         }
     }
 
@@ -267,6 +261,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded)
             {
+                oG.canInteract = false;
                 stateMachine.SetTrigger("isTurning");
                 animHandler.SetTrigger("isTurning");
             }
@@ -281,17 +276,35 @@ public class PlayerController : MonoBehaviour
     public void RotateModel()
     {
         if (currentDirectionHorintal == FacingDirectionHorizontal.Right)
+        {
             gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            oG.canInteract = true;
+        }
         else if (currentDirectionHorintal == FacingDirectionHorizontal.Left)
+        {
             gameObject.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            oG.canInteract = true;
+        }
     }
 
     void CheckIfFalling()
     {
-        if (oldPosY != gameObject.transform.position.y)
+        /*if (oldPosY != gameObject.transform.position.y && gameObject.transform.position.y < oldPosY)
         {
             isFalling = true;
             oldPosY = gameObject.transform.position.y;
+        }
+        else if ()
+        {
+            isFalling = false;
+        }*/
+
+        float distancePerSecondSinceLastFrame = (transform.position.y - oldPosY) * Time.deltaTime;
+        oldPosY = gameObject.transform.position.y;
+
+        if (distancePerSecondSinceLastFrame < FallingThreshold)
+        {
+            isFalling = true;
         }
         else
         {

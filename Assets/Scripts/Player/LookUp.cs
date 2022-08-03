@@ -24,7 +24,7 @@ public class LookUp : MonoBehaviour
         }
         else if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            animator.SetBool("isZoomActive", false);
+            //animator.SetBool("isZoomActive", false);
         }
     }
 }

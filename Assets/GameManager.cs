@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 
     //public HealthManager healthManager;  // <- delete once tested
     public PlayerController playerController;
-    public CheckPointManager CheckpointManager;
 
     public Vector2 RestartPlayerPosition;
 
@@ -28,23 +27,28 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
     private void Start()
     {
-        CheckpointManager = GameObject.FindObjectOfType<CheckPointManager>();
         health = 1;
     }
-    public void RespawnPlayer() // <- add this 
-    {  
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    private void Update()
+    {
+        RespawnPlayer();
     }
-    public int SetHealth(int value)
+
+    /// <summary>
+    /// Checks if health is below 1, restarts the scene
+    /// </summary>
+    public void RespawnPlayer()
+    {
+        if (health == 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+public int SetHealth(int value)
     {
         return health = value;
     }
-
-    public void Update()
-    {
-
-    }
-
 }
