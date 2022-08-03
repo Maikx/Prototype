@@ -11,6 +11,10 @@ public class pauseManager : MonoBehaviour
     public GameObject pnlAudio;
     public GameObject pnlControls;
     public GameObject pnlVideo;
+    public Texture2D crosshair;
+
+    public AudioSource MenuIn, MenuOut;
+    //public GameObject skipLevel;
 
     public bool isPause = false;
 
@@ -23,17 +27,21 @@ public class pauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown("escape") && isPause == false)
         {
+            //skipLevel.SetActive(false);
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
             isPause = true;
             Cursor.visible = true;
+            MenuIn.Play();
         }
         else if (Input.GetKeyDown("escape") && isPause == true)
         {
+            //skipLevel.SetActive(true);
             pauseMenu.SetActive(false);
             Time.timeScale = 1;
             isPause = false;
             Cursor.visible = false;
+            MenuOut.Play();
         }
     }
 
@@ -42,7 +50,8 @@ public class pauseManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
         isPause = false;
-        Cursor.visible = false;
+        //Cursor.visible = false;
+        MenuOut.Play();
     }
 
     public void OpenSetting()
@@ -74,7 +83,10 @@ public class pauseManager : MonoBehaviour
 
     public void returnMainMenu()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
+        Vector2 cursorOffset = new Vector2(0, 0);
+        Cursor.SetCursor(crosshair, cursorOffset, CursorMode.Auto);
     }
 
     public void CloseSetting()

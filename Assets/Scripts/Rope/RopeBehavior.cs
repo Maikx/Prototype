@@ -6,6 +6,9 @@ public class RopeBehavior : MonoBehaviour
 {
     public GameObject planks;
     public GameObject ephemeral;
+    public GameObject[] rope;
+
+    public AudioSource WoodCrack;
 
     [Header("Ephemeral")]
     public float fallSpeed;
@@ -22,7 +25,13 @@ public class RopeBehavior : MonoBehaviour
     public void MakePlanksFall()
     {
         Destroy(planks);
+        WoodCrack.Play();
         isFalling = true;
+        for (int i = 0; i < rope.Length; i++)
+        {
+            rope[i].GetComponent<MeshRenderer>().enabled = false;
+            rope[i].GetComponent<BoxCollider2D>().enabled = false;
+        }
     }
 
     public void MakeEphemeralFall()

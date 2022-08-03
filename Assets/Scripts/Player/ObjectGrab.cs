@@ -16,6 +16,8 @@ public class ObjectGrab : MonoBehaviour
     public Transform objectHolder;
     public float rayDist;
 
+    public AudioSource GrabSound;
+
     private void Start()
     {
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -50,6 +52,7 @@ public class ObjectGrab : MonoBehaviour
                         if (grabCheck.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                         {
                             Destroy(grabCheck.collider.gameObject.GetComponent<Rigidbody2D>());
+                            GrabSound.Play();
                         }
                     }
                     //Player releases object.
@@ -60,6 +63,7 @@ public class ObjectGrab : MonoBehaviour
                         {
                             grabCheck.collider.gameObject.AddComponent<Rigidbody2D>();
                             grabCheck.collider.gameObject.GetComponent<Rigidbody2D>().mass = 10000;
+                            GrabSound.Stop();
                         }
                         grabCheck.collider.gameObject.transform.parent = null;
                     }

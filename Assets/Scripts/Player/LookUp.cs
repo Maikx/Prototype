@@ -4,41 +4,27 @@ using UnityEngine;
 
 public class LookUp : MonoBehaviour
 {
-    public Animator animator;
-    private bool isLookingUp = false;
-    private bool isLookingDown = false;
+    [HideInInspector] public Animator animator;
+
+    public void Start()
+    {
+        animator = GameObject.FindWithTag("Player").GetComponent<Animator>();
+    }
 
     public void Update()
     {
-        PlayerLookUp();
-        PlayerLookDown();
-    }
+        CameraZoom();
+    }    
 
-    void PlayerLookUp()
+    void CameraZoom()
     {
-        if (Input.GetKeyDown(KeyCode.W) && isLookingUp == false)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
-            animator.SetBool("LookUp", true);
-            isLookingUp = true;
+            animator.SetBool("isZoomActive", true);
         }
-        else if (Input.GetKeyUp(KeyCode.W) && isLookingUp == true)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            animator.SetBool("LookUp", false);
-            isLookingUp = false;
-        }
-    }
-
-    void PlayerLookDown()
-    {
-        if (Input.GetKeyDown(KeyCode.S) && isLookingDown == false)
-        {
-            animator.SetBool("LookDown", true);
-            isLookingDown = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.S) && isLookingDown == true)
-        {
-            animator.SetBool("LookDown", false);
-            isLookingDown = false;
+            animator.SetBool("isZoomActive", false);
         }
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4416766819881140304}
-  - component: {fileID: 4728965256790893240}
+  - component: {fileID: 5943522482087165477}
   - component: {fileID: 2205835479787467168}
   m_Layer: 8
   m_Name: Platform_V1
@@ -26,15 +26,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862881031082176119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2495212609435800978}
+  - {fileID: 5182540407217134871}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4728965256790893240
-BoxCollider2D:
+--- !u!60 &5943522482087165477
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -46,7 +47,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0050992966, y: 0.6310886}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,9 +57,24 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.8498526, y: 1.2596507}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.3747679, y: 0.38401356}
+      - {x: 1.606445, y: 0.64960575}
+      - {x: 1.8078346, y: 0.8826696}
+      - {x: 2.2225554, y: 0.8750186}
+      - {x: 2.4094088, y: 1.2572337}
+      - {x: -2.4096556, y: 1.257234}
+      - {x: -2.2271805, y: 0.87425214}
+      - {x: -1.8107159, y: 0.87997663}
+      - {x: -1.376584, y: 0.38896337}
+      - {x: -1.1956844, y: 0.2897817}
+      - {x: -0.7190984, y: 0.11581801}
+      - {x: -0.36271897, y: 0.02208428}
+      - {x: -0.0013356507, y: -0.008132011}
+      - {x: 0.36659595, y: 0.021200836}
+      - {x: 0.7126348, y: 0.11252925}
+      - {x: 1.2003391, y: 0.28862125}
 --- !u!114 &2205835479787467168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +91,78 @@ MonoBehaviour:
   posB: {x: 0, y: 0}
   speed: 0
   isMoving: 0
+--- !u!1 &5232811615182804914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5182540407217134871}
+  - component: {fileID: 8906367993623028102}
+  m_Layer: 8
+  m_Name: Point Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5182540407217134871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232811615182804914}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4416766819881140304}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8906367993623028102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232811615182804914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0, g: 0.32266927, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 1.34
+  m_PointLightOuterRadius: 3.1
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1001 &8382897079281890635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,6 +170,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4416766819881140304}
     m_Modifications:
+    - target: {fileID: 4263588203689097880, guid: 20d2ac696e5834a469501327eba4d2c1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 15f187e78c73a1e448e1847c02e5f0d6, type: 2}
+    - target: {fileID: 5202238954940255759, guid: 20d2ac696e5834a469501327eba4d2c1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 322b6e9644b69c74fa5874deb53a53e3, type: 2}
     - target: {fileID: 6266423390035157209, guid: 20d2ac696e5834a469501327eba4d2c1, type: 3}
       propertyPath: m_RootOrder
       value: 0

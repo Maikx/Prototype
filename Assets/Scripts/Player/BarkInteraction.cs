@@ -41,7 +41,7 @@ public class BarkInteraction : MonoBehaviour
     {
         lastDirection = 3;
         barkTrigger.GetComponent<CapsuleCollider2D>().offset = new Vector2(-1, 0);
-        barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 0.5f);
+        barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 1f);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionHorizontal;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
         StartCoroutine(waitForSec(pC.timeToBark));
@@ -51,7 +51,7 @@ public class BarkInteraction : MonoBehaviour
     {
         lastDirection = 4;
         barkTrigger.GetComponent<CapsuleCollider2D>().offset = new Vector2(1, 0);
-        barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 0.5f);
+        barkTrigger.GetComponent<CapsuleCollider2D>().size = new Vector2(2, 1f);
         barkTrigger.GetComponent<CapsuleCollider2D>().direction = directionHorizontal;
         barkTrigger.GetComponent<CapsuleCollider2D>().enabled = true;
         StartCoroutine(waitForSec(pC.timeToBark));

@@ -11,6 +11,7 @@ TagManager:
   - Ephemeral
   - EphemeralWell
   - Spine
+  - Companion
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 653549491
+    locked: 0
+  - name: Ground
+    uniqueID: 1762849305
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enviroment
+    uniqueID: 636923647
+    locked: 0
+  - name: BrightEnviroment
+    uniqueID: 3000390569
+    locked: 0
+  - name: GlowThings
+    uniqueID: 712922341
     locked: 0

@@ -2,10 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class mainmenu : MonoBehaviour
 {
+    public string nameOfPlayer;
+    public string saveName;
+
+    public TextMeshProUGUI inputText;
+    public TextMeshProUGUI loadName;
+
+    [Header("Panels")]
+    public GameObject pnlNameSelection;
     public GameObject pnlSettings;
     public GameObject pnlCredits;
     public GameObject pnlMainMenu;
@@ -13,10 +22,23 @@ public class mainmenu : MonoBehaviour
     public GameObject pnlControls;
     public GameObject pnlVideo;
 
+    void Awake()
+    {
+        pnlMainMenu.SetActive(false);
+        pnlCredits.SetActive(false);
+        pnlSettings.SetActive(false);
+        PlayerPrefs.SetString("name", "Nameless");
+    }
+
+    void Update()
+    {
+        nameOfPlayer = PlayerPrefs.GetString("name", "none");
+        loadName.text = nameOfPlayer;
+    }
+
     public void PlayGame()
     {
-        SceneManager.LoadScene("Full Scene Tutorial");
-        Cursor.visible = false;
+        SceneManager.LoadScene("test cutscene iniziale");
     }
 
     public void QuitGame ()
@@ -67,6 +89,19 @@ public class mainmenu : MonoBehaviour
         pnlAudio.SetActive(false);
         pnlControls.SetActive(true);
         pnlVideo.SetActive(false);
+    }
+
+    public void LoadTestLightning()
+    {
+        SceneManager.LoadScene("Test Lighting");
+    }
+    
+    public void SetName()
+    {
+        saveName = inputText.text;
+        PlayerPrefs.SetString("name", saveName);
+        pnlMainMenu.SetActive(true);
+        pnlNameSelection.SetActive(false);
     }
 }
  

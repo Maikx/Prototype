@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EphemeralBehavior : MonoBehaviour
 {
     [HideInInspector] public Animator ephemeralController;
     public GameObject assignedWell;
-
 
     [Header("Function Options")]
     [SerializeField] public bool canMove;
@@ -16,6 +16,11 @@ public class EphemeralBehavior : MonoBehaviour
     public int vDistance;
     public int hSpeed;
     public int vSpeed;
+
+    [Header("Particle Systems")]
+    //public ParticleSystem body;
+    //public ParticleSystem flame;
+    public ParticleSystem explosion;
 
     private void Awake()
     {
@@ -57,11 +62,16 @@ public class EphemeralBehavior : MonoBehaviour
         }
         else if(collision.tag == "Totem")
         {
-            Destroy(collision.gameObject);
+            //body.Stop();
+            //flame.Stop();
+            //explosion.Play();
+            //Destroy(collision.gameObject);
             Destroy(gameObject);
         }
         else if(collision.gameObject.layer == 8 && assignedWell != null)
         {
+            Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+            //explosion.Play();
             assignedWell.GetComponent<EphemeralWellBehavior>().Reset();
         }
 

@@ -16,6 +16,8 @@ public class EphemeralWellBehavior : MonoBehaviour
     [Header("Parameters")]
     public float spawnHeight;
 
+    public AudioSource ActiveSound;
+
     private void Start()
     {
         CreateEphemeral();
@@ -60,6 +62,7 @@ public class EphemeralWellBehavior : MonoBehaviour
                 active = true;
                 collision.GetComponent<EphemeralBehavior>().WellChange();
                 ephemeral = collision.gameObject;
+                ActiveSound.Play();
             }
         }
     }
