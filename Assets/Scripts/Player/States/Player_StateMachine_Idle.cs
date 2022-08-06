@@ -12,12 +12,5 @@ public class Player_StateMachine_Idle : StateMachineBehaviour
         if (!pC) pC = animator.gameObject.GetComponent<PlayerController>();
 
         pC.currentSpeed = 0;
-        pC.currentGravity = 0;
-    }
-
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if(!pC.isDead)
-            pC.currentGravity = pC.gravity;
     }
 }

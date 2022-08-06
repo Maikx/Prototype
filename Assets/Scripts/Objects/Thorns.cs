@@ -3,11 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class Thorns : MonoBehaviour
 {
-    private bool trapIsTouched; // -> set private
+
+    private bool trapIsTouched;
 
     private void Start()
     {
-        trapIsTouched = false; // -> verificare le collisioni
+        trapIsTouched = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,7 +16,22 @@ public class Thorns : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             trapIsTouched = true;  
-           
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            trapIsTouched = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            trapIsTouched = false;
         }
     }
 
@@ -25,14 +41,4 @@ public class Thorns : MonoBehaviour
             return true;
         else return false;
     }
-
-    private void Update()
-    {
-        if (trapIsTouched)
-        {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
-
-    // l'oggetto (Health Manager non è presente nel prefab: player)
 }

@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public ObjectGrab oG;
     [HideInInspector] public BarkInteraction bI;
     [HideInInspector] public Rigidbody2D rB;
-    [HideInInspector] public HealthManager healthManager;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public Animator stateMachine;
     private SoundTracker sT;
@@ -76,6 +75,8 @@ public class PlayerController : MonoBehaviour
     private bool animIsJumping;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool isDead;
+    [HideInInspector] public bool canDie;
+    [HideInInspector] public float canDieDelay;
     [HideInInspector] public bool hasGroundBehind;
     [HideInInspector] public Thorns thorns;
     private float oldPosY;
@@ -96,14 +97,15 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        healthManager = GameObject.FindObjectOfType<HealthManager>();
         thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
         lastKnownFacingDirection = currentDirectionHorintal;
         canMoveScript = true;
+        canDie = true;
         currentGravity = gravity;
         oldPosY = transform.position.y;
+        canDieDelay = GameManager.instance.timeAfterRestart + 1f;
     }
 
     private void FixedUpdate()
@@ -148,13 +150,14 @@ public class PlayerController : MonoBehaviour
         TurnAround();
         CheckIfFalling();
         Death();
+        DeathTruce();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        if (thorns != null && thorns.OnTouchTrap() == true)
+        if (thorns != null && thorns.OnTouchTrap() == true && !isDead && canDie)
         {
             GameManager.instance.SetHealth(0);
         }
@@ -317,9 +320,30 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
-        if(GameManager.instance.health == 0 && isDead == false)
+        if(GameManager.instance.health == 0 && isDead == false && canDie)
         {
             isDead = true;
+            canDie = false;
+        }
+        else if (GameManager.instance.health > 0)
+        {
+            isDead = false;
+        }
+    }
+
+    void DeathTruce()
+    {
+        if (canDie == false)
+        {
+            if (canDieDelay > 0)
+            {
+                canDieDelay -= Time.deltaTime;
+            }
+            else if (canDieDelay <= 0)
+            {
+                canDie = true;
+                canDieDelay = GameManager.instance.timeAfterRestart + 1f;
+            }
         }
     }
 
