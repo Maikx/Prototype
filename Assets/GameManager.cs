@@ -4,10 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
-    //public HealthManager healthManager;  // <- delete once tested
     public PlayerController playerController;
-
     public Vector2 RestartPlayerPosition;
 
     public int health;
@@ -43,8 +40,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void RespawnPlayer()
     {
-        if (health == 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //if (health == 0)
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 public int SetHealth(int value)

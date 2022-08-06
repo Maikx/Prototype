@@ -17,6 +17,7 @@ public class Player_StateMachine_Idle : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        pC.currentGravity = pC.gravity;
+        if(!pC.isDead)
+            pC.currentGravity = pC.gravity;
     }
 }

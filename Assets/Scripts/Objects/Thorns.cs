@@ -30,7 +30,7 @@ public class Thorns : MonoBehaviour
     {
         if (trapIsTouched)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

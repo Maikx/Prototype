@@ -13,14 +13,14 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public ObjectGrab oG;
     [HideInInspector] public BarkInteraction bI;
     [HideInInspector] public Rigidbody2D rB;
+    [HideInInspector] public HealthManager healthManager;
+    [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public Animator stateMachine;
     private SoundTracker sT;
 
-    [HideInInspector] public Animator stateMachine;
     public Animator animHandler;
     public enum FacingDirectionHorizontal { Left, Right }
     private enum FacingDirectionVertical { Up, Down, None }
-    [HideInInspector] public HealthManager healthManager;
-    [HideInInspector] public GameManager gameManager;
 
     public bool CanMove;
     public bool IsMoving { get; private set; }
@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     public float FallingThreshold = -0.001f;
     private bool animIsJumping;
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool isDead;
     [HideInInspector] public bool hasGroundBehind;
     [HideInInspector] public Thorns thorns;
     private float oldPosY;
@@ -146,6 +147,7 @@ public class PlayerController : MonoBehaviour
         JumpTimer();
         TurnAround();
         CheckIfFalling();
+        Death();
 
         if (Input.GetKeyDown(KeyCode.L)) // <- only for testing!
         {
@@ -154,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
         if (thorns != null && thorns.OnTouchTrap() == true)
         {
-            GameManager.instance.SetHealth(0);           
+            GameManager.instance.SetHealth(0);
         }
     }
 
@@ -179,6 +181,7 @@ public class PlayerController : MonoBehaviour
         {
             hInput = 0;
             vInput = 0;
+            canJump = false;
         }
 
         direction.x = hInput * (currentSpeed);
@@ -312,6 +315,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Death()
+    {
+        if(GameManager.instance.health == 0 && isDead == false)
+        {
+            isDead = true;
+        }
+    }
+
     /// <summary>
     /// This manages the player's movement animator, not the animations!
     /// </summary>
@@ -325,6 +336,7 @@ public class PlayerController : MonoBehaviour
         stateMachine.SetInteger("objectType", oG.objectType);
         stateMachine.SetBool("isBarking", isBarking);
         stateMachine.SetBool("playerIsGrabbed", playerIsGrabbed);
+        stateMachine.SetBool("isDead", isDead);
     }
 
     public void PlayerAnimationHandler()
@@ -338,6 +350,7 @@ public class PlayerController : MonoBehaviour
         animHandler.SetBool("isMovingBackGrabbed", oG.isMovingBackGrabbed);
         animHandler.SetBool("isFalling", isFalling);
         animHandler.SetBool("playerIsGrabbed", playerIsGrabbed);
+        animHandler.SetBool("isDead", isDead);
         if (animIsJumping) animHandler.SetTrigger("isJumping");
     }
 }
