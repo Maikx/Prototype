@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         if (health == 0)
         {
+
             if (currentTimeAfterRestart > 0)
             {
                 currentTimeAfterRestart -= Time.deltaTime;

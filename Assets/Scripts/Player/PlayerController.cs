@@ -325,7 +325,7 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             canDie = false;
         }
-        else if (GameManager.instance.health > 0)
+        else if (GameManager.instance.health > 0 && isDead)
         {
             isDead = false;
         }
