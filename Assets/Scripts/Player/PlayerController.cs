@@ -97,7 +97,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        thorns = GameObject.FindObjectOfType<Thorns>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         transform.position = GameManager.instance.RestartPlayerPosition; // <- delete this once tested
         lastKnownFacingDirection = currentDirectionHorintal;
@@ -156,11 +155,6 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
-        if (thorns != null && thorns.OnTouchTrap() == true && !isDead && canDie)
-        {
-            GameManager.instance.SetHealth(0);
-        }
     }
 
     void TransparentObjcetResizing()
@@ -207,6 +201,14 @@ public class PlayerController : MonoBehaviour
             currentDirectionVertical = FacingDirectionVertical.Down;
         else if (vInput == 0 && !oG.isGrabbed && canMoveScript)
             currentDirectionVertical = FacingDirectionVertical.None;
+    }
+
+    public void Die()
+    {
+        if (!isDead && canDie)
+        {
+            GameManager.instance.SetHealth(0);
+        }
     }
 
     public void Bark()
