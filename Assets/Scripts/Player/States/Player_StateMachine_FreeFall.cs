@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_StateMachine_Grab_Idle : StateMachineBehaviour
+public class Player_StateMachine_FreeFall : StateMachineBehaviour
 {
     PlayerController pC = null;
 
@@ -11,6 +11,7 @@ public class Player_StateMachine_Grab_Idle : StateMachineBehaviour
     {
         if (!pC) pC = animator.gameObject.GetComponent<PlayerController>();
 
-        pC.currentSpeed = 0;
+        pC.currentGravity = pC.gravity;
+        pC.currentSpeed = pC.airborneSpeed;
     }
 }

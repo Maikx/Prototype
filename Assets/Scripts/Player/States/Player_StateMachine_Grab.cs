@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_StateMachine_FreeFall_Strafing : StateMachineBehaviour
+public class Player_StateMachine_Grab : StateMachineBehaviour
 {
     PlayerController pC = null;
 
@@ -11,6 +11,6 @@ public class Player_StateMachine_FreeFall_Strafing : StateMachineBehaviour
     {
         if (!pC) pC = animator.gameObject.GetComponent<PlayerController>();
 
-        pC.currentSpeed = pC.airborneSpeed;
+        pC.currentSpeed = 0;
     }
 }
